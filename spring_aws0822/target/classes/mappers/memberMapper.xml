@@ -3,4 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.my0803.myapp.persistance.Member_Mapper">
+
+<insert id="memberInsert" parameterType="mv">
+insert into member (memberId, memberPw, memberName, memberGender, memberBirth, memberAddress, memberPhone, memberEmail, memberHobby) 
+values (#{memberId},#{memberPw},#{memberName},#{memberGender},#{memberBirth},#{memberAddress},#{memberPhone},#{memberEmail},#{memberHobby})
+</insert>
 </mapper>

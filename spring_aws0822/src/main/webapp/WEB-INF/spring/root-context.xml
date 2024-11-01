@@ -14,11 +14,11 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="tt" class="com.myaws.myapp.service.Test"></bean>
+	<!-- <bean id="tt" class="com.myaws.myapp.service.Test"></bean> -->
 	
 	<bean id = "db" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc.mysql:127.0.0.1:3306/aws0822?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrival=true"></property>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/aws0822?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrival=true"></property>
 		<property name="username" value="root" />
 		<property name="password" value="1234" />
 	</bean>
@@ -28,4 +28,12 @@
 		<property name="mapperLocations" value="classpath:mappers/*.xml" />
 		<property name="configLocation" value="classpath:config/mybatis_config.xml" />
 	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<context:component-scan base-package="com.myaws.myapp">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
 </beans>
