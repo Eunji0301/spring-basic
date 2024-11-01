@@ -15,14 +15,15 @@ public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	@Autowired
-	private Test tt;
+	/*
+	 * @Autowired private Test tt;
+	 */
 	
 	@RequestMapping(value = "memberSignin.aws", method = RequestMethod.GET)
 	public String memberSignin() {
 		logger.info("memberSignin 들어옴");
 		
-		logger.info("tt값은 ? " + tt.test());
+		// logger.info("tt값은 ? " + tt.test());
 		
 		return "WEB-INF/member/memberSignin";
 	}
