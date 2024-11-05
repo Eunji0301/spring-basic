@@ -1,11 +1,14 @@
 package com.myaws.myapp.controller;
 
+import java.util.ArrayList;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,8 +68,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "memberLoginAction.aws", method = RequestMethod.POST)
-	public String memberLoginAction(@RequestParam("memberId") String memberId,
-			@RequestParam("memberPw") String memberPw, RedirectAttributes rttr) {
+	public String memberLoginAction(@RequestParam("memberId") String memberId, @RequestParam("memberPw") String memberPw, RedirectAttributes rttr) {
 		System.out.println("memberLoginAction");
 		System.out.println("memberId : " + memberId);
 		System.out.println("memberPw : " + memberPw);
@@ -112,5 +114,13 @@ public class MemberController {
 
 		return obj;
 	}
-
+	
+	@RequestMapping(value = "memberList.aws", method = RequestMethod.GET)
+	public String memberList(Model model) {
+		logger.info("memberList µé¾î¿È");
+		ArrayList<MemberVo> alist = memberService.memberSelectAll();
+		
+		model.addAttribute("alist", alist);
+		return "WEB-INF/member/memberList";
+	}
 }

@@ -1,5 +1,7 @@
 package com.myaws.myapp.service;
 
+import java.util.ArrayList;
+
 import com.myaws.myapp.domain.MemberVo;
 
 public interface MemberService {
@@ -8,4 +10,6 @@ public interface MemberService {
 	public int memberIdCheck(String memberId);
 	
 	public MemberVo memberLoginCheck(String memberId);
+	
+	public ArrayList<MemberVo> memberSelectAll();
 }
