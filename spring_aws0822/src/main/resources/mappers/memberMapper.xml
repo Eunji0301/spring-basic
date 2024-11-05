@@ -8,4 +8,11 @@
 insert into member (memberId, memberPw, memberName, memberGender, memberBirth, memberAddress, memberPhone, memberEmail, memberHobby) 
 values (#{memberId},#{memberPw},#{memberName},#{memberGender},#{memberBirth},#{memberAddress},#{memberPhone},#{memberEmail},#{memberHobby})
 </insert>
+<select id="memberIdCheck" parameterType="String" resultType="int"> 
+SELECT COUNT(*) AS cnt FROM member WHERE memberId = #{memberId} 
+</select>
+
+<select id="memberLoginCheck" parameterType="String" resultType="mv"> 
+SELECT * FROM member WHERE memberId = #{memberId} 
+</select>
 </mapper>
