@@ -2,6 +2,8 @@ package com.myaws.myapp.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +70,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "memberLoginAction.aws", method = RequestMethod.POST)
-	public String memberLoginAction(@RequestParam("memberId") String memberId, @RequestParam("memberPw") String memberPw, RedirectAttributes rttr) {
+	public String memberLoginAction(@RequestParam("memberId") String memberId, @RequestParam("memberPw") String memberPw, RedirectAttributes rttr, HttpSession session) {
 		System.out.println("memberLoginAction");
 		System.out.println("memberId : " + memberId);
 		System.out.println("memberPw : " + memberPw);
@@ -84,8 +86,14 @@ public class MemberController {
 				rttr.addAttribute("midx", mv.getMidx());
 				rttr.addAttribute("memberId", mv.getMemberId());
 				rttr.addAttribute("memberName", mv.getMemberName());
-
-				path = "redirect:/";
+				
+				logger.info("saveUrl : " + session.getAttribute("saveUrl"));
+				
+				if(session.getAttribute("saveUrl") != null) {
+					path = "redirect:" + session.getAttribute("saveUrl").toString();
+				} else {
+					path = "redirect:/";
+				}
 			} else {
 				rttr.addFlashAttribute("msg", "아이디/비밀번호를 확인해주세요.");
 
@@ -122,5 +130,18 @@ public class MemberController {
 		
 		model.addAttribute("alist", alist);
 		return "WEB-INF/member/memberList";
+	}
+	
+	@RequestMapping(value = "memberLogout.aws", method=RequestMethod.GET)
+	public String memberLogout(HttpSession session) {
+		logger.info("memberLogout 들어옴");
+		
+		session.removeAttribute("midx");
+		session.removeAttribute("memberName");
+		session.removeAttribute("memberId");
+		
+		session.invalidate();
+		
+		return "redirect:/";
 	}
 }
