@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.myaws.myapp.persistance.MemberMapper">
+<mapper namespace="com.myaws.myapp.persistance.BoardMapper">
 	<sql id="search">
 		<if test="search != null and search.equals('writer')">
 			and writer like concat('%',#{keyword},'%')
@@ -13,9 +13,7 @@
 	</sql>
 	<select id="boardSelectAll" parameterType="HashMap" resultType="bv">
 		SELECT * FROM board WHERE delYN = 'N'
-		<include refid="search" />
-		ORDER BY orginbidx DESC, depth ASC LIMIT #{startPageNum},
-		#{perPageNum}
+		<include refid="search" />ORDER BY orginbidx DESC, depth ASC LIMIT #{startPageNum}, #{perPageNum}
 	</select>
 
 	<select id="boardTotalCount" parameterType="scri" resultType="int">

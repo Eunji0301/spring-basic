@@ -30,6 +30,7 @@
 	</beans:bean> -->
 	<beans:bean id="loginInterceptor" class="com.myaws.myapp.interceptor.LoginInterceptor">
 	</beans:bean>
+	
 	<beans:bean id="authInterceptor" class="com.myaws.myapp.interceptor.AuthInterceptor">
 	</beans:bean>
 	
@@ -39,9 +40,10 @@
 			<beans:ref bean = "loginInterceptor" />
 		</interceptor>
 	</interceptors>
+	
 	<interceptors>
 		<interceptor>
-			<mapping path="/member/memberSelectAll.aws" />
+			<mapping path="/member/memberlist.aws" />
 			<beans:ref bean = "authInterceptor" />
 		</interceptor>
 	</interceptors>
