@@ -2,7 +2,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.myaws.myapp.domain.*"%>
 <%
-ArrayList<BoardVo> alist = (ArrayList<BoardVo>) request.getAttribute("alist");
+ArrayList<BoardVo> blist = (ArrayList<BoardVo>) request.getAttribute("blist");
 PageMaker pm = (PageMaker) request.getAttribute("pm");
 int totalCount = pm.getTotalCount();
 
@@ -153,7 +153,7 @@ int currentPage = (currentPageParam == null) ? 1 : Integer.parseInt(currentPageP
             <tbody>
                 <%
                 int num = totalCount - (pm.getScri().getPage() - 1) * pm.getScri().getPerPageNum();
-                for (BoardVo bv : alist) {
+                for (BoardVo bv : blist) {
                 %>
                 <tr>
                     <td style="text-align: center;"><%=bv.getBidx()%></td>
