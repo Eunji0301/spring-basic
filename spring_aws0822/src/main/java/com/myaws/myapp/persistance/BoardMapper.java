@@ -10,4 +10,14 @@ public interface BoardMapper {
 	public ArrayList<BoardVo> boardSelectAll(HashMap<String, Object> hm);
 	
 	public int boardTotalCount(SearchCriteria scri);
+	
+	public int boardInsert(BoardVo bv);
+	
+	public int boardOriginbidxUpdate(int bidx);
+	
+	public BoardVo boardSelectOne(int bidx);
+	
+	public int boardViewCntUpdate(BoardVo bv);
+	
+	public int boardDelete(HashMap<String, Object> hm);
 }
