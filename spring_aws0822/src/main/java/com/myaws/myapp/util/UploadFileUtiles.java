@@ -37,7 +37,6 @@ public class UploadFileUtiles {
 			uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
 		}
 
-		// 2018/05/03/s-dssddssf-2323423.jpg
 		return uploadedFileName;
 	}
 

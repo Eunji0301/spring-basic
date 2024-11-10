@@ -1,11 +1,17 @@
 package com.myaws.myapp.controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +21,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,6 +34,7 @@ import com.myaws.myapp.domain.PageMaker;
 import com.myaws.myapp.domain.SearchCriteria;
 import com.myaws.myapp.service.BoardService;
 import com.myaws.myapp.util.MediaUtils;
+import com.myaws.myapp.util.UploadFileUtiles;
 
 @Controller
 @RequestMapping(value = "/board/")
@@ -37,6 +46,9 @@ public class BoardController {
 
 	@Autowired(required = false)
 	private PageMaker pm;
+	
+	@Resource(name = "uploadPath")
+	private String uploadPath;
 
 	@RequestMapping(value = "boardList.aws")
 	public String boardList(SearchCriteria scri, Model model) {
@@ -72,7 +84,7 @@ public class BoardController {
 		MultipartFile file = attachfile;
 		String uploadedFileName = "";
 
-		if (!file.getOriginalFilename.equals("")) {
+		if (!file.getOriginalFilename().equals("")) {
 			uploadedFileName = UploadFileUtiles.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 		}
 
@@ -123,7 +135,7 @@ public class BoardController {
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 				headers.add("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
 			} 
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);catch (Exception e) {
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
