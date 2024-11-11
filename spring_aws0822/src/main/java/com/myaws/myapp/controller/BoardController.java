@@ -46,7 +46,7 @@ public class BoardController {
 
 	@Autowired(required = false)
 	private PageMaker pm;
-	
+
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
@@ -109,32 +109,35 @@ public class BoardController {
 		return path;
 	}
 
-	@RequestMapping(value="/displayFile.aws", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> displayFile(@RequestParam("fileName") String fileName, @RequestParam(value="down", defaultValue = "0") int down) {
+	@RequestMapping(value = "/displayFile.aws", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> displayFile(@RequestParam("fileName") String fileName,
+			@RequestParam(value = "down", defaultValue = "0") int down) {
 		ResponseEntity<byte[]> entity = null;
 		InputStream in = null;
-		
+
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mType = MediaUtils.getMediaType(formatName);
-			
+
 			HttpHeaders headers = new HttpHeaders();
-			
+
 			in = new FileInputStream(uploadPath + fileName);
-			
-			if(mType != null) {
-				if(down == 1) {
+
+			if (mType != null) {
+				if (down == 1) {
 					fileName = fileName.substring(fileName.indexOf("_") + 1);
 					headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-					headers.add("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+					headers.add("Content-Disposition",
+							"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
 				} else {
 					headers.setContentType(mType);
 				}
 			} else {
 				fileName = fileName.substring(fileName.indexOf("_") + 1);
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				headers.add("Content-Disposition", "attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
-			} 
+				headers.add("Content-Disposition",
+						"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+			}
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,7 +150,7 @@ public class BoardController {
 			}
 		}
 		return entity;
-		
+
 	}
 
 	public String getUserIp(HttpServletRequest request) throws Exception {
@@ -227,6 +230,49 @@ public class BoardController {
 
 		if (value == 0) {
 			path = "redirect:/board/boardDelete.aws?bidx=" + bidx;
+		}
+		return path;
+	}
+
+	@RequestMapping(value = "boardModify.aws")
+	public String boardModify(@RequestParam("bidx") int bidx, Model model) {
+		System.out.println("boardModify 들어옴");
+		BoardVo bv = boardService.boardSelectOne(bidx);
+		model.addAttribute("bv", bv);
+		String path = "WEB-INF/board/boardModify";
+		return path;
+	}
+	
+	@RequestMapping(value = "boardModifyAction.aws")
+	public String boardModifyAction(BoardVo bv, @RequestParam("attachfile") MultipartFile attachfile,
+			HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+		logger.info("boardModifyAction 들어옴");
+		
+		int value = 0;
+		
+		MultipartFile file = attachfile;
+		String uploadedFileName = "";
+
+		if (!file.getOriginalFilename().equals("")) {
+			uploadedFileName = UploadFileUtiles.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+		}
+		
+		String midx = request.getSession().getAttribute("midx").toString();
+		int midx_int = Integer.parseInt(midx);
+		String ip = getUserIp(request);
+		
+		bv.setUploadedFilename(uploadedFileName);
+		bv.setMidx(midx_int);
+		bv.setIp(ip);
+		
+		value = boardService.boardUpdate(bv);
+
+		String path = "";
+		if (value == 0) {
+			rttr.addFlashAttribute("msg", "답글이 등록되지 않았습니다.");
+			path = "redirect:/board/boardModify.aws?bidx=" + bv.getBidx();
+		} else {
+			path = "redirect:/board/boardContent.aws?bidx=" + bv.getBidx();
 		}
 		return path;
 	}
