@@ -11,23 +11,19 @@
 			and subject like concat('%',#{keyword},'%')
 		</if>
 	</sql>
-	<select id="boardSelectAll" parameterType="HashMap"
-		resultType="bv">
+	<select id="boardSelectAll" parameterType="HashMap" resultType="bv">
 		SELECT * FROM board WHERE delYN = 'N'
-		<include refid="search" />
-		ORDER BY orginbidx DESC, depth ASC LIMIT #{startPageNum},
-		#{perPageNum}
+		<include refid="search" />ORDER BY orginbidx DESC, depth ASC LIMIT #{startPageNum}, #{perPageNum}
 	</select>
 
-	<select id="boardTotalCount" parameterType="scri"
-		resultType="int">
+	<select id="boardTotalCount" parameterType="scri" resultType="int">
 		SELECT COUNT(*) AS cnt FROM board WHERE delyn='N'
 		<include refid="search" />
 	</select>
 
 	<insert id="boardInsert" parameterType="bv">
-		<selectKey keyProperty="bidx" resultType="int" order="AFTER">SELECT
-			MAX(bidx) as bidx FROM board
+		<selectKey keyProperty="bidx" resultType="int" order="AFTER">
+			SELECT MAX(bidx) as bidx FROM board
 		</selectKey>
 		INSERT INTO board(originbidx, depth, level_, subject, contents, writer, password, midx, filename, ip) VALUES (null, 0, 0, #{subject}, #{contents}, #{writer}, #{password}, #{midx}, #{uploadedFilename}, #{ip})
 	</insert>
@@ -40,15 +36,17 @@
 		SELECT * FROM board WHERE delyn = 'N' AND bidx = #{bidx} </select>
 	
 	<update id="boardViewCntUpdate" parameterType="int"> UPDATE board SET
-		viewcnt = viewcnt + 1 WHERE bidx = #{bidx} </update>
+		viewcnt = viewcnt + 1 WHERE bidx = #{bidx} 
+	</update>
 	
 	<update id="boardRecomUpdate" parameterType="bv">
-		<selectKey keyProperty="recom" resultType="int"
-			order="AFTER"> SELECT recom FROM board WHERE bidx = #{bidx} </selectKey>
+		<selectKey keyProperty="recom" resultType="int" order="AFTER"> 
+			SELECT recom FROM board WHERE bidx = #{bidx} 
+		</selectKey>
 		UPDATE board SET recom = recom + 1 WHERE bidx = #{bidx}
 	</update>
 	
-	<update id="boardDelete" parameterType="HashMap"> UPDATE board SET delyn =
-		'Y', modifyday=NOW() WHERE bidx = #{bidx} AND midx = #{midx} AND
-		password = #{password} </update>
+	<update id="boardDelete" parameterType="HashMap"> UPDATE board SET delyn = 'Y', modifyday=NOW() WHERE bidx = #{bidx} AND midx = #{midx} AND password = #{password} </update>
+		
+	<update id="boardUpdate" parameterType="bv"> UPDATE board SET subject = #{subject}, contents= #{contents}, writer = #{writer}, modifyday = NOW(), filename = #{uploadedFilename} WHERE bidx = #{bidx} AND PASSWORD = #{password} AND midx = #{midx} </update>
 </mapper>

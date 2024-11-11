@@ -190,37 +190,19 @@
 			<version>5.2.1.RELEASE</version>
 		</dependency>
 		<!-- 스프링 비밀번호 암호화 모듈 다운로드 끝 -->
+		<!-- 파일업로드 -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!-- 파일업로드 끝 -->
 	</dependencies>
-
-	<dependency>
-		<groupId>org.springframework.security</groupId>
-		<artifactId>spring-security-core</artifactId>
-		<version>5.2.1.RELEASE</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework.security</groupId>
-		<artifactId>spring-security-web</artifactId>
-		<version>5.2.1.RELEASE</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework.security</groupId>
-		<artifactId>spring-security-config</artifactId>
-		<version>5.2.1.RELEASE</version>
-	</dependency>
-	<!-- 스프링 비밀번호 암호화 모듈 다운로드 끝 -->
-	<!-- 파일업로드 -->
-	<dependency>
-		<groupId>org.imgscalr</groupId>
-		<artifactId>imgscalr-lib</artifactId>
-		<version>4.2</version>
-	</dependency>
-	<dependency>
-		<groupId>commons-fileupload</groupId>
-		<artifactId>commons-fileupload</artifactId>
-		<version>1.3.2</version>
-	</dependency>
-	<!-- 파일업로드 끝 -->
-
 	<build>
 		<plugins>
 			<plugin>

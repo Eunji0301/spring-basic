@@ -188,7 +188,7 @@ public class BoardController {
 
 	@RequestMapping(value = "boardContent.aws")
 	public String boardContent(@RequestParam("bidx") int bidx, Model model) {
-		logger.info("boardContent ����");
+		logger.info("boardContent 들어옴");
 
 		boardService.boardViewCntUpdate(bidx);
 

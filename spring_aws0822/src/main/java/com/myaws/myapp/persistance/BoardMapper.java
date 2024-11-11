@@ -17,7 +17,11 @@ public interface BoardMapper {
 	
 	public BoardVo boardSelectOne(int bidx);
 	
-	public int boardViewCntUpdate(BoardVo bv);
+	public int boardViewCntUpdate(int bidx);
+	
+	public int boardRecomUpdate(BoardVo bv);
 	
 	public int boardDelete(HashMap<String, Object> hm);
+
+	public int boardUpdate(BoardVo bv);
 }
