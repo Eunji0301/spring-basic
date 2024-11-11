@@ -276,4 +276,53 @@ public class BoardController {
 		}
 		return path;
 	}
+	
+	@RequestMapping(value = "boardReply.aws")
+	public String boardReply(@RequestParam("bidx") int bidx, Model model) {
+		logger.info("boardReply 들어옴");
+		
+		BoardVo bv = boardService.boardSelectOne(bidx);
+		
+		model.addAttribute("bv", bv);
+		
+		String path = "WEB-INF/board/boardReply";
+		return path;
+	}
+	
+	@RequestMapping(value = "boardReplyAction.aws")
+	public String boardReplyAction(BoardVo bv, @RequestParam("attachfile") MultipartFile attachfile,
+			HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+		logger.info("boardReplyAction 들어옴");
+		
+		int value = 0;
+		
+		MultipartFile file = attachfile;
+		String uploadedFileName = "";
+
+		if (!file.getOriginalFilename().equals("")) {
+			uploadedFileName = UploadFileUtiles.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+		}
+		
+		String midx = request.getSession().getAttribute("midx").toString();
+		int midx_int = Integer.parseInt(midx);
+		String ip = getUserIp(request);
+		
+		bv.setUploadedFilename(uploadedFileName);
+		bv.setMidx(midx_int);
+		bv.setIp(ip);
+		// value = boardService.boardReply(bv);
+		
+		int maxBidx = 0;
+		maxBidx = boardService.boardReply(bv);
+		
+		String path = "";
+		if (maxBidx != 0) {
+			path = "redirect:/board/boardContent.aws?bidx=" + maxBidx;
+		} else {
+			rttr.addFlashAttribute("msg", "처리할 수 없습니다.");
+			path = "redirect:/board/boardReply.aws?bidx=" + bv.getBidx();
+		}
+		
+		return path;
+	}
 }

@@ -49,4 +49,11 @@
 	<update id="boardDelete" parameterType="HashMap"> UPDATE board SET delyn = 'Y', modifyday=NOW() WHERE bidx = #{bidx} AND midx = #{midx} AND password = #{password} </update>
 		
 	<update id="boardUpdate" parameterType="bv"> UPDATE board SET subject = #{subject}, contents= #{contents}, writer = #{writer}, modifyday = NOW(), filename = #{uploadedFilename} WHERE bidx = #{bidx} AND PASSWORD = #{password} AND midx = #{midx} </update>
+	
+	<update id="boardReplyUpdate" parameterType="bv"> UPDATE board SET depth = depth + 1 WHERE originbidx = #{originbidx} AND depth > #{depth} </update>
+
+	<insert id="boardReplyInsert" parameterType="bv">
+		<selectKey keyProperty="bidx" resultType="int" order="AFTER">SELECT MAX(bidx) as bidx FROM board</selectKey>
+		INSERT INTO board (originbidx, depth, level_, subject, contents, writer, midx, filename, password, ip) VALUES(#{originbidx}, #{depth} + 1, #{level_} + 1, #{subject}, #{contents}, #{writer}, #{midx}, #{uploadedFilename}, #{password}, #{ip})
+	</insert>
 </mapper>
