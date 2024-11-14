@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.myaws.myapp.domain.CommentVo;
 import com.myaws.myapp.persistance.CommentMapper;
 
-public class CommentServiceImpl {
+public class CommentServiceImpl implements CommentService {
 	private CommentMapper cm;
 
 	@Autowired
