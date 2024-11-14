@@ -82,7 +82,7 @@ public class MemberController {
 		if (mv != null) { // 객체 값이 없으면
 			String reservedPw = mv.getMemberPw();
 			if (bCryptPasswordEncoder.matches(memberPw, reservedPw)) {
-				System.out.println("비밀번호 일치");
+				// System.out.println("비밀번호 일치");
 				rttr.addAttribute("midx", mv.getMidx());
 				rttr.addAttribute("memberId", mv.getMemberId());
 				rttr.addAttribute("memberName", mv.getMemberName());

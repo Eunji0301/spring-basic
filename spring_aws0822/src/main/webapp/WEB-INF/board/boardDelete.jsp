@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ page import="com.myaws.myapp.domain.*"%> --%>
 <%
 String bidx = request.getAttribute("bidx").toString();
+
 %>
 <!DOCTYPE html>
 <html lang="ko">

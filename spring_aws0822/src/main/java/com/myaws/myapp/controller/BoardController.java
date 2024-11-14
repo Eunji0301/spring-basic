@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +35,7 @@ import com.myaws.myapp.domain.SearchCriteria;
 import com.myaws.myapp.service.BoardService;
 import com.myaws.myapp.util.MediaUtils;
 import com.myaws.myapp.util.UploadFileUtiles;
+import com.myaws.myapp.util.UserIp;
 
 @Controller
 @RequestMapping(value = "/board/")
@@ -49,6 +50,9 @@ public class BoardController {
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
+	
+	@Autowired(required = false)
+	private UserIp userIp;
 
 	@RequestMapping(value = "boardList.aws")
 	public String boardList(SearchCriteria scri, Model model) {
@@ -91,7 +95,7 @@ public class BoardController {
 		String midx = request.getSession().getAttribute("midx").toString();
 		int midx_int = Integer.parseInt(midx);
 
-		String ip = getUserIp(request);
+		String ip = userIp.getUserIp(request);
 
 		bv.setUploadedFilename(uploadedFileName);
 		bv.setMidx(midx_int);
@@ -116,14 +120,14 @@ public class BoardController {
 		InputStream in = null;
 
 		try {
-			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-			MediaType mType = MediaUtils.getMediaType(formatName);
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1); // 화장자
+			MediaType mType = MediaUtils.getMediaType(formatName); // 확장자를 꺼내 MediaUtils 클래스에 담아 무슨 확장자인지 알 수 있게
 
-			HttpHeaders headers = new HttpHeaders();
+			HttpHeaders headers = new HttpHeaders(); // HttpHeader 객체 사용 후 생성, 헤더에 데이터 담아 패킷 형태로 보냄
 
-			in = new FileInputStream(uploadPath + fileName);
+			in = new FileInputStream(uploadPath + fileName); // 해당되는 위치의 파일 읽어들임
 
-			if (mType != null) {
+			if (mType != null) { // jpeg, gif, png에 해당되면
 				if (down == 1) {
 					fileName = fileName.substring(fileName.indexOf("_") + 1);
 					headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -151,42 +155,6 @@ public class BoardController {
 		}
 		return entity;
 
-	}
-
-	public String getUserIp(HttpServletRequest request) throws Exception {
-		String ip = null;
-		ip = request.getHeader("X-Forwarded-For");
-
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("Proxy-Client-IP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("WL-Proxy-Client-IP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("HTTP_CLIENT_IP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("X-Real-IP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("X-RealIP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("REMOTE_ADDR");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getRemoteAddr();
-		}
-
-		if (ip.equals("0:0:0:0:0:0:0:1") || ip.equals("127.0.0.1")) {
-			InetAddress address = InetAddress.getLocalHost();
-			ip = address.getHostAddress();
-		}
-		return ip;
 	}
 
 	@RequestMapping(value = "boardContent.aws")
@@ -250,6 +218,7 @@ public class BoardController {
 		
 		int value = 0;
 		
+		// 파일 업로드를 하고 update를 위한 service를 만든다.
 		MultipartFile file = attachfile;
 		String uploadedFileName = "";
 
@@ -259,7 +228,7 @@ public class BoardController {
 		
 		String midx = request.getSession().getAttribute("midx").toString();
 		int midx_int = Integer.parseInt(midx);
-		String ip = getUserIp(request);
+		String ip = userIp.getUserIp(request);
 		
 		bv.setUploadedFilename(uploadedFileName);
 		bv.setMidx(midx_int);
@@ -305,7 +274,7 @@ public class BoardController {
 		
 		String midx = request.getSession().getAttribute("midx").toString();
 		int midx_int = Integer.parseInt(midx);
-		String ip = getUserIp(request);
+		String ip = userIp.getUserIp(request);
 		
 		bv.setUploadedFilename(uploadedFileName);
 		bv.setMidx(midx_int);

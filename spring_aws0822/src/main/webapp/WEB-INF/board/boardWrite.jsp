@@ -126,15 +126,15 @@ textarea {
 			<table>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" id="title" name="subject"></td>
+					<td><input type="text" id="subject" name="subject"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea id="content" name="contents"></textarea></td>
+					<td><textarea id="contents" name="contents"></textarea></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" id="author" name="writer"></td>
+					<td><input type="text" id="writer" name="writer"></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
