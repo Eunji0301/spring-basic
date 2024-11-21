@@ -3,19 +3,19 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.myaws.myapp.persistance.CommentMapper">
-	<select id="commentSelectAll" parameterType="int" resultType="cv"> 
-		SELECT * FROM comment WHERE delYN = 'N' AND bidx = #{0} ORDER BY cidx DESC LIMIT 0, #{1} 
+	<select id="commentSelectAll" parameterType="int" resultType="cv">
+		SELECT * FROM comment WHERE delYN = 'N' AND bidx = #{0} ORDER BY cidx DESC LIMIT 0, #{1}
 	</select>
 	
-	<select id="commentTotalCnt" parameterType="int" resultType="int"> 
-		SELECT COUNT(*) FROM comment WHERE delYN = 'N' AND bidx = #{bidx} 
+	<select id="commentTotalCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM comment WHERE delYN = 'N' AND bidx = #{bidx}
 	</select>
 	
-	<insert id="commentInsert" parameterType="cv"> 
-		INSERT INTO comment(csubject, ccontents, cwriter, bidx, midx, cip) VALUES (null, #{ccontents}, #{cwriter}, #{bidx}, #{midx}, #{cip}) 
+	<insert id="commentInsert" parameterType = "cv">
+		INSERT INTO comment(csubject, ccontents, cwriter, bidx, midx, cip) VALUES (null, #{ccontents}, #{cwriter}, #{bidx}, #{midx}, #{cip})
 	</insert>
 	
-	<update id="commentDelete" parameterType="cv"> 
-		UPDATE comment SET delYN='Y' WHERE cidx = #{cidx} AND midx = #{midx} 
+	<update id="commentDelete" parameterType = "cv">
+		UPDATE comment SET delYN='Y' WHERE cidx = #{cidx} AND midx = #{midx}
 	</update>
 </mapper>

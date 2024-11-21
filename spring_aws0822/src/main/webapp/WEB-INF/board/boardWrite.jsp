@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- <%@ include file="/common/loginCheck.jsp"%> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String msg = "";
 if (request.getAttribute("msg") != null) {
@@ -110,7 +111,7 @@ textarea {
 			return;
 		}
 		// fm.submit();
-		fm.action = "<%=request.getContextPath()%>/board/boardWriteAction.aws";
+		fm.action = "${pageContext.request.contextPath}/board/boardWriteAction.aws";
 		fm.method = "post";
 		fm.enctype = "multipart/form-data";
 		fm.submit();
@@ -126,15 +127,15 @@ textarea {
 			<table>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" id="subject" name="subject"></td>
+					<td><input type="text" id="title" name="subject"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea id="contents" name="contents"></textarea></td>
+					<td><textarea id="content" name="contents"></textarea></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" id="writer" name="writer"></td>
+					<td><input type="text" id="author" name="writer"></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>

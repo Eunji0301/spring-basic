@@ -1,14 +1,18 @@
 package com.myaws.myapp.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
+//페이지 하단에 페이징 네비게이션에 필요한 변수들을 담아놓은 클래스
 public class PageMaker {
 
-	private int displayPageNum = 10; 
-	private int startPage; 
-	private int endPage;
-	private int totalCount;
+	private int displayPageNum = 10; // 페이지 목록 번호 리스트 1 2 3 4 5 6 7 8 9 10
+	private int startPage; // 목록의 시작번호를 담는 변수
+	private int endPage; // 목록의 끝번호를 담는 변수
+	private int totalCount; // 총 게시물 수를 담는 변수
 
-	private boolean prev;
-	private boolean next;
+	private boolean prev; // 이전 버튼
+	private boolean next; // 다음 버튼
 
 	private SearchCriteria scri;
 

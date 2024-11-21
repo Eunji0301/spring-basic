@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.myaws.myapp.domain.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-BoardVo bv = (BoardVo) request.getAttribute("bv");
+/* BoardVo bv = (BoardVo) request.getAttribute("bv"); */
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -101,7 +102,7 @@ textarea {
 			fm.password.focus();
 			return;
 		}
-		fm.action = "<%=request.getContextPath()%>/board/boardReplyAction.aws";
+		fm.action = "${pageContext.request.contextPath}/board/boardReplyAction.aws";
 		fm.method = "post";
 		fm.enctype = "multipart/form-data";
 		fm.submit();
@@ -112,9 +113,9 @@ textarea {
 	<div class="container">
 		<h2>글 답변</h2>
 		<form name="frm">
-			<input type="hidden" name="originbidx" value="<%=bv.getOriginbidx()%>">
-			<input type="hidden" name="depth" value="<%=bv.getDepth()%>"> 
-			<input type="hidden" name="level_" value="<%=bv.getLevel_()%>">
+			<input type="hidden" name="originbidx" value="${bv.originbidx }">
+			<input type="hidden" name="depth" value="${bv.depth }"> 
+			<input type="hidden" name="level_" value="${bv.level_ }">
 			<table>
 				<tr>
 					<th>제목</th>

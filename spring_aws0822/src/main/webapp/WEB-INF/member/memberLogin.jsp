@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%
 String msg = "";
-if(request.getAttribute("msg") != null) {
+if (request.getAttribute("msg") != null) {
 	msg = (String) request.getAttribute("msg");
 }
 %>
@@ -12,9 +12,10 @@ if(request.getAttribute("msg") != null) {
 <HEAD>
 <TITLE>Login</TITLE>
 <script>
-<%if(msg != "") {
+<%if (msg != "") {
 	out.println("alert('" + msg + "')");
-}%>
+}%>	
+
 	// 아이디 비밀번호 유효성 검사
 	function check() {
 		// 이름으로 객체찾기
@@ -73,7 +74,6 @@ input[type="text"], input[type="password"] {
 	font-size: 14px;
 }
 
-/* Styling the buttons */
 input[type="button"], input[type="submit"] {
 	width: 100%;
 	padding: 10px;
@@ -89,7 +89,6 @@ input[type="button"]:hover, input[type="submit"]:hover {
 	background-color: #45a049;
 }
 
-/* Header styling */
 header {
 	font-size: 24px;
 	text-align: center;

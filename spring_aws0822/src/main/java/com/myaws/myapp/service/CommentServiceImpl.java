@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.myaws.myapp.domain.CommentVo;
 import com.myaws.myapp.persistance.CommentMapper;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 	private CommentMapper cm;
 
@@ -24,7 +25,7 @@ public class CommentServiceImpl implements CommentService {
 		System.out.println("clist" + clist);
 		return clist;
 	}
-
+	
 	@Override
 	public int commentInsert(CommentVo cv) {
 		int value = cm.commentInsert(cv);
@@ -42,4 +43,5 @@ public class CommentServiceImpl implements CommentService {
 		int cnt = cm.commentTotalCnt(bidx);
 		return cnt;
 	}
+	
 }

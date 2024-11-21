@@ -1,24 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.myaws.myapp.domain.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-ArrayList<BoardVo> blist = (ArrayList<BoardVo>) request.getAttribute("blist");
-PageMaker pm = (PageMaker) request.getAttribute("pm");
-int totalCount = pm.getTotalCount();
-
-String keyword = pm.getScri().getKeyword();
-String search = pm.getScri().getSearch();
-String param = "keyword=" + keyword + "&search=" + search;
-
-// 현재 페이지 값
+//현재 페이지 값
 String currentPageParam = request.getParameter("page");
 int currentPage = (currentPageParam == null) ? 1 : Integer.parseInt(currentPageParam);
+request.setAttribute("currentPage", currentPage); 
 %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>글목록</title>
+	<title>글목록</title>
     <style>
         body {
             background-color: #f4f4f4;
@@ -130,7 +124,7 @@ int currentPage = (currentPageParam == null) ? 1 : Integer.parseInt(currentPageP
     <div class="container">
         <h3>글목록</h3>
         <div class="list">
-            <form name="frm" action="<%=request.getContextPath()%>/board/boardList.aws" method="get">
+            <form name="frm" action="${pageContext.request.contextPath}/board/boardList.aws" method="get">
                 <select name="search">
                     <option value="subject">제목</option>
                     <option value="writer">작성자</option>
@@ -151,55 +145,43 @@ int currentPage = (currentPageParam == null) ? 1 : Integer.parseInt(currentPageP
                 </tr>
             </thead>
             <tbody>
-                <%
-                int num = totalCount - (pm.getScri().getPage() - 1) * pm.getScri().getPerPageNum();
-                for (BoardVo bv : blist) {
-                %>
-                <tr>
-                    <td style="text-align: center;"><%=bv.getBidx()%></td>
-                    <td style="text-align: left; padding-left: <%= bv.getLevel_() * 20 %>px;">
-                        <a href="<%=request.getContextPath()%>/board/boardContent.aws?bidx=<%=bv.getBidx()%>"><%=bv.getSubject()%></a>
+                <c:forEach var="bv" items="${blist}">
+                 <tr>
+                    <td style="text-align: center;">${bv.bidx}</td>
+                    <td style="text-align: left; padding-left: ${bv.level_ * 20}px;">
+                        <a href="${pageContext.request.contextPath}/board/boardContent.aws?bidx=${bv.bidx}">${bv.subject}</a>
                     </td>
-                    
-                    <td style="text-align: center;"><%=bv.getWriter()%></td>
-                    <td style="text-align: center;"><%=bv.getViewcnt()%></td>
-                    <td style="text-align: center;"><%=bv.getRecom()%></td>
-                    <td style="text-align: center;"><%=bv.getWriteday()%></td>
+                    <td style="text-align: center;">${bv.writer}</td>
+                    <td style="text-align: center;">${bv.viewcnt}</td>
+                    <td style="text-align: center;">${bv.recom}</td>
+                    <td style="text-align: center;">${bv.writeday}</td>
                 </tr>
-                <%
-                }
-                %>
+                </c:forEach>
             </tbody>
         </table>
         <div class="write-button">
-            <button type="button"
-                onclick="location.href='<%=request.getContextPath()%>/board/boardWrite.aws'">글쓰기</button>
+            <button type="button" onclick="location.href='${pageContext.request.contextPath}/board/boardWrite.aws'">글쓰기</button>
         </div>
         <div>
             <div class="pagination">
-                <%
-                if (pm.isPrev()) {
-                %>
-                <a href="<%=request.getContextPath()%>/board/boardList.aws?page=<%=pm.getStartPage() - 1%>&<%=param%>">◀</a>
-                <%
-                }
-                for (int i = pm.getStartPage(); i <= pm.getEndPage(); i++) {
-                if (i == currentPage) {
-                %>
-                <a href="?page=<%=i%>" class="current"><%=i%></a>
-                <%
-                } else {
-                %>
-                <a href="?page=<%=i%>"><%=i%></a>
-                <%
-                }
-                }
-                if (pm.isNext() && pm.getEndPage() > 0) {
-                %>
-                <a href="<%=request.getContextPath()%>/board/boardList.aws?page=<%=pm.getEndPage() + 1%>&<%=param%>">▶</a>
-                <%
-                }
-                %>
+                <c:if test="${pm.prev}">
+                    <a href="${pageContext.request.contextPath}/board/boardList.aws?page=${pm.startPage - 1}&${param}">◀</a>
+                </c:if>
+                
+                <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+                    <c:choose>
+                        <c:when test="${i == currentPage}">
+                            <a href="?page=${i}" class="current">${i}</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="?page=${i}">${i}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                
+                <c:if test="${pm.next && pm.endPage > 0}">
+                    <a href="${pageContext.request.contextPath}/board/boardList.aws?page=${pm.endPage + 1}&${param}">▶</a>
+                </c:if>
             </div>
         </div>
     </div>

@@ -20,12 +20,6 @@ public class BoardVo {
 	private String password;
 	private String uploadedFilename;
 	
-	public String getUploadedFilename() {
-		return uploadedFilename;
-	}
-	public void setUploadedFilename(String uploadedFilename) {
-		this.uploadedFilename = uploadedFilename;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -121,6 +115,12 @@ public class BoardVo {
 	}
 	public void setModifyday(String modifyday) {
 		this.modifyday = modifyday;
+	}
+	public String getUploadedFilename() {
+		return uploadedFilename;
+	}
+	public void setUploadedFilename(String uploadedFilename) {
+		this.uploadedFilename = uploadedFilename;
 	}
 
 }

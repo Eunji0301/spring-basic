@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.myaws.myapp.domain.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-BoardVo bv = (BoardVo) request.getAttribute("bv");
+/* BoardVo bv = (BoardVo) request.getAttribute("bv"); */
 %>
 
 <!DOCTYPE html>
@@ -99,7 +100,7 @@ function check() {
         fm.writer.focus();
         return;
     }
-    fm.action = "<%=request.getContextPath()%>/board/boardModifyAction.aws";
+    fm.action = "${pageContext.request.contextPath}/board/boardModifyAction.aws";
     fm.method = "post";
     fm.enctype = "multipart/form-data"; // 이미지와 문자열을 모두 담아 넘길 수 있게 binary type으로 multipart로 넘긴다.
     fm.submit();
@@ -110,19 +111,19 @@ function check() {
 <div class="container">
     <h2>글 수정</h2>
     <form name="frm">
-        <input type="hidden" name="bidx" value="<%=bv.getBidx()%>">
+        <input type="hidden" name="bidx" value="${bv.bidx }">
         <table>
             <tr>
                 <th>제목</th>
-                <td><input type="text" id="title" name="subject" value="<%=bv.getSubject()%>"></td>
+                <td><input type="text" id="title" name="subject" value="${bv.subject }"></td>
             </tr>
             <tr>
                 <th>내용</th>
-                <td><textarea id="content" name="contents"><%=bv.getContents()%></textarea></td>
+                <td><textarea id="content" name="contents">${bv.contents }</textarea></td>
             </tr>
             <tr>
                 <th>작성자</th>
-                <td><input type="text" id="author" name="writer" value="<%=bv.getWriter()%>"></td>
+                <td><input type="text" id="author" name="writer" value="${bv.writer }"></td>
             </tr>
             <tr>
                 <th>비밀번호</th>

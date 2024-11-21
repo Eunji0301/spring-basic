@@ -21,9 +21,20 @@ public class UploadFileUtiles {
 		UUID uid = UUID.randomUUID();
 		String savedName = uid.toString() + "_" + originalName;
 
+//		String path = UploadFileUtiles.class.getResource("").getPath();
+//		System.out.println("ÇöÀçÅ¬·¡½ºpath:"+path);
+
+//  	½ÇÇàµÇ´Â ½Ã½ºÅÛ À§Ä¡	
+//		System.out.println(System.getProperty("user.dir"));
+
+//        String realpath = request.getSession().getServletContext().getRealPath(uploadPath);
+//		System.out.println("realpath:"+realpath);
+
 		String savedPath = calcPath(uploadPath);
 
 		File target = new File(uploadPath + savedPath, savedName);
+//  	µî·ÏÇÑ ÆÄÀÏ »ó´ë°æ·Î
+//		String loc = target.getCanonicalPath();
 
 		FileCopyUtils.copy(fileData, target);
 
@@ -37,6 +48,7 @@ public class UploadFileUtiles {
 			uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
 		}
 
+		// 2018/05/03/s-dssddssf-2323423.jpg
 		return uploadedFileName;
 	}
 
@@ -94,7 +106,7 @@ public class UploadFileUtiles {
 
 		// System.out.println("destImg"+destImg);
 		boolean flag = ImageIO.write(destImg, formatName.toUpperCase(), newFile);
-		System.out.println("ï¿½ï¿½ï¿½ç¿©ï¿½ï¿½ flag" + flag);
+		System.out.println("º¹»ç¿©ºÎ flag" + flag);
 		return thumbnailName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 	}
 }

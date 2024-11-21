@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.myaws.myapp.domain.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-BoardVo bv = (BoardVo) request.getAttribute("bv"); // 강제형변환 양쪽형을 맞춰준다.
+/* BoardVo bv = (BoardVo) request.getAttribute("bv"); // 강제형변환 양쪽형을 맞춰준다.
 
 String memberName = "";
 if (session.getAttribute("memberName") != null) {
@@ -12,7 +12,7 @@ if (session.getAttribute("memberName") != null) {
 int midx = 0;
 if (session.getAttribute("midx") != null) {
 	midx = Integer.parseInt(session.getAttribute("midx").toString());
-}
+} */
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -168,15 +168,17 @@ function getImageLink(fileName) {
 }
 
 function download() {
-	var downloadImage = getImageLink("<%=bv.getFilename()%>"); // 주소 사이에 s-는 빼고
-	var downLink = "<%=request.getContextPath()%>/board/displayFile.aws?fileName=" + downloadImage + "&down=1";
+	var downloadImage = getImageLink("${bv.filename}"); // 주소 사이에 s-는 빼고
+	var downLink = "${pageContext.request.contextPath}/board/displayFile.aws?fileName=" + downloadImage + "&down=1";
 	
 	return downLink;
 }
 
  $(document).ready(function() {
 	 
-	$("#dUrl").html(getOriginalFileName("<%=bv.getFilename()%>"));
+	$.boardCommentList();
+	 
+	$("#dUrl").html(getOriginalFileName("${bv.filename}"));
 	
 	$("#dUrl").click(function(event) {
 		$("#dUrl").attr("href", download());
@@ -186,10 +188,9 @@ function download() {
 	$("#btn").click(function() {
 		$.ajax({
 			type: "get",
-			url: "<%=request.getContextPath()%>/board/boardRecom.aws?bidx=<%=bv.getBidx()%>",
+			url: "${pageContext.request.contextPath}/board/boardRecom.aws?bidx=${bv.bidx}",
 			dataType: "json",
 			success: function(result) {
-				 alert(result.recom);
 				var str = "추천(" + result.recom + ")";
 				$("#btn").val(str);
 				$("#btn").html(str);
@@ -201,13 +202,14 @@ function download() {
 
 	});
 
-	<%-- $("#cmtBtn").click(function() {
-		let loginCheck = "<%=session.getAttribute("midx") != null ? session.getAttribute("midx") : ""%>";
-		if (loginCheck === "") {
-			alert("로그인을 해주세요");
-			return;
-		}
-
+	 $("#cmtBtn").click(function() {
+		let midx = "${midx}";
+			//alert(loginCheck);
+			if (midx == "" || midx == "null" || midx == null || midx == 0){
+				alert("로그인을 해주세요");
+				return;
+			}  	
+		 
 		let cwriter = $("#cwriter").val();
 		let ccontents = $("#ccontents").val();
 
@@ -227,113 +229,154 @@ function download() {
 			data: {
 				"cwriter": cwriter,
 				"ccontents": ccontents,
-				"bidx": "<%=bv.getBidx()%>",
-				"midx": "<%=session.getAttribute("midx")%>"
+				"bidx": "${bv.bidx}",
+				"midx": "${midx}"
 			},
 			dataType: "json",
 			success: function(result) {
-				if (result.success) {
-					alert("댓글이 성공적으로 추가되었습니다!");
-
-					var newCommentRow = "<tr>"
-						+ "<td>" + result.cidx + "</td>"
-						+ "<td>" + result.cwriter + "</td>"
-						+ "<td>" + result.ccontents + "</td>"
-						+ "<td>" + result.writeday + "</td>"
-						+ "<td><button onclick='deleteComment(this, " + result.cidx + ")'>삭제</button></td>"
-						+ "</tr>";
-
-					$("#commentList").append(newCommentRow);
-
+				if(result.value == 1) {
+					alert("댓글 추가에 성공했습니다.");
 					$("#ccontents").val("");
-				} else {
-					alert("댓글 추가에 실패했습니다.");
+					$("#block").val(1);
 				}
+				$.boardCommentList();
 			},
 			error: function() {
 				alert("댓글 추가에 실패했습니다.");
 			}
 		});
-	}); --%>
+	});
+	 
+	$("#more").click(function(){
+		$.boardCommentList();
+	});
 });
 
-<%-- //댓글 삭제 함수
-function deleteComment(button, cidx) {
-	let ans = confirm("이 댓글을 삭제하시겠습니까 ?");
+//댓글 삭제 함수
+function commentDel(cidx){	
+	let ans = confirm("삭제하시겠습니까?");	
 	
-	if(ans == true) {
+	if (ans == true){
 		$.ajax({
-            type: "get",
-            url: "<%=request.getContextPath()%>/comment/commentDelete.aws?cidx="+ cidx,
-			dataType : "json",
-			success : function(result) {
-				alert("댓글이 삭제되었습니다.");
-				$.boardCommentList();
+			type :  "get",    //전송방식
+			url : "${pageContext.request.contextPath}/comment/" + cidx + "/commentDeleteAction.aws",
+			dataType : "json",       // json타입은 문서에서  {"키값" : "value값","키값2":"value값2"}
+			success : function(result){   //결과가 넘어와서 성공했을 받는 영역
+				alert("댓글이 삭제되었습니다.");	
+				$.boardCommentList();						
 			},
-			error : function() {
+			error : function(){  //결과가 실패했을때 받는 영역						
 				alert("댓글 삭제 요청에 실패했습니다.");
+			}			
+		});			
+	}	
+	return;
+}
+
+//jquery로 만드는 함수  ready밖에 생성
+$.boardCommentList = function(){
+	alert("test")
+	let block = $("#block").val();
+	alert("block"+block);
+	
+	$.ajax({
+		type :  "get",    //전송방식
+		url : "${pageContext.request.contextPath}/comment/${bv.bidx}/"+block+"/commentList.aws",
+		dataType : "json",       // json타입은 문서에서  {"키값" : "value값","키값2":"value값2"}
+		success : function(result){   //결과가 넘어와서 성공했을 받는 영역
+			alert("전송성공 테스트");			
+			var strTr = "";				
+			$(result.clist).each(function(){	
+				
+				var btnn="";			
+				 //현재로그인 사람과 댓글쓴 사람의 번호가 같을때만 나타내준다
+				if (this.midx == "${midx}") {
+					if (this.delyn=="N"){
+						btnn= "<button type='button' onclick='commentDel("+this.cidx+");'>삭제</button>";
+					}			
+				}
+				strTr = strTr + "<tr>"
+				+"<td>"+this.cidx+"</td>"
+				+"<td>"+this.cwriter+"</td>"
+				+"<td class='content'>"+this.ccontents+"</td>"
+				+"<td>"+this.writeday+"</td>"
+				+"<td>"+btnn+"</td>"
+				+"</tr>";					
+			});		       
+			
+			var str  = "<table class='replyTable'>"
+				+"<tr>"
+				+"<th>번호</th>"
+				+"<th>작성자</th>"
+				+"<th>내용</th>"
+				+"<th>날짜</th>"
+				+"<th>DEL</th>"
+				+"</tr>"+strTr+"</table>";		
+			
+			$("#commentListView").html(str);		
+			
+			if(result.moreView == "N") {
+				$("#morebtn").css("display","none");
+			} else {
+				$("#morebtn").css("display","block");
 			}
-		});
-	}
-} --%>
+			
+			alert(result.nextBlock);
+			$("#block").val(result.nextBlock);
+
+			
+			},
+		error : function(){  //결과가 실패했을때 받는 영역						
+			alert("전송실패");
+		}			
+	});
+}
 </script>
 </head>
 <body>
 	<div class="container">
 		<div class="title_view">
-			<p><%=bv.getSubject()%>&nbsp;(조회수 : <%=bv.getViewcnt()%>)
+			<p>${bv.subject }&nbsp;(조회수 : ${bv.viewcnt })
 			</p>
-			<div><%=bv.getWriter()%>&nbsp;(<%=bv.getWriteday()%>)
+			<div>${bv.writer }&nbsp;(${bv.writeday })
 			</div>
 		</div>
-		<div class="content"><%=bv.getContents()%></div>
-		<%
-		if (bv.getFilename() != null) {
-		%>
-		<img src="<%=request.getContextPath()%>/board/displayFile.aws?fileName=<%=bv.getFilename()%>">
-		<p>
-			<a id="dUrl" href="" class="fileDown">첨부파일 다운로드</a>
-		</p>
-		<%
-		}
-		%>
+		<div class="content">${bv.contents }</div>
+		<c:if test="${not empty bv.filename}">
+    		<img src="${pageContext.request.contextPath}/board/displayFile.aws?fileName=${bv.filename}" alt="첨부파일 이미지">
+    		<p>
+        		<a id="dUrl" href="${pageContext.request.contextPath}/board/displayFile.aws?fileName=${bv.filename}&down=1" class="fileDown">첨부파일 다운로드</a>
+    		</p>
+		</c:if>
+
 		<div class="btn-group">
-			<button type="button" id="btn" value="추천(<%=bv.getRecom()%>)">추천(<%=bv.getRecom()%>)</button>
-			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardModify.aws?bidx=<%=bv.getBidx()%>'">수정</button>
-			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardDelete.aws?bidx=<%=bv.getBidx()%>'">삭제</button>
-			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardReply.aws?bidx=<%=bv.getBidx()%>'">답변</button>
-			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardList.aws?bidx=<%=bv.getBidx()%>'">목록</button>
+			<button type="button" id="btn" value="추천(${bv.recom})">추천(${bv.recom})</button>
+			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardModify.aws?bidx=${bv.bidx}'">수정</button>
+			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardDelete.aws?bidx=${bv.bidx}'">삭제</button>
+			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardReply.aws?bidx=${bv.bidx}'">답변</button>
+			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardList.aws?bidx=${bv.bidx}'">목록</button>
 		</div>
 
 		<div class="comment-section">
 			<h3>댓글</h3>
 			<div class="comment-box">
 				<p>
-					<input type="text" id="cwriter" name="cwriter" value="<%=session.getAttribute("mname")%>" readonly="readonly">
+					<input type="text" id="cwriter" name="cwriter" value="${memberName}" readonly="readonly">
 				</p>
 				<textarea id="ccontents" placeholder="댓글을 입력하세요"></textarea>
 				<button id="cmtBtn">댓글 작성</button>
 			</div>
 			<table class="comment-list">
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>작성자</th>
-						<th>내용</th>
-						<th>날짜</th>
-						<th>DEL</th>
-					</tr>
-				</thead>
-				<tbody id="commentList">
-					<tr>
-						<td>1</td>
-						<td>사용자1</td>
-						<td>댓글 내용입니다.</td>
-						<td>2024-10-29 12:00</td>
-						<td><button onclick="deleteComment(this, 1)">삭제</button></td>
-					</tr>
+			
+				<tbody id="commentListView">
+					
 				</tbody>
 			</table>
+			
+			<input type="hidden" id="block" value="1">
+			<div id="morebtn" style="text-align: center; line-height: 50px;">
+				<button type="button" id="more">더보기</button>
+			</div>
 		</div>
 	</div>
 </body>

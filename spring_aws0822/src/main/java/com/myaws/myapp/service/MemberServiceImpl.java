@@ -18,11 +18,13 @@ public class MemberServiceImpl implements MemberService{
 		this.mm = sqlSession.getMapper(MemberMapper.class);
 	}
 	
+
 	@Override
 	public int memberInsert(MemberVo mv) {
 		int value = mm.memberInsert(mv);
 		return value;
 	}
+
 
 	@Override
 	public int memberIdCheck(String memberId) {
@@ -30,9 +32,11 @@ public class MemberServiceImpl implements MemberService{
 		return value;
 	}
 
+
 	@Override
 	public MemberVo memberLoginCheck(String memberId) {
 		MemberVo mv = mm.memberLoginCheck(memberId);
+//		System.out.println("memberLoginCheck mv : " + mv);
 		return mv;
 	}
 
@@ -41,5 +45,5 @@ public class MemberServiceImpl implements MemberService{
 		ArrayList<MemberVo> alist = mm.memberSelectAll();
 		return alist;
 	}
-	
+
 }

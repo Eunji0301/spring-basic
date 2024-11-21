@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-// @Sl4j // 롬복 라이브러리 추가할 떄 사용
+// @Sl4j // 롬복 라이브러리 추가할 때 사용
 public class SampleAdvice {
 	private static final Logger logger = LoggerFactory.getLogger(SampleAdvice.class);
 	
@@ -19,4 +19,5 @@ public class SampleAdvice {
 		logger.info("------------------------------");
 		// System.out.println("테스트");
 	}
+	
 }

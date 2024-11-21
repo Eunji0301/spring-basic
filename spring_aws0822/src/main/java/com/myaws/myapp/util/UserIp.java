@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserIp {
+	// 사용자 IP 주소 가져오는 메서드
 	public String getUserIp(HttpServletRequest request) throws Exception {
 		String ip = null;
 		ip = request.getHeader("X-Forwarded-For");
@@ -43,4 +44,5 @@ public class UserIp {
 		}
 		return ip;
 	}
+
 }

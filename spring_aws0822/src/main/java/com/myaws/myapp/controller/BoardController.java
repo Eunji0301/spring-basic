@@ -40,7 +40,7 @@ import com.myaws.myapp.util.UserIp;
 @Controller
 @RequestMapping(value = "/board/")
 public class BoardController {
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
 	@Autowired(required = false)
 	private BoardService boardService;
@@ -53,10 +53,10 @@ public class BoardController {
 	
 	@Autowired(required = false)
 	private UserIp userIp;
-
+	
 	@RequestMapping(value = "boardList.aws")
 	public String boardList(SearchCriteria scri, Model model) {
-		logger.info("boardList ë“¤ì–´ì˜´");
+		logger.info("boardList µé¾î¿È");
 
 		int cnt = boardService.boardTotalCount(scri);
 		pm.setScri(scri);
@@ -73,7 +73,7 @@ public class BoardController {
 
 	@RequestMapping(value = "boardWrite.aws")
 	public String boardWrite(SearchCriteria scri, Model model) {
-		logger.info("boardWrite ë“¤ì–´ì˜´");
+		logger.info("boardWrite µé¾î¿È");
 
 		String path = "WEB-INF/board/boardWrite";
 
@@ -83,7 +83,7 @@ public class BoardController {
 	@RequestMapping(value = "boardWriteAction.aws")
 	public String boardWriteAction(BoardVo bv, @RequestParam("attachfile") MultipartFile attachfile,
 			HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		logger.info("boardWriteAction ë“¤ì–´ì˜´");
+		logger.info("boardWriteAction µé¾î¿È");
 
 		MultipartFile file = attachfile;
 		String uploadedFileName = "";
@@ -106,7 +106,7 @@ public class BoardController {
 		if (value == 2) {
 			path = "redirect:/board/boardList.aws";
 		} else {
-			rttr.addFlashAttribute("msg", "ì…ë ¥ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			rttr.addFlashAttribute("msg", "ÀÔ·ÂÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.");
 			path = "redirect:/board/boardWrite.aws";
 		}
 
@@ -120,29 +120,32 @@ public class BoardController {
 		InputStream in = null;
 
 		try {
-			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1); // í™”ì¥ì
-			MediaType mType = MediaUtils.getMediaType(formatName); // í™•ì¥ìë¥¼ êº¼ë‚´ MediaUtils í´ë˜ìŠ¤ì— ë‹´ì•„ ë¬´ìŠ¨ í™•ì¥ìì¸ì§€ ì•Œ ìˆ˜ ìˆê²Œ
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1); // È®ÀåÀÚ
+			MediaType mType = MediaUtils.getMediaType(formatName); // È®ÀåÀÚ¸¦ ²¨³» MediaUtils Å¬·¡½º¿¡ ´ã¾Æ ¹«½¼ È®ÀåÀÚÀÎÁö ¾Ë ¼ö ÀÖ°Ô
 
-			HttpHeaders headers = new HttpHeaders(); // HttpHeader ê°ì²´ ì‚¬ìš© í›„ ìƒì„±, í—¤ë”ì— ë°ì´í„° ë‹´ì•„ íŒ¨í‚· í˜•íƒœë¡œ ë³´ëƒ„
+			HttpHeaders headers = new HttpHeaders(); // HttpHeader °´Ã¼ »ç¿ë ÈÄ »ı¼º, Çì´õ¿¡ µ¥ÀÌÅÍ ´ã¾Æ ÆĞÅ¶ ÇüÅÂ·Î º¸³¿
 
-			in = new FileInputStream(uploadPath + fileName); // í•´ë‹¹ë˜ëŠ” ìœ„ì¹˜ì˜ íŒŒì¼ ì½ì–´ë“¤ì„
+			in = new FileInputStream(uploadPath + fileName); // ÇØ´çµÇ´Â À§Ä¡ÀÇ ÆÄÀÏ ÀĞ¾îµéÀÓ
 
-			if (mType != null) { // jpeg, gif, pngì— í•´ë‹¹ë˜ë©´
+			if (mType != null) { // jpeg, gif, png¿¡ ÇØ´çµÇ¸é
 				if (down == 1) {
 					fileName = fileName.substring(fileName.indexOf("_") + 1);
 					headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 					headers.add("Content-Disposition",
 							"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+
 				} else {
 					headers.setContentType(mType);
 				}
+
 			} else {
 				fileName = fileName.substring(fileName.indexOf("_") + 1);
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				headers.add("Content-Disposition",
-						"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+				headers.add("Content-Disposition", "attachment; filename=\"" + // È­¸é¿¡ »Ñ¸®Áö ¾Ê°í ´Ù¿î·Îµå
+						new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
 			}
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
@@ -154,12 +157,12 @@ public class BoardController {
 			}
 		}
 		return entity;
-
 	}
 
+	
 	@RequestMapping(value = "boardContent.aws")
 	public String boardContent(@RequestParam("bidx") int bidx, Model model) {
-		logger.info("boardContent ë“¤ì–´ì˜´");
+		logger.info("boardContent µé¾î¿È");
 
 		boardService.boardViewCntUpdate(bidx);
 
@@ -204,21 +207,21 @@ public class BoardController {
 
 	@RequestMapping(value = "boardModify.aws")
 	public String boardModify(@RequestParam("bidx") int bidx, Model model) {
-		System.out.println("boardModify ë“¤ì–´ì˜´");
+		System.out.println("boardModify µé¾î¿È");
 		BoardVo bv = boardService.boardSelectOne(bidx);
 		model.addAttribute("bv", bv);
 		String path = "WEB-INF/board/boardModify";
 		return path;
 	}
-	
+
 	@RequestMapping(value = "boardModifyAction.aws")
 	public String boardModifyAction(BoardVo bv, @RequestParam("attachfile") MultipartFile attachfile,
 			HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		logger.info("boardModifyAction ë“¤ì–´ì˜´");
-		
+		logger.info("boardModifyAction µé¾î¿È");
+
 		int value = 0;
-		
-		// íŒŒì¼ ì—…ë¡œë“œë¥¼ í•˜ê³  updateë¥¼ ìœ„í•œ serviceë¥¼ ë§Œë“ ë‹¤.
+
+		// ÆÄÀÏ ¾÷·Îµå¸¦ ÇÏ°í update¸¦ À§ÇÑ service¸¦ ¸¸µç´Ù.
 		MultipartFile file = attachfile;
 		String uploadedFileName = "";
 
@@ -230,7 +233,7 @@ public class BoardController {
 		int midx_int = Integer.parseInt(midx);
 		String ip = userIp.getUserIp(request);
 		
-		bv.setUploadedFilename(uploadedFileName);
+		bv.setUploadedFilename(uploadedFileName); // filename ÄÃ·³ °ªÀ¸·Î ³ÖÀ¸·Á°í
 		bv.setMidx(midx_int);
 		bv.setIp(ip);
 		
@@ -238,17 +241,18 @@ public class BoardController {
 
 		String path = "";
 		if (value == 0) {
-			rttr.addFlashAttribute("msg", "ë‹µê¸€ì´ ë“±ë¡ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
+			rttr.addFlashAttribute("msg", "±ÛÀÌ ¼öÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
 			path = "redirect:/board/boardModify.aws?bidx=" + bv.getBidx();
 		} else {
 			path = "redirect:/board/boardContent.aws?bidx=" + bv.getBidx();
 		}
+
 		return path;
 	}
 	
 	@RequestMapping(value = "boardReply.aws")
 	public String boardReply(@RequestParam("bidx") int bidx, Model model) {
-		logger.info("boardReply ë“¤ì–´ì˜´");
+		logger.info("boardReply µé¾î¿È");
 		
 		BoardVo bv = boardService.boardSelectOne(bidx);
 		
@@ -261,10 +265,11 @@ public class BoardController {
 	@RequestMapping(value = "boardReplyAction.aws")
 	public String boardReplyAction(BoardVo bv, @RequestParam("attachfile") MultipartFile attachfile,
 			HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		logger.info("boardReplyAction ë“¤ì–´ì˜´");
-		
+		logger.info("boardReplyAction µé¾î¿È");
+
 		int value = 0;
-		
+
+		// ÆÄÀÏ ¾÷·Îµå¸¦ ÇÏ°í update¸¦ À§ÇÑ service¸¦ ¸¸µç´Ù.
 		MultipartFile file = attachfile;
 		String uploadedFileName = "";
 
@@ -276,7 +281,7 @@ public class BoardController {
 		int midx_int = Integer.parseInt(midx);
 		String ip = userIp.getUserIp(request);
 		
-		bv.setUploadedFilename(uploadedFileName);
+		bv.setUploadedFilename(uploadedFileName); // filename ÄÃ·³ °ªÀ¸·Î ³ÖÀ¸·Á°í
 		bv.setMidx(midx_int);
 		bv.setIp(ip);
 		// value = boardService.boardReply(bv);
@@ -288,10 +293,10 @@ public class BoardController {
 		if (maxBidx != 0) {
 			path = "redirect:/board/boardContent.aws?bidx=" + maxBidx;
 		} else {
-			rttr.addFlashAttribute("msg", "ì²˜ë¦¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+			rttr.addFlashAttribute("msg", "´äº¯ÀÌ µî·ÏµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
 			path = "redirect:/board/boardReply.aws?bidx=" + bv.getBidx();
 		}
-		
+
 		return path;
 	}
 }

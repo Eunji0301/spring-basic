@@ -21,6 +21,8 @@ import com.myaws.myapp.domain.MemberVo;
 import com.myaws.myapp.service.MemberService;
 import com.myaws.myapp.service.Test;
 
+import netscape.javascript.JSObject;
+
 @Controller
 @RequestMapping(value = "/member/")
 public class MemberController {
@@ -38,6 +40,7 @@ public class MemberController {
 		logger.info("memberSignin 들어옴");
 		logger.info("bCryptPasswordEncoder : " + bCryptPasswordEncoder);
 
+		// logger.info("tt값은 ? " + tt.test());
 		return "WEB-INF/member/memberSignin";
 	}
 
@@ -58,7 +61,6 @@ public class MemberController {
 		} else if (value == 0) {
 			path = "redirect:/member/memberSignin.aws";
 		}
-
 		return path;
 	}
 
@@ -70,26 +72,28 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "memberLoginAction.aws", method = RequestMethod.POST)
-	public String memberLoginAction(@RequestParam("memberId") String memberId, @RequestParam("memberPw") String memberPw, RedirectAttributes rttr, HttpSession session) {
+	public String memberLoginAction(@RequestParam("memberId") String memberId,
+			@RequestParam("memberPw") String memberPw, RedirectAttributes rttr, HttpSession session) {
 		System.out.println("memberLoginAction");
 		System.out.println("memberId : " + memberId);
 		System.out.println("memberPw : " + memberPw);
-
+		
 		MemberVo mv = memberService.memberLoginCheck(memberId);
-
 		// 저장된 비밀번호를 가져온다.
+//		System.out.println("memberLoginAction mv"+mv);
 		String path = "";
-		if (mv != null) { // 객체 값이 없으면
+		if (mv != null) { // 객체 값이 있으면
 			String reservedPw = mv.getMemberPw();
+//			System.out.println("reservedPw" + reservedPw);
 			if (bCryptPasswordEncoder.matches(memberPw, reservedPw)) {
 				// System.out.println("비밀번호 일치");
 				rttr.addAttribute("midx", mv.getMidx());
 				rttr.addAttribute("memberId", mv.getMemberId());
 				rttr.addAttribute("memberName", mv.getMemberName());
-				
+
 				logger.info("saveUrl : " + session.getAttribute("saveUrl"));
-				
-				if(session.getAttribute("saveUrl") != null) {
+
+				if (session.getAttribute("saveUrl") != null) {
 					path = "redirect:" + session.getAttribute("saveUrl").toString();
 				} else {
 					path = "redirect:/";
@@ -122,17 +126,18 @@ public class MemberController {
 
 		return obj;
 	}
-	
+
 	@RequestMapping(value = "memberList.aws", method = RequestMethod.GET)
 	public String memberList(Model model) {
 		logger.info("memberList 들어옴");
 		ArrayList<MemberVo> alist = memberService.memberSelectAll();
-		
+
 		model.addAttribute("alist", alist);
+
 		return "WEB-INF/member/memberList";
 	}
 	
-	@RequestMapping(value = "memberLogout.aws", method=RequestMethod.GET)
+	@RequestMapping(value = "memberLogout.aws", method = RequestMethod.GET)
 	public String memberLogout(HttpSession session) {
 		logger.info("memberLogout 들어옴");
 		
@@ -141,7 +146,7 @@ public class MemberController {
 		session.removeAttribute("memberId");
 		
 		session.invalidate();
-		
+
 		return "redirect:/";
 	}
 }

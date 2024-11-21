@@ -1,8 +1,8 @@
 package com.myaws.myapp.domain;
 
 public class SearchCriteria extends Criteria{
-	private String search;
-	private String keyword; 
+	private String search; // 검색선택
+	private String keyword; // 검색어
 	
 	public String getSearch() {
 		return search;

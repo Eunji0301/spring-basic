@@ -9,11 +9,12 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
 		// 가상 경로에 해당 메서드 접근 전에 가로채기
 		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("midx") == null) {
+
+		if (session.getAttribute("midx") == null) {
 			// 로그인이 안되어있으면 이동하려고 하는 주소 보관
 			// 로그인 페이지로 보낸다.
 			saveUrl(request); // 이동할 경로를 저장한다.
@@ -26,26 +27,25 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-	
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
 	}
-	
+
 	public void saveUrl(HttpServletRequest request) {
 		String uri = request.getRequestURI(); // 전체 경로 주소
 		String param = request.getQueryString(); // 파라미터를 가져온다.
-		
-		if(param == null || param.equals("null") || param.equals("")) {
+
+		if (param == null || param.equals("null") || param.equals("")) {
 			param = "";
 		} else {
 			param = "?" + param;
 		}
-		
+
 		String locationUrl = uri + param;
-		
+
 		HttpSession session = request.getSession();
-		if(request.getMethod().equals("GET")) { // 대문자 GET
+		if (request.getMethod().equals("GET")) { // 대문자 GET
 			session.setAttribute("saveUrl", locationUrl);
 		}
-	
 	}
 }
