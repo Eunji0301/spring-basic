@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,6 +27,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	height: 100vh;
 }
 
@@ -69,7 +69,7 @@ select:focus, input[type="text"]:focus, input[type="date"]:focus {
 	border-color: #007BFF;
 }
 
-button.submit-btn {
+button.submit-btn, button.nav-btn {
 	width: 100%;
 	padding: 10px;
 	background-color: #007BFF;
@@ -81,8 +81,20 @@ button.submit-btn {
 	cursor: pointer;
 }
 
-button.submit-btn:hover {
+button.submit-btn:hover, button.nav-btn:hover {
 	background-color: #0056b3;
+}
+
+.nav-buttons {
+	width: 100%;
+	max-width: 600px;
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+}
+
+.nav-buttons button {
+	width: 30%;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -115,13 +127,21 @@ button.submit-btn:hover {
 </script>
 </head>
 <body>
+	<!-- 상단 버튼들 -->
+	<div class="nav-buttons">
+		<button class="nav-btn" onclick="window.location.href='home.html'">홈</button>
+		<button class="nav-btn" onclick="window.location.href='reservation_list.html'">예약현황</button>
+		<button class="nav-btn" onclick="window.location.href='medical_results.html'">진료결과조회</button>
+	</div>
+
+	<!-- 진료 예약 폼 -->
 	<div class="container">
 		<h2>진료 예약 폼</h2>
 		<form action="#" method="POST">
 			<!-- 진료 과목 -->
 			<div class="form-group">
-				<label for="subject">진료 과목</label> <select id="subject"
-					name="subject" required>
+				<label for="subject">진료 과목</label> 
+				<select id="subject" name="subject" required>
 					<option value="">선택하세요</option>
 					<option value="internal">내과</option>
 					<option value="dentistry">치과</option>
@@ -134,22 +154,22 @@ button.submit-btn:hover {
 
 			<!-- 진료 의사 -->
 			<div class="form-group">
-				<label for="doctor">진료 의사</label> <select id="doctor" name="doctor"
-					required>
+				<label for="doctor">진료 의사</label> 
+				<select id="doctor" name="doctor" required>
 					<option value="">진료 과목을 선택하세요</option>
 				</select>
 			</div>
 
 			<!-- 예약 날짜 -->
 			<div class="form-group">
-				<label for="date">예약 날짜</label> <input type="date" id="date"
-					name="date" required>
+				<label for="date">예약 날짜</label> 
+				<input type="date" id="date" name="date" required>
 			</div>
 
 			<!-- 예약 시간 -->
 			<div class="form-group">
-				<label for="time">예약 시간</label> <select id="time" name="time"
-					required>
+				<label for="time">예약 시간</label> 
+				<select id="time" name="time" required>
 					<option value="">선택하세요</option>
 					<option value="0900">09:00</option>
 					<option value="1030">10:30</option>
@@ -161,17 +181,18 @@ button.submit-btn:hover {
 
 			<!-- 예약자명 -->
 			<div class="form-group">
-				<label for="name">예약자명</label> <input type="text" id="name"
-					name="name" required>
+				<label for="name">예약자명</label> 
+				<input type="text" id="name" name="name" required>
 			</div>
 
 			<!-- 연락처 -->
 			<div class="form-group">
-				<label for="contact">연락처</label> <input type="text" id="contact"
-					name="contact" required>
+				<label for="contact">연락처</label> 
+				<input type="text" id="contact" name="contact" required>
 			</div>
 
-			<button type="submit" class="submit-btn">예약하기</button>
+			<!-- 예약 확정 버튼 -->
+			<button type="submit" class="submit-btn">예약 확정</button>
 		</form>
 	</div>
 </body>
