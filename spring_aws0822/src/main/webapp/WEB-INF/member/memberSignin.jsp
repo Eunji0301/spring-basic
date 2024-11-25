@@ -5,7 +5,7 @@
 <HEAD>
 <TITLE>Signin</TITLE>
 
-<link href="../css/style.css" type="text/css" rel="stylesheet">
+<link href="/resources/css/style.css" type="text/css" rel="stylesheet">
 <!-- CDN주소 -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -20,10 +20,10 @@
 			alert("아이디를 입력해주세요");
 			fm.memberId.focus();
 			return;
-		} else if(fm.btn2.value == "N") {
+		}  else if(fm.btn2.value == "N") {
 			alert("아이디 중복체크를 해주세요");
 			fm.memberId.focus();
-		} else if (fm.memberPw.value == "") {
+		}  else if (fm.memberPw.value == "") {
 			alert("비밀번호를 입력해주세요");
 			fm.memberPw.focus();
 			return;
@@ -114,8 +114,8 @@
 				},
 				success : function(result) { // 결과가 넘어와서 성공했을 때 받는 영역
 					// alert("전송성공 테스트 !");
-					/* alert("길이는 : " + result.length); */
-					alert("cnt값은 : " + result.cnt);
+					// alert("길이는 : " + result.length);
+					// alert("cnt값은 : " + result.cnt);
 					if (result.cnt == 0) {
 						alert("사용할 수 있는 아이디입니다.");
 						$("#btn2").val("Y");

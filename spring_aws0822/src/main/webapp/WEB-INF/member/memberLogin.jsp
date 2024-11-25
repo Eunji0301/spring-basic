@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-response.setContentType("text/html; charset=UTF-8");
+String msg = "";
+if (request.getAttribute("msg") != null) {
+	msg = (String) request.getAttribute("msg");
+}
 %>
 
 <!DOCTYPE HTML>
@@ -9,11 +12,15 @@ response.setContentType("text/html; charset=UTF-8");
 <HEAD>
 <TITLE>Login</TITLE>
 <script>
+<%if (msg != "") {
+	out.println("alert('" + msg + "')");
+}%>	
+
 	// 아이디 비밀번호 유효성 검사
 	function check() {
 		// 이름으로 객체찾기
-		let id = document.getElementsByName("id");
-		let pw = document.getElementsByName("pw");
+		let id = document.getElementsByName("memberId");
+		let pw = document.getElementsByName("memberPw");
 		// alert(id[0].value);
 		// alert(pw[0].value); 
 		if (id[0].value == "") {
@@ -67,7 +74,6 @@ input[type="text"], input[type="password"] {
 	font-size: 14px;
 }
 
-/* Styling the buttons */
 input[type="button"], input[type="submit"] {
 	width: 100%;
 	padding: 10px;
@@ -83,7 +89,6 @@ input[type="button"]:hover, input[type="submit"]:hover {
 	background-color: #45a049;
 }
 
-/* Header styling */
 header {
 	font-size: 24px;
 	text-align: center;
@@ -99,12 +104,12 @@ header {
 		<table border="1">
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="id" maxlength="100"
+				<td><input type="text" name="memberId" maxlength="100"
 					style="width: 250px;" placeholder="아이디를 입력하세요"></input></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" name="pw" maxlength="100"
+				<td><input type="password" name="memberPw" maxlength="100"
 					style="width: 250px;" placeholder="비밀번호를 입력하세요"></input></td>
 			</tr>
 			<tr>

@@ -1,8 +1,8 @@
 package com.myaws.myapp.domain;
 
-public class MemberVo { // Vo : Value Object 값을 담는 객체 or DTO(Data Transfer Object)라고도 한다.
-	private int midx; // DB 테이블에 있는 컬럼 이름과 동일하게 작성
-	private String memberId; // 바인딩 기술을 사용하기 위해 html input name명과 동일하게 맞춤
+public class MemberVo { 
+	private int midx; 
+	private String memberId;
 	private String memberPw;
 	private String memberName;
 	private String memberGender;
