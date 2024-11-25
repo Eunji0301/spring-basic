@@ -95,7 +95,7 @@ body {
 		<!-- 메뉴 -->
 		<nav class="menu">
 			<ul>
-				<li>로그인</li>
+				<li><a href="${pageContext.request.contextPath}/member/memberLogin.aws">로그인</a></li>
 				<li>회원가입</li>
 				<li>진료 예약</li>
 				<li>진료 결과 조회</li>

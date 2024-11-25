@@ -40,9 +40,17 @@ if (request.getAttribute("msg") != null) {
 	}
 </script>
 <style>
-/* 공통 스타일 */
+@font-face {
+	font-family: 'GangwonEduPowerExtraBoldA';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
-	font-family: 'Arial', sans-serif;
+	font-family: GangwonEduPowerExtraBoldA;
 	background-color: #f4f4f4;
 	margin: 0;
 	padding: 0;
@@ -143,7 +151,7 @@ body {
 <body>
     <div class="container">
         <div class="title">
-            <h3>로그인</h3>
+            <h2>로그인</h2>
         </div>
 
         <!-- 로그인 폼 -->
