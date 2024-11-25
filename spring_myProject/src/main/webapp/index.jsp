@@ -90,13 +90,13 @@ body {
 <body>
 	<div class="container">
 		<!-- 상단 제목 -->
-		<header class="header"> 진료 예약 시스템 </header>
+		<header class="header">진료 예약 시스템</header>
 
 		<!-- 메뉴 -->
 		<nav class="menu">
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/member/memberLogin.aws">로그인</a></li>
-				<li>회원가입</li>
+				<li><a href="${pageContext.request.contextPath}/member/memberSignin.aws">회원가입</a></li>
 				<li>진료 예약</li>
 				<li>진료 결과 조회</li>
 				<li>진료 결과 기록</li>
