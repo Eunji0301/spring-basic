@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>회원가입 페이지</title>
+<title>환자 회원가입 페이지</title>
 <style>
 @font-face {
 	font-family: 'GangwonEduPowerExtraBoldA';
@@ -236,7 +236,7 @@ body {
 <body>
     <div class="container">
         <div class="title">
-            <h2>회원가입</h2>
+            <h2>환자 회원가입</h2>
         </div>
         <form action="registerAction.aws" method="post">
             <div class="form-group">

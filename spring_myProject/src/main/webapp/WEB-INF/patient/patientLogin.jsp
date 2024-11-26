@@ -10,7 +10,7 @@ if (request.getAttribute("msg") != null) {
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>로그인 페이지</title>
+<title>환자 로그인 페이지</title>
 <script>
 <%if (msg != "") {
 	out.println("alert('" + msg + "')");
@@ -151,7 +151,7 @@ body {
 <body>
     <div class="container">
         <div class="title">
-            <h2>로그인</h2>
+            <h2>환자 - 로그인</h2>
         </div>
 
         <!-- 로그인 폼 -->
