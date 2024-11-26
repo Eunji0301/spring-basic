@@ -19,6 +19,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: GangwonEduPowerExtraBoldA;
 }
 
 body {
@@ -47,27 +48,22 @@ h2 {
 }
 
 .nav-buttons {
-	width: 100%;
-	max-width: 600px;
 	display: flex;
-	justify-content: space-around;
-	margin-bottom: 20px;
-}
-
-.nav-buttons button {
-  width: 25%; /* 버튼 너비 조정 */
+	justify-content: center; /* 버튼들을 가운데 정렬 */
+	align-items: center;
+	padding: 20px;
+	color: #007bff;
 }
 
 button.nav-btn {
-    width: 100%;
-    padding: 8px; /* 버튼 높이 축소 */
-    font-size: 14px; /* 폰트 크기 축소 */
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-family: GangwonEduPowerExtraBoldA;
-    cursor: pointer;
+	background-color: #007bff;
+	color: white;
+	border: 2px solid #007bff;
+	padding: 10px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: bold;
+	margin: 0 10px; /* 버튼 사이 간격 */
 }
 
 button.nav-btn:hover {
