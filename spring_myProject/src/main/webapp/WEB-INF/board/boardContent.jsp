@@ -18,7 +18,7 @@
 
 * {
   font-family: GangwonEduPowerExtraBoldA;
-}
+} 
 
 body {
 	background-color: #f4f4f4;
