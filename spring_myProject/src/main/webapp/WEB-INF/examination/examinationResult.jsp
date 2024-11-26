@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>진료 결과 조회</title>
+<title>진료 결과</title>
 <style>
 @font-face {
 	font-family: 'GangwonEduPowerExtraBoldA';
@@ -117,7 +117,7 @@ footer {
 		<button onclick="location.href='reservation.jsp'">예약내역</button>
 	</div>
 	<div class="title">
-		<h2>진료 결과 조회</h2>
+		<h2>진료 결과</h2>
 	</div>
 	
 	<!-- 환자 -->
