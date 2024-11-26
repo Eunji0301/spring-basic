@@ -117,45 +117,45 @@ body {
 	function check() {
 		var fm = document.frm;
 
-		if (fm.memberId.value == "") {
+		if (fm.patientId.value == "") {
 			alert("아이디를 입력해주세요");
-			fm.memberId.focus();
+			fm.patientId.focus();
 			return;
 		}  else if(fm.btn2.value == "N") {
 			alert("아이디 중복체크를 해주세요");
-			fm.memberId.focus();
-		}  else if (fm.memberPw.value == "") {
+			fm.patientId.focus();
+		}  else if (fm.patientPw.value == "") {
 			alert("비밀번호를 입력해주세요");
-			fm.memberPw.focus();
+			fm.patientPw.focus();
 			return;
-		} else if (fm.memberPwIsRight.value == "") {
+		} else if (fm.patientPwIsRight.value == "") {
 			alert("비밀번호 확인을 입력해주세요.");
-			fm.memberPwIsRight.focus();
+			fm.patientPwIsRight.focus();
 			return;
-		} else if (fm.memberPw.value != fm.memberPwIsRight.value) {
+		} else if (fm.patientPw.value != fm.patientPwIsRight.value) {
 			alert("비밀번호가 일치하지 않습니다.");
-			fm.memberPwIsRight.focus();
+			fm.patientPwIsRight.focus();
 			return;
-		} else if (fm.memberName.value == "") {
+		} else if (fm.patientName.value == "") {
 			alert("이름을 입력해주세요.");
-			fm.memberName.focus();
+			fm.patientName.focus();
 			return;
-		} else if (fm.memberEmail.value == "") {
+		} else if (fm.patientEmail.value == "") {
 			alert("이메일을 입력해주세요.");
-			fm.memberEmail.focus();
+			fm.patientEmail.focus();
 			return;
-		} else if (email.test(fm.memberEmail.value) == false) {
+		} else if (email.test(fm.patientEmail.value) == false) {
 			alert("이메일 형식이 올바르지 않습니다.");
-			fm.memberEmail.value = "";
-			fm.memberEmail.focus();
+			fm.patientEmail.value = "";
+			fm.patientEmail.focus();
 			return;
-		} else if (fm.memberPhone.value == "") {
+		} else if (fm.patientPhone.value == "") {
 			alert("연락처를 입력해주세요.");
-			fm.memberPhone.focus();
+			fm.patientPhone.focus();
 			return;
-		} else if (fm.memberBirth.value == "") {
+		} else if (fm.patientBirth.value == "") {
 			alert("생년월일을 입력해주세요.");
-			fm.memberBirth.focus();
+			fm.patientBirth.focus();
 			return;
 		} else if (hobbyCheck() == false) {
 			alert("취미를 한 개 이상 선택해주세요.");
@@ -169,7 +169,7 @@ body {
 			
 			
 			// 가상경로를 사용해서 쓸 예정. 가짜경로 형식은 /기능/세부기능.aws
-			fm.action="<%=request.getContextPath()%>/member/memberSigninAction.aws";
+			fm.action="<%=request.getContextPath()%>/patient/patientSigninAction.aws";
 			fm.method = "post";
 			fm.submit();
 		}
@@ -178,7 +178,7 @@ body {
 	}
 
 	function hobbyCheck() {
-		var arr = document.frm.memberHobby; // 문서객체 내부 frm객체 안에 input객체 선언
+		var arr = document.frm.patientHobby; // 문서객체 내부 frm객체 안에 input객체 선언
 		var flag = false; // 체크유무 초기값 false 선언
 
 		for (var i = 0; i < arr.length; i++) { // 선택한 여러값을 반복해서 출력
@@ -195,42 +195,6 @@ body {
 
 		return flag;
 	}
-	
-	$(document).ready(function() {
-		$("#btn2").click(function() {
-			// alert("중복체크버튼 클릭");
-			
-			let memberId = $("#memberId").val();
-			if(memberId == "") {
-				alert("아이디를 입력해주세요 !");
-				return;
-			}
-			
-			$.ajax({
-				type : "post", // 전송방식
-				url : "<%=request.getContextPath()%>/member/memberIdCheck.aws",
-				dataType : "json", // json타입 : 문서에서 {"키값1" : "value값", "키값2" : "value값", ...}
-				data : {
-					"memberId" : memberId
-				},
-				success : function(result) { // 결과가 넘어와서 성공했을 때 받는 영역
-					// alert("전송성공 테스트 !");
-					// alert("길이는 : " + result.length);
-					// alert("cnt값은 : " + result.cnt);
-					if (result.cnt == 0) {
-						alert("사용할 수 있는 아이디입니다.");
-						$("#btn2").val("Y");
-					} else {
-						alert("사용할 수 없는 아이디입니다.");
-						$("#memberId").val(""); // 입력한 아이디 지우기
-					}
-				},
-				error : function() { // 결과가 실패했을 때 받는 영역
-					alert("전송실패 테스트ㅜ");
-				}
-			});
-		});
-	});
 </script>
 </head>
 <body>
@@ -240,41 +204,41 @@ body {
         </div>
         <form action="registerAction.aws" method="post">
             <div class="form-group">
-                <label for="memberId">아이디</label>
-                <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요">
+                <label for="patientId">아이디</label>
+                <input type="text" id="patientId" name="patientId" placeholder="아이디를 입력하세요">
             </div>
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" id="password" name="memberPw" placeholder="비밀번호를 입력하세요">
+                <input type="password" id="patientPw" name="patientPw" placeholder="비밀번호를 입력하세요">
             </div>
             <div class="form-group">
                 <label for="confirmPassword">비밀번호 확인</label>
-                <input type="password" id="confirmPassword" name="memberPwIsRight" placeholder="비밀번호를 다시 입력하세요">
+                <input type="password" id="patientPwIsRight" name="patientPwIsRight" placeholder="비밀번호를 다시 입력하세요">
             </div>
             <div class="form-group">
                 <label for="name">이름</label>
-                <input type="text" id="name" name="memberName" placeholder="이름을 입력하세요">
+                <input type="text" id="patientName" name="patientName" placeholder="이름을 입력하세요">
             </div>
             <div class="form-group">
                 <label for="birthDate">생년월일</label>
-                <input type="date" id="birthDate" name="memberBirth" required>
+                <input type="date" id="patientBirth" name="patientBirth" required>
             </div>
             <div class="form-group">
                 <label>성별</label>
-                <label class="gender-label"><input type="radio" name="memberGender" value="male"> 남자</label>
-                <label class="gender-label"><input type="radio" name="memberGender" value="female"> 여자</label>
+                <label class="gender-label"><input type="radio" name="patientGender" value="male"> 남자</label>
+                <label class="gender-label"><input type="radio" name="patientGender" value="female"> 여자</label>
             </div>
             <div class="form-group">
                 <label for="address">주소</label>
-                <input type="text" id="address" name="address" placeholder="주소를 입력하세요">
+                <input type="text" id="patientAddress" name="patientAddress" placeholder="주소를 입력하세요">
             </div>
             <div class="form-group">
                 <label for="phone">전화번호</label>
-                <input type="tel" id="phone" name="phone" placeholder="전화번호를 입력하세요 (예: 010-1234-5678)">
+                <input type="tel" id="patientPhone" name="patientPhone" placeholder="전화번호를 입력하세요 (예: 010-1234-5678)">
             </div>
             <div class="form-group">
                 <label for="email">이메일</label>
-                <input type="email" id="email" name="email" placeholder="이메일을 입력하세요">
+                <input type="email" id="patientEmail" name="patientEmail" placeholder="이메일을 입력하세요">
             </div>
             <div class="form-actions">
                 <button type="submit" class="submit-btn">회원가입</button>

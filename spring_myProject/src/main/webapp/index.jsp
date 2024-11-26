@@ -95,12 +95,12 @@ body {
 		<!-- 메뉴 -->
 		<nav class="menu">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/member/memberLogin.aws">로그인</a></li>
-				<li><a href="${pageContext.request.contextPath}/member/memberSignin.aws">회원가입</a></li>
-				<li>진료 예약</li>
+				<li><a href="${pageContext.request.contextPath}/patient/patientLogin.aws">환자 로그인 / 회원가입</a></li>
+				<li><a href="${pageContext.request.contextPath}/doctor/doctorLogin.aws">의사 로그인 / 회원가입</a></li>
+				<li><a href="${pageContext.request.contextPath}/patient/patientReservation.aws">진료 예약</a></li>
 				<li>진료 결과 조회</li>
 				<li>진료 결과 기록</li>
-				<li>공지사항 / 커뮤니티</li>
+				<li><a href="${pageContext.request.contextPath}/board/boardList.aws">공지사항 / 커뮤니티</a></li>
 			</ul>
 		</nav>
 
