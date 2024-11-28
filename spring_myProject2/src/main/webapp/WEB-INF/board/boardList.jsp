@@ -163,14 +163,14 @@ a:hover {
 				<c:forEach var="bv" items="${blist}">
 					<tr>
 						<td>${bv.bidx}</td>
-						<td style="text-align: left; padding-left: ${bv.level_ * 20}px;">
+						<td style="text-align: left; padding-left: ${bv.boardLevel * 20}px;">
 							<a
-							href="${pageContext.request.contextPath}/board/boardContent.aws?bidx=${bv.bidx}">${bv.subject}</a>
+							href="${pageContext.request.contextPath}/board/boardContent.aws?bidx=${bv.bidx}">${bv.boardSubject}</a>
 						</td>
-						<td>${bv.writer}</td>
-						<td>${bv.viewcnt}</td>
-						<td>${bv.recom}</td>
-						<td>${bv.writeday}</td>
+						<td>${bv.boardWriterType}</td>
+						<td>${bv.boardViewCnt}</td>
+						<td>${bv.boardRecom}</td>
+						<td>${bv.boardWriteDay}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -125,7 +125,7 @@ body {
                 <li>진료 예약</li>
                 <li>진료 결과 조회</li>
                 <li>진료 결과 기록</li>
-                <li>공지사항 / 커뮤니티</li>
+                <li><a href="${pageContext.request.contextPath}/board/boardList.aws">공지사항 / 커뮤니티</a></li>
             </ul>
         </nav>
 
