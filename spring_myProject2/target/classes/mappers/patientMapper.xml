@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myaws.myapp.persistance.PatientMapper">
+
+<insert id="patientInsert" parameterType="pv">
+insert into patient (patientId, patientPassword, patientName, patientGender, patientBirth, patientAddress, patientPhone, patientEmail) 
+values (#{patientId},#{patientPassword},#{patientName},#{patientGender},#{patientBirth},#{patientAddress},#{patientPhone},#{patientEmail})
+</insert>
+
+<select id="patientIdCheck" parameterType="String" resultType="int">
+SELECT COUNT(*) AS cnt FROM patient WHERE patientId = #{patientId}
+</select>
+
+<select id="patientLoginCheck" parameterType="String" resultType="pv">
+SELECT * FROM patient WHERE patientId = #{patientId}
+</select>
+
+</mapper>
