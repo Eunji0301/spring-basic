@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myaws.myapp.persistance.DoctorMapper">
+
+<insert id="doctorInsert" parameterType="dv">
+insert into doctor (doctorId, doctorPassword, doctorName, doctorSpecialty, doctorLicenseNo) 
+values (#{doctorId},#{doctorPassword},#{doctorName},#{doctorSpecialty},#{doctorLicenseNo})
+</insert>
+
+<select id="doctorIdCheck" parameterType="String" resultType="int">
+SELECT COUNT(*) AS cnt FROM doctor WHERE doctorId = #{doctorId}
+</select>
+
+<select id="doctorLoginCheck" parameterType="String" resultType="dv">
+SELECT * FROM doctor WHERE doctorId = #{doctorId}
+</select>
+
+</mapper>

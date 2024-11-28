@@ -33,7 +33,7 @@ if (request.getAttribute("msg") != null) {
 		
 		var fm = document.frm;
 
-		fm.action = "<%=request.getContextPath()%>/patient/patientLoginAction.aws"; // 가상경로지정 action은 처리하는 의미
+		fm.action = "${pageContext.request.contextPath}/patient/patientLoginAction.aws"; // 가상경로지정 action은 처리하는 의미
 		fm.method = "post";
 		fm.submit();
 		return;

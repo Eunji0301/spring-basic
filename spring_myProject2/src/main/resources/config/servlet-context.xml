@@ -40,6 +40,10 @@
 			<mapping path="/patient/patientLoginAction.aws"/>
 			<beans:ref bean = "loginInterceptor" />
 		</interceptor>
+		<interceptor>
+			<mapping path="/doctor/doctorLoginAction.aws"/>
+			<beans:ref bean = "loginInterceptor" />
+		</interceptor>
 	</interceptors>
 	
 	<!-- <interceptors>

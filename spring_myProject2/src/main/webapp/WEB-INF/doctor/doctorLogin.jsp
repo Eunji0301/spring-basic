@@ -19,8 +19,8 @@ if (request.getAttribute("msg") != null) {
 	// 아이디 비밀번호 유효성 검사
 	function check() {
 		// 이름으로 객체찾기
-		let id = document.getElementsByName("memberId");
-		let pw = document.getElementsByName("memberPw");
+		let id = document.getElementsByName("doctorId");
+		let pw = document.getElementsByName("doctorPassword");
 		if (id[0].value == "") {
 			alert("아이디를 입력해주세요.");
 			id[0].focus();
@@ -33,7 +33,7 @@ if (request.getAttribute("msg") != null) {
 		
 		var fm = document.frm;
 
-		fm.action = "<%=request.getContextPath()%>/member/memberLoginAction.aws"; // 가상경로지정 action은 처리하는 의미
+		fm.action = "${pageContext.request.contextPath}/doctor/doctorLoginAction.aws"; // 가상경로지정 action은 처리하는 의미
 		fm.method = "post";
 		fm.submit();
 		return;
@@ -156,20 +156,20 @@ body {
 
         <!-- 로그인 폼 -->
         <div class="login-form">
-            <form name="frm" onsubmit="check(); return false;">
+            <form name="frm">
                 <div class="form-group">
                     <label for="username">아이디</label>
-                    <input type="text" id="username" name="memberId" placeholder="아이디 입력" required>
+                    <input type="text" id="username" name="doctorId" placeholder="아이디 입력" required>
                 </div>
                 <div class="form-group">
                     <label for="password">비밀번호</label>
-                    <input type="password" id="password" name="memberPw" placeholder="비밀번호 입력" required>
+                    <input type="password" id="password" name="doctorPassword" placeholder="비밀번호 입력" required>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="login-btn">로그인</button>
+                    <button type="submit" class="login-btn" onclick="check();">로그인</button>
                     <div class="links">
                         <a href="#" class="forgot-password">Forgot Password?</a>
-                        <a href="signin.jsp" class="signin-btn">회원가입</a>
+                        <a href="${pageContext.request.contextPath}/doctor/doctorSignin.aws" class="signin-btn">회원가입</a>
                     </div>
                 </div>
             </form>

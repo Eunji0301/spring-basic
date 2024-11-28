@@ -103,26 +103,36 @@ function check() {
 	if (fm.doctorId.value == "") {
 		alert("아이디를 입력해주세요.");
 		fm.doctorId.focus();
-		return false;
-	} else if (fm.doctorPw.value == "") {
+		return;
+	} else if (fm.doctorPassword.value == "") {
 		alert("비밀번호를 입력해주세요.");
-		fm.doctorPw.focus();
-		return false;
+		fm.doctorPassword.focus();
+		return;
 	} else if (fm.doctorName.value == "") {
 		alert("이름을 입력해주세요.");
 		fm.doctorName.focus();
-		return false;
-	} else if (fm.doctorLicense.value == "") {
+		return;
+	} else if (fm.doctorLicenseNo.value == "") {
 		alert("의사면허번호를 입력해주세요.");
-		fm.doctorLicense.focus();
-		return false;
-	} else if (fm.doctorMajor.value == "") {
+		fm.doctorLicenseNo.focus();
+		return;
+	} else if (fm.doctorSpecialty.value == "") {
 		alert("전공을 선택해주세요.");
-		fm.doctorMajor.focus();
-		return false;
+		fm.doctorSpecialty.focus();
+		return;
 	}
 
-	return true;
+	var ans = confirm("저장하시겠습니까 ?");
+	if(ans == true) {
+		// html 홈태그 기능을 자바스크립트로 제어
+
+		// 가상경로를 사용해서 쓸 예정. 가짜경로 형식은 /기능/세부기능.aws
+		fm.action="${pageContext.request.contextPath}/doctor/doctorSigninAction.aws";
+		fm.method = "post";
+		fm.submit();
+	}
+
+	return; // 리턴에 값을 쓰지 않으면 그냥 멈춤 종료
 }
 </script>
 </head>
@@ -131,22 +141,22 @@ function check() {
         <div class="title">
             <h2>의사 회원가입</h2>
         </div>
-        <form name="frm" action="registerAction.aws" method="post" onsubmit="return check();">
+        <form name="frm">
             <div class="form-group">
                 <label for="doctorId">아이디</label>
                 <input type="text" id="doctorId" name="doctorId" placeholder="아이디를 입력하세요">
             </div>
             <div class="form-group">
                 <label for="doctorPw">비밀번호</label>
-                <input type="password" id="doctorPw" name="doctorPw" placeholder="비밀번호를 입력하세요">
+                <input type="password" id="doctorPassword" name="doctorPassword" placeholder="비밀번호를 입력하세요">
             </div>
             <div class="form-group">
                 <label for="doctorName">이름</label>
                 <input type="text" id="doctorName" name="doctorName" placeholder="이름을 입력하세요">
             </div>
             <div class="form-group">
-                <label for="doctorMajor">전공</label>
-                <select id="doctorMajor" name="doctorMajor">
+                <label for="doctorSpecialty">전공</label>
+                <select id="doctorSpecialty" name="doctorSpecialty">
                     <option value="">전공을 선택하세요</option>
                     <option value="내과">내과</option>
                     <option value="치과">치과</option>
@@ -157,14 +167,14 @@ function check() {
                 </select>
             </div>
             <div class="form-group">
-                <label for="doctorLicense">의사면허번호</label>
-                <input type="text" id="doctorLicense" name="doctorLicense" placeholder="의사면허번호를 입력하세요">
+                <label for="doctorLicenseNo">의사면허번호</label>
+                <input type="text" id="doctorLicenseNo" name="doctorLicenseNo" placeholder="의사면허번호를 입력하세요">
             </div>
             <div class="form-actions">
-                <button type="submit" class="submit-btn">회원가입</button>
+                <button type="button" class="submit-btn" onclick="check();">회원가입</button>
             </div>
             <div class="links">
-                <a href="login.jsp">이미 계정이 있으신가요? 로그인</a>
+                <a href="${pageContext.request.contextPath}/doctor/doctorLogin.aws">이미 계정이 있으신가요? 로그인</a>
             </div>
         </form>
     </div>

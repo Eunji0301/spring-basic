@@ -165,7 +165,7 @@ body {
 			// html 홈태그 기능을 자바스크립트로 제어
 
 			// 가상경로를 사용해서 쓸 예정. 가짜경로 형식은 /기능/세부기능.aws
-			fm.action="<%=request.getContextPath()%>/patient/patientSigninAction.aws";
+			fm.action="${pageContext.request.contextPath}/patient/patientSigninAction.aws";
 			fm.method = "post";
 			fm.submit();
 		}
