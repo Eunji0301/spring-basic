@@ -354,7 +354,7 @@ $.boardCommentList = function(){
 
 		<div class="btn-group">
 			<button type="button" id="btn" value="추천(${bv.boardRecom})">추천(${bv.boardRecom})</button>
-			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardModify.aws?bidx=${bv.bidx}'">수정</button>
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/boardModify.aws?bidx=${bv.bidx}'">수정</button>
 			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardDelete.aws?bidx=${bv.bidx}'">삭제</button>
 			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardReply.aws?bidx=${bv.bidx}'">답변</button>
 			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardList.aws?bidx=${bv.bidx}'">목록</button>

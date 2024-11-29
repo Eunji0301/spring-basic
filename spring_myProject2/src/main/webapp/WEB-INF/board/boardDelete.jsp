@@ -107,8 +107,7 @@ input[type="password"] {
 			<table>
 				<tr>
 					<th>비밀번호</th>
-					<td><input type="password" id="password" name="password"
-						required></td>
+					<td><input type="password" id="password" name="password"></td>
 				</tr>
 			</table>
 			<div class="button-group">

@@ -77,4 +77,32 @@ public class BoardController {
 		js.put("recom", value);
 		return js;
 	}
+	
+	@RequestMapping(value = "boardModify.aws")
+	public String boardModify(@RequestParam("bidx") int bidx, Model model) {
+		System.out.println("boardModify µé¾î¿È");
+		BoardVo bv = boardService.boardSelectOne(bidx);
+		model.addAttribute("bv", bv);
+		String path = "WEB-INF/board/boardModify";
+		return path;
+	}
+	
+	@RequestMapping(value = "boardDelete.aws")
+	public String boardDelete(@RequestParam("bidx") int bidx, Model model) {
+		model.addAttribute("bidx", bidx);
+		String path = "WEB-INF/board/boardDelete";
+		return path;
+	}
+	
+	@RequestMapping(value = "boardReply.aws")
+	public String boardReply(@RequestParam("bidx") int bidx, Model model) {
+		logger.info("boardReply µé¾î¿È");
+		
+		BoardVo bv = boardService.boardSelectOne(bidx);
+		
+		model.addAttribute("bv", bv);
+		
+		String path = "WEB-INF/board/boardReply";
+		return path;
+	}
 }
