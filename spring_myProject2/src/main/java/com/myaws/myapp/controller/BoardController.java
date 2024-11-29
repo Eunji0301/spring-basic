@@ -55,6 +55,15 @@ public class BoardController {
 		return path;
 	}
 	
+	@RequestMapping(value = "boardWrite.aws")
+	public String boardWrite(SearchCriteria scri, Model model) {
+		logger.info("boardWrite µé¾î¿È");
+
+		String path = "WEB-INF/board/boardWrite";
+
+		return path;
+	}
+	
 	@RequestMapping(value = "boardContent.aws")
 	public String boardContent(@RequestParam("bidx") int bidx, Model model) {
 		logger.info("boardContent µé¾î¿È");
