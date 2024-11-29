@@ -16,7 +16,14 @@ public class BoardVo {
 	private String boardModifyDay;
 	private String boardDelYn;
 	private String boardIp;
+	private String boardWriterName;
 	
+	public String getBoardWriterName() {
+		return boardWriterName;
+	}
+	public void setBoardWriterName(String boardWriterName) {
+		this.boardWriterName = boardWriterName;
+	}
 	public int getBidx() {
 		return bidx;
 	}

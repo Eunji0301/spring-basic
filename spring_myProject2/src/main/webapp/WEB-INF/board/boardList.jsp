@@ -22,9 +22,8 @@ request.setAttribute("currentPage", currentPage);
 	font-weight: normal;
 	font-style: normal;
 }
-
 * {
-  font-family: GangwonEduPowerExtraBoldA;
+	font-family: GangwonEduPowerExtraBoldA;
 }
 
 body {
@@ -154,6 +153,7 @@ a:hover {
 					<th>No</th>
 					<th>제목</th>
 					<th>작성자</th>
+					<th>작성자 유형</th>
 					<th>조회</th>
 					<th>추천</th>
 					<th>날짜</th>
@@ -167,6 +167,7 @@ a:hover {
 							<a
 							href="${pageContext.request.contextPath}/board/boardContent.aws?bidx=${bv.bidx}">${bv.boardSubject}</a>
 						</td>
+						<td>${bv.boardWriterName }</td>
 						<td>${bv.boardWriterType}</td>
 						<td>${bv.boardViewCnt}</td>
 						<td>${bv.boardRecom}</td>
