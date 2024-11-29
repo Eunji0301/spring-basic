@@ -37,4 +37,25 @@ public class BoardServiceImpl implements BoardService{
 		int cnt = bm.boardTotalCount(scri);
 		return cnt;
 	}
+	
+	@Override
+	public BoardVo boardSelectOne(int bidx) {
+		BoardVo bv = bm.boardSelectOne(bidx);
+		return bv;
+	}
+
+	@Override
+	public int boardViewCntUpdate(int bidx) {
+		int cnt = bm.boardViewCntUpdate(bidx);
+		return cnt;
+	}
+	
+	@Override
+	public int boardRecomUpdate(int bidx) {
+		BoardVo bv = new BoardVo();
+		bv.setBidx(bidx);
+		int cnt = bm.boardRecomUpdate(bv);
+		int recom = bv.getBoardRecom();
+		return recom;
+	}
 }

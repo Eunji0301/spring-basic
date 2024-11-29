@@ -5,7 +5,7 @@
 <mapper namespace="com.myaws.myapp.persistance.BoardMapper">
 	<select id="boardSelectAll" parameterType="HashMap" resultType="bv">
 	SELECT 
-   			b.bidx, 
+   			b.bidx,
     		b.boardSubject, 
     		b.boardWriterType, 
     	CASE 
@@ -31,6 +31,39 @@
 		select count(*) as cnt from board where boardDelYn='N'
 	</select>
 	
+	<select id="boardSelectOne" parameterType="int" resultType="bv">
+    SELECT 
+        b.bidx, 
+        b.boardSubject,
+        b.boardContents,
+        b.boardWriterType, 
+        CASE 
+            WHEN b.boardWriterType = 'P' THEN p.patientName 
+            WHEN b.boardWriterType = 'D' THEN d.doctorName 
+            ELSE 'Unknown' 
+        END AS boardWriterName,
+        b.boardViewCnt,
+        b.boardRecom,
+        b.boardWriteDay
+    FROM 
+        board b
+    LEFT JOIN patient p ON b.boardWriterIdx = p.pidx AND b.boardWriterType = 'P'
+    LEFT JOIN doctor d ON b.boardWriterIdx = d.didx AND b.boardWriterType = 'D'
+    WHERE 
+        b.boardDelYn = 'N' 
+        AND b.bidx = #{bidx}
+	</select>
+
 	
+	<update id="boardViewCntUpdate" parameterType="int">
+		UPDATE board SET boardViewCnt = boardViewCnt + 1 WHERE bidx = #{bidx}
+	</update>
+	
+	<update id="boardRecomUpdate" parameterType="bv">
+	<selectKey keyProperty="boardRecom" resultType="int" order="AFTER">
+		SELECT boardRecom FROM board WHERE bidx = #{bidx}
+	</selectKey>
+		UPDATE board SET boardRecom = boardRecom + 1 WHERE bidx = #{bidx}
+	</update>
 	
 </mapper>

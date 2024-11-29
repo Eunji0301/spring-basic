@@ -172,7 +172,7 @@ function getImageLink(fileName) {
 }
 
 function download() {
-	var downloadImage = getImageLink("${bv.filename}"); // 주소 사이에 s-는 빼고
+	var downloadImage = getImageLink("${bv.boardFileName}"); // 주소 사이에 s-는 빼고
 	var downLink = "${pageContext.request.contextPath}/board/displayFile.aws?fileName=" + downloadImage + "&down=1";
 	
 	return downLink;
@@ -180,9 +180,9 @@ function download() {
 
  $(document).ready(function() {
 	 
-	$.boardCommentList();
+	/* $.boardCommentList(); */
 	 
-	$("#dUrl").html(getOriginalFileName("${bv.filename}"));
+	$("#dUrl").html(getOriginalFileName("${bv.boardFileName}"));
 	
 	$("#dUrl").click(function(event) {
 		$("#dUrl").attr("href", download());
@@ -203,7 +203,6 @@ function download() {
 				alert("전송실패 테스트ㅜ");
 			}
 		});
-
 	});
 
 	 $("#cmtBtn").click(function() {
@@ -227,7 +226,7 @@ function download() {
 			return;
 		}
 
-		$.ajax({
+		<%-- $.ajax({
 			type: "post",
 			url: "<%=request.getContextPath()%>/comment/commentWriteAction.aws",
 			data: {
@@ -248,15 +247,15 @@ function download() {
 			error: function() {
 				alert("댓글 추가에 실패했습니다.");
 			}
-		});
+		}); --%>
 	});
 	 
-	$("#more").click(function(){
+	/* $("#more").click(function(){
 		$.boardCommentList();
-	});
+	}); */
 });
 
-//댓글 삭제 함수
+/* //댓글 삭제 함수
 function commentDel(cidx){	
 	let ans = confirm("삭제하시겠습니까?");	
 	
@@ -275,9 +274,9 @@ function commentDel(cidx){
 		});			
 	}	
 	return;
-}
+} */
 
-//jquery로 만드는 함수  ready밖에 생성
+/* //jquery로 만드는 함수  ready밖에 생성
 $.boardCommentList = function(){
 	alert("test")
 	let block = $("#block").val();
@@ -334,27 +333,27 @@ $.boardCommentList = function(){
 			alert("전송실패");
 		}			
 	});
-}
+} */
 </script>
 </head>
 <body>
 	<div class="container">
 		<div class="title_view">
-			<p>${bv.subject }&nbsp;(조회수 : ${bv.viewcnt })
+			<p>${bv.boardSubject }&nbsp;(조회수 : ${bv.boardViewCnt })
 			</p>
-			<div>${bv.writer }&nbsp;(${bv.writeday })
+			<div>${bv.boardWriterName }&nbsp;(${bv.boardWriteDay })
 			</div>
 		</div>
-		<div class="content">${bv.contents }</div>
-		<c:if test="${not empty bv.filename}">
-    		<img src="${pageContext.request.contextPath}/board/displayFile.aws?fileName=${bv.filename}" alt="첨부파일 이미지">
+		<div class="content">${bv.boardContents }</div>
+		<c:if test="${not empty bv.boardFileName}">
+    		<img src="${pageContext.request.contextPath}/board/displayFile.aws?fileName=${bv.boardFileName}" alt="첨부파일 이미지">
     		<p>
-        		<a id="dUrl" href="${pageContext.request.contextPath}/board/displayFile.aws?fileName=${bv.filename}&down=1" class="fileDown">첨부파일 다운로드</a>
+        		<a id="dUrl" href="${pageContext.request.contextPath}/board/displayFile.aws?fileName=${bv.boardFileName}&down=1" class="fileDown">첨부파일 다운로드</a>
     		</p>
 		</c:if>
 
 		<div class="btn-group">
-			<button type="button" id="btn" value="추천(${bv.recom})">추천(${bv.recom})</button>
+			<button type="button" id="btn" value="추천(${bv.boardRecom})">추천(${bv.boardRecom})</button>
 			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardModify.aws?bidx=${bv.bidx}'">수정</button>
 			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardDelete.aws?bidx=${bv.bidx}'">삭제</button>
 			<button type="button" onclick="location.href='<%=request.getContextPath()%>/board/boardReply.aws?bidx=${bv.bidx}'">답변</button>
