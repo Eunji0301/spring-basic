@@ -90,14 +90,18 @@ body {
 }
 
 .main-content {
+    background-image: url('https://img.freepik.com/premium-vector/woman-being-seen-by-doctor-hospital_147644-2830.jpg?w=1060');
+    background-size: cover; /* 콘텐츠 크기에 맞게 이미지 조정 */
+    background-position: center; /* 이미지 중앙 정렬 */
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e6e6e6;
-    font-size: 18px;
     color: #555;
+    font-size: 18px;
+    height: 50px; /* 필요 시 높이 지정 */
 }
+
 </style>
 </head>
 <body>
@@ -122,15 +126,16 @@ body {
             <ul>
                 <li><a href="${pageContext.request.contextPath}/patient/patientLogin.aws">환자 로그인 / 회원가입</a></li>
                 <li><a href="${pageContext.request.contextPath}/doctor/doctorLogin.aws">의사 로그인 / 회원가입</a></li>
-                <li>진료 예약</li>
-                <li>진료 결과 조회</li>
-                <li>진료 결과 기록</li>
+                <li><a href="${pageContext.request.contextPath}/appointment/makeAppointment.aws">진료 예약</a></li>
+                <li><a href="${pageContext.request.contextPath}/appointment/viewAppointment.aws">진료 예약 현황</a></li>
+                <li><a href="${pageContext.request.contextPath}/examination/examinationResult.aws">진료 결과 조회</a></li>
+                <li><a href="${pageContext.request.contextPath}/examination/examinationWrite.aws">진료 결과 기록</a></li>
                 <li><a href="${pageContext.request.contextPath}/board/boardList.aws">공지사항 / 커뮤니티</a></li>
             </ul>
         </nav>
 
         <!-- 메인 콘텐츠 -->
-        <main class="main-content">이미지</main>
+        <main class="main-content"></main>
     </div>
 </body>
 </html>

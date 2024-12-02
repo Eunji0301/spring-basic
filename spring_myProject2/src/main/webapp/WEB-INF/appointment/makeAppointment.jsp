@@ -124,20 +124,44 @@ button.submit-btn:hover, button.nav-btn:hover {
 			}
 		});
 	});
+	
+	// 버튼을 눌렀을 때 check함수 작동
+	function check() {
+		var fm = document.frm;
+
+		if (fm.name.value == "") {
+			alert("예약자명을 입력해주세요");
+			fm.name.focus();
+			return;
+		}  else if (fm.contact.value == "") {
+			alert("연락처를 입력해주세요");
+			fm.contact.focus();
+			return;
+		}
+		
+		var ans = confirm("저장하시겠습니까 ?");
+		if(ans == true) {
+			fm.action="${pageContext.request.contextPath}/appointment/makeAppointmentAction.aws";
+			fm.method = "post";
+			fm.submit();
+		}
+
+		return; // 리턴에 값을 쓰지 않으면 그냥 멈춤 종료
+	}
 </script>
 </head>
 <body>
 	<!-- 상단 버튼들 -->
 	<div class="nav-buttons">
-		<button class="nav-btn" onclick="window.location.href='home.html'">홈</button>
-		<button class="nav-btn" onclick="window.location.href='reservation_list.html'">예약현황</button>
-		<button class="nav-btn" onclick="window.location.href='medical_results.html'">진료결과조회</button>
+		<button class="nav-btn" onclick="window.location.href='${pageContext.request.contextPath}'">홈</button>
+		<button class="nav-btn" onclick="window.location.href='${pageContext.request.contextPath}/appointment/viewAppointment.aws'">예약현황</button>
+		<button class="nav-btn" onclick="window.location.href='${pageContext.request.contextPath}/examination/examinationResult.aws'">진료결과조회</button>
 	</div>
 
 	<!-- 진료 예약 폼 -->
 	<div class="container">
 		<h2>진료 예약 폼</h2>
-		<form action="#" method="POST">
+		<form name="frm" action="#" method="POST">
 			<!-- 진료 과목 -->
 			<div class="form-group">
 				<label for="subject">진료 과목</label> 
@@ -192,7 +216,7 @@ button.submit-btn:hover, button.nav-btn:hover {
 			</div>
 
 			<!-- 예약 확정 버튼 -->
-			<button type="submit" class="submit-btn">예약 확정</button>
+			<button type="button" class="submit-btn" onclick="check();">예약 확정</button>
 		</form>
 	</div>
 </body>

@@ -6,6 +6,7 @@
 <typeAlias alias="pv" type="com.myaws.myapp.domain.PatientVo"/>
 <typeAlias alias="dv" type="com.myaws.myapp.domain.DoctorVo"/>
 <typeAlias alias="bv" type="com.myaws.myapp.domain.BoardVo"/>
+<typeAlias alias="av" type="com.myaws.myapp.domain.AppointmentVo"/>
 <typeAlias alias="scri" type="com.myaws.myapp.domain.SearchCriteria"/>
 </typeAliases>
 </configuration>

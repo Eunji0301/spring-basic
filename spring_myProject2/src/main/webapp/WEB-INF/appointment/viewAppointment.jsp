@@ -1,4 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.*"%>
+<%@page import="com.myaws.myapp.domain.*"%>
+<%
+// ArrayList 객체를 화면까지 가져왔다.
+ArrayList<AppointmentVo> blist = (ArrayList<AppointmentVo>) request.getAttribute("blist");
+//
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -99,9 +106,9 @@ table tr:hover {
 <body>
 	<!-- 상단 버튼들 -->
 	<div class="nav-buttons">
-		<button class="nav-btn" onclick="window.location.href='home.html'">홈</button>
-		<button class="nav-btn" onclick="window.location.href='reservation_form.html'">예약하기</button>
-		<button class="nav-btn" onclick="window.location.href='medical_results.html'">진료결과조회</button>
+		<button class="nav-btn" onclick="window.location.href='${pageContext.request.contextPath}/index.jsp'">홈</button>
+		<button class="nav-btn" onclick="window.location.href='${pageContext.request.contextPath}/appointment/makeAppointment.aws'">예약하기</button>
+		<button class="nav-btn" onclick="window.location.href='${pageContext.request.contextPath}/examination/examinationResult.aws'">진료결과조회</button>
 	</div>
 
 	<!-- 예약 현황 -->
@@ -119,15 +126,37 @@ table tr:hover {
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<!-- <tr>
 					<td>1</td>
 					<td>내과</td>
 					<td>김내과</td>
 					<td>2024-11-30</td>
 					<td>09:00</td>
 					<td>홍길동</td>
+				</tr> -->
+				<%
+				int num = 0;
+					for(AppointmentVo av : blist) {
+				%>
+				<tr>
+					<td><%=av.getAidx() %></td>
+					<td><%=av.getAppointmentSubject() %></td>
+					<td><%=av.getDoctorInCharge() %></td>
+					<td><%=av.getAppointmentDate() %></td>
+					<td><%=av.getAppointmentTime() %></td>
+					<td><%=av.getPatientName() %></td>
 				</tr>
+				<%
+				num += 1;
+				}
+				%>
 			</tbody>
+			<tfoot>
+			<tr>
+				<td colspan="6">총 <%=num%>명입니다.
+				</td>
+			</tr>
+		</tfoot>
 		</table>
 	</div>
 </body>

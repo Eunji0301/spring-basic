@@ -113,8 +113,8 @@ footer {
 </head>
 <body>
 	<div class="header">
-		<button onclick="location.href='home.jsp'">홈으로</button>
-		<button onclick="location.href='reservation.jsp'">예약내역</button>
+		<button onclick="window.location.href='${pageContext.request.contextPath}/index.jsp'">홈으로</button>
+		<button onclick="window.location.href='${pageContext.request.contextPath}/appointment/viewAppointment.aws'">예약내역</button>
 	</div>
 	<div class="title">
 		<h2>진료 결과 작성 폼</h2>
