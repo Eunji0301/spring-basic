@@ -13,23 +13,17 @@ public interface BoardService {
 	
 	public int boardTotalCount(SearchCriteria scri);
 	
+	public int boardInsert(BoardVo bv);
+	
 	public BoardVo boardSelectOne(int bidx);
 	
 	public int boardViewCntUpdate(int bidx);
 	
 	public int boardRecomUpdate(int bidx);
 	
-	public int boardInsert(BoardVo bv);
-	
-	public int boardOriginbidxUpdate(int bidx);
+	public int boardDelete(int bidx, Integer pidx, Integer didx, String password);
 	
 	public int boardUpdate(BoardVo bv);
 	
-	public int boardDelete(int bidx, Integer pidx, Integer didx, String password);
-	
 	public int boardReply(BoardVo bv);
-	
-	public int boardReplyUpdate(BoardVo bv);
-	
-	public int boardReplyInsert(BoardVo bv);
 }

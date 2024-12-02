@@ -110,4 +110,5 @@ public class BoardServiceImpl implements BoardService{
 		return maxBidx;
 	}
 
+
 }

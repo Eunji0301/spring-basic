@@ -4,7 +4,7 @@ package com.myaws.myapp.domain;
 public class Criteria {
 
 	private int page = 1; // 페이지 번호를 담는 변수
-	private int perPageNum = 5; // 화면에 리스트 게시물 수 num/page
+	private int perPageNum = 10; // 화면에 리스트 게시물 수 num/page
 
 	public int getPage() {
 		return page;

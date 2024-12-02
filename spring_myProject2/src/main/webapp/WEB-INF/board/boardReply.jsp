@@ -124,9 +124,9 @@ textarea {
     <div class="container">
         <h2>글 답변</h2>
         <form name="frm">
-            <input type="hidden" name="originbidx" value="${bv.boardOriginIdx }">
-            <input type="hidden" name="depth" value="${bv.boardDepth }"> 
-            <input type="hidden" name="level_" value="${bv.boardLevel }">
+            <input type="hidden" name="boardOriginIdx" value="${bv.boardOriginIdx }">
+            <input type="hidden" name="boardDepth" value="${bv.boardDepth }"> 
+            <input type="hidden" name="boardLevel" value="${bv.boardLevel }">
             <table>
                 <tr>
                     <th>제목</th>

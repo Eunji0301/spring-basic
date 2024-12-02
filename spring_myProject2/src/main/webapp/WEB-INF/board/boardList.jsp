@@ -141,8 +141,8 @@ a:hover {
 				action="${pageContext.request.contextPath}/board/boardList.aws"
 				method="get">
 				<select name="search">
-					<option value="subject">제목</option>
-					<option value="writer">작성자</option>
+					<option value="boardSubject">제목</option>
+					<option value="boardWriterName">작성자</option>
 				</select> <input type="text" name="keyword" placeholder="검색어를 입력하세요">
 				<button type="submit">검색</button>
 			</form>
@@ -164,8 +164,7 @@ a:hover {
 					<tr>
 						<td>${bv.bidx}</td>
 						<td style="text-align: left; padding-left: ${bv.boardLevel * 20}px;">
-							<a
-							href="${pageContext.request.contextPath}/board/boardContent.aws?bidx=${bv.bidx}">${bv.boardSubject}</a>
+							<a href="${pageContext.request.contextPath}/board/boardContent.aws?bidx=${bv.bidx}">${bv.boardSubject}</a>
 						</td>
 						<td>${bv.boardWriterName }</td>
 						<td>${bv.boardWriterType}</td>
