@@ -287,4 +287,52 @@ public class BoardController {
 		String path = "WEB-INF/board/boardReply";
 		return path;
 	}
+	
+	@RequestMapping(value = "boardReplyAction.aws")
+	public String boardReplyAction(BoardVo bv, @RequestParam("attachfile") MultipartFile attachfile,
+			HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+		logger.info("boardReplyAction 들어옴");
+
+		int value = 0;
+
+		// 파일 업로드를 하고 update를 위한 service를 만든다.
+		MultipartFile file = attachfile;
+		String uploadedFileName = "";
+
+		if (!file.getOriginalFilename().equals("")) {
+			uploadedFileName = UploadFileUtiles.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+		}
+		
+		String pidx = (String) request.getSession().getAttribute("pidx");
+		
+		String didx = (String) request.getSession().getAttribute("didx");
+		
+		String ip = userIp.getUserIp(request);
+		
+		bv.setUploadedFilename(uploadedFileName); // filename 컬럼 값으로 넣으려고
+		//bv.setMidx(midx_int);
+		bv.setBoardIp(ip);
+		// value = boardService.boardReply(bv);
+		
+		if(pidx != null) {
+			int pidx_int = Integer.parseInt(pidx);
+			bv.setPidx(pidx_int);
+		} else if(didx != null) {
+			int didx_int = Integer.parseInt(didx);
+			bv.setDidx(didx_int);
+		}
+		
+		int maxBidx = 0;
+		maxBidx = boardService.boardReply(bv);
+		
+		String path = "";
+		if (maxBidx != 0) {
+			path = "redirect:/board/boardContent.aws?bidx=" + maxBidx;
+		} else {
+			rttr.addFlashAttribute("msg", "답변이 등록되지 않았습니다.");
+			path = "redirect:/board/boardReply.aws?bidx=" + bv.getBidx();
+		}
+
+		return path;
+	}
 }

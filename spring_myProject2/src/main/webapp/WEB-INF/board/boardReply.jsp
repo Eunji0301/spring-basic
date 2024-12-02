@@ -96,17 +96,17 @@ textarea {
     function check() {
         var fm = document.frm;
 
-        if (fm.subject.value == "") {
+        if (fm.boardSubject.value == "") {
             alert("제목을 입력해주세요");
-            fm.subject.focus();
+            fm.boardSubject.focus();
             return;
-        } else if (fm.contents.value == "") {
+        } else if (fm.boardContents.value == "") {
             alert("내용을 입력해주세요");
-            fm.contents.focus();
+            fm.boardContents.focus();
             return;
-        } else if (fm.writer.value == "") {
+        } else if (fm.boardWriterName.value == "") {
             alert("작성자를 입력해주세요");
-            fm.writer.focus();
+            fm.boardWriterName.focus();
             return;
         } else if (fm.password.value == "") {
             alert("비밀번호를 입력해주세요");
@@ -130,16 +130,25 @@ textarea {
             <table>
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" id="title" name="subject"></td>
+                    <td><input type="text" id="boardSubject" name="boardSubject"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea id="content" name="contents"></textarea></td>
+                    <td><textarea id="boardContents" name="boardContents"></textarea></td>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td><input type="text" id="author" name="writer"></td>
+                    <td><input type="text" id="boardWriterName" name="boardWriterName"></td>
                 </tr>
+                <tr>
+    				<th>작성자 유형</th>
+    				<td>
+        				<select id="boardWriterType" name="boardWriterType">
+            			<option value="P">환자</option>
+            			<option value="D">의사</option>
+        				</select>
+    				</td>
+				</tr>
                 <tr>
                     <th>비밀번호</th>
                     <td><input type="password" id="password" name="password"></td>

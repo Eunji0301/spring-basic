@@ -85,4 +85,13 @@
 	<update id="boardDelete" parameterType="HashMap">
 		UPDATE board SET boardDelYn = 'Y', boardModifyDay=NOW() WHERE bidx = #{bidx}
 	</update>
+	
+	<update id="boardReplyUpdate" parameterType="bv">
+		UPDATE board SET boardDepth = boardDepth + 1 WHERE boardOriginIdx = #{boardOriginIdx} AND boardDepth > #{boardDepth}
+	</update>
+	
+	<insert id="boardReplyInsert" parameterType="bv">
+		<selectKey keyProperty="bidx" resultType="int" order="AFTER">SELECT MAX(bidx) as bidx FROM board</selectKey>
+		INSERT INTO board (boardOriginIdx, boardDepth, boardLevel, boardSubject, boardContents, boardFileName, boardIp, boardWriterIdx, boardWriterType) VALUES(#{boardOriginIdx}, #{boardDepth} + 1, #{boardLevel} + 1, #{boardSubject}, #{boardContents}, #{uploadedFilename}, #{boardIp}, #{boardWriterIdx}, #{boardWriterType})
+	</insert>
 </mapper>

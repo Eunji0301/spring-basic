@@ -26,4 +26,10 @@ public interface BoardService {
 	public int boardUpdate(BoardVo bv);
 	
 	public int boardDelete(int bidx, Integer pidx, Integer didx, String password);
+	
+	public int boardReply(BoardVo bv);
+	
+	public int boardReplyUpdate(BoardVo bv);
+	
+	public int boardReplyInsert(BoardVo bv);
 }
