@@ -17,7 +17,38 @@ public class BoardVo {
 	private String boardDelYn;
 	private String boardIp;
 	private String boardWriterName;
+	private String uploadedFilename;
 	
+	private int pidx;
+	private int didx;
+	
+	private String password;
+	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public int getPidx() {
+		return pidx;
+	}
+	public void setPidx(int pidx) {
+		this.pidx = pidx;
+	}
+	public int getDidx() {
+		return didx;
+	}
+	public void setDidx(int didx) {
+		this.didx = didx;
+	}
+
+	public String getUploadedFilename() {
+		return uploadedFilename;
+	}
+	public void setUploadedFilename(String uploadedFilename) {
+		this.uploadedFilename = uploadedFilename;
+	}
 	public String getBoardWriterName() {
 		return boardWriterName;
 	}

@@ -3,9 +3,12 @@ package com.myaws.myapp.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myaws.myapp.domain.BoardVo;
 import com.myaws.myapp.domain.SearchCriteria;
@@ -58,4 +61,42 @@ public class BoardServiceImpl implements BoardService{
 		int recom = bv.getBoardRecom();
 		return recom;
 	}
+	
+	@Override
+	@Transactional
+	public int boardInsert(BoardVo bv) {
+		int value = bm.boardInsert(bv);
+		int maxBidx = bv.getBidx();
+		int value2 = bm.boardOriginbidxUpdate(maxBidx);
+		
+		return value + value2;
+	}
+	
+	@Override
+	public int boardUpdate(BoardVo bv) {
+		int value = bm.boardUpdate(bv);
+		return value;
+	}
+	
+	@Override
+	public int boardDelete(int bidx, Integer pidx, Integer didx, String password) {
+		
+		HashMap<String,Object> hm = new HashMap<String,Object>();
+		hm.put("bidx", bidx);
+		hm.put("password", password);
+		
+		// pidx 또는 didx에 따라 삭제 조건 설정
+		if(pidx != null) {
+			hm.put("pidx", pidx);
+		}
+		
+		if(didx != null) {
+			hm.put("didx", didx);
+		}
+		
+		int cnt = bm.boardDelete(hm);		
+		return cnt;
+	}
+	
+
 }

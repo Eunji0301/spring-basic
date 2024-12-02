@@ -16,4 +16,12 @@ public interface BoardMapper {
 	public int boardViewCntUpdate(int bidx);
 	
 	public int boardRecomUpdate(BoardVo bv);
+	
+	public int boardInsert(BoardVo bv);
+	
+	public int boardOriginbidxUpdate(int bidx);
+	
+	public int boardUpdate(BoardVo bv);
+	
+	public int boardDelete(HashMap<String, Object> hm);
 }

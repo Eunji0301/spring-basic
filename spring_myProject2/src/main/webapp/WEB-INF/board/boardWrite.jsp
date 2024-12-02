@@ -35,7 +35,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* 브라우저창의 100 view height. 부모 태그와 상관없이 꽉 채워짐*/
+    height: 100vh;
 }
 
 .container {
@@ -48,10 +48,10 @@ body {
 }
 
 h2 {
-    border-bottom: 2px solid #007bff;  /* 제목 밑에 파란색 선 */
+    border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
     margin-bottom: 20px;
-    color: black;  /* 제목 색상 */
+    color: black;
 }
 
 form {
@@ -92,36 +92,37 @@ textarea {
     margin-left: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;  /* 버튼 배경색 파란색 */
+    background-color: #007bff;
     color: white;
-    cursor: pointer; /* 커서모양 : 포인터(손가락) */
+    cursor: pointer;
 }
 
 .button-group button:hover {
-    background-color: #0056b3;  /* 버튼 호버 시 진한 파란색 */
+    background-color: #0056b3;
 }
 </style>
 <script>
     function check() {
         var fm = document.frm;
 
-        if (fm.subject.value == "") {
+        if (fm.boardSubject.value == "") {
             alert("제목을 입력해주세요");
-            fm.subject.focus();
+            fm.boardSubject.focus();
             return;
-        } else if (fm.contents.value == "") {
+        } else if (fm.boardContents.value == "") {
             alert("내용을 입력해주세요");
-            fm.contents.focus();
+            fm.boardContents.focus();
             return;
-        } else if (fm.writer.value == "") {
+        } else if (fm.boardWriterName.value == "") {
             alert("작성자를 입력해주세요");
-            fm.writer.focus();
+            fm.boardWriterName.focus();
             return;
-        } else if (fm.password.value == "") {
+        } else if (fm.boardPassword.value == "") {
             alert("비밀번호를 입력해주세요");
-            fm.password.focus();
+            fm.boardPassword.focus();
             return;
         }
+
         fm.action = "${pageContext.request.contextPath}/board/boardWriteAction.aws";
         fm.method = "post";
         fm.enctype = "multipart/form-data";
@@ -136,19 +137,28 @@ textarea {
             <table>
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" id="title" name="subject"></td>
+                    <td><input type="text" id="boardSubject" name="boardSubject"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea id="content" name="contents"></textarea></td>
+                    <td><textarea id="boardContents" name="boardContents"></textarea></td>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td><input type="text" id="author" name="writer"></td>
+                    <td><input type="text" id="boardWriterName" name="boardWriterName"></td>
                 </tr>
                 <tr>
+    				<th>작성자 유형</th>
+    				<td>
+        				<select id="boardWriterType" name="boardWriterType">
+            			<option value="P">환자</option>
+            			<option value="D">의사</option>
+        				</select>
+    				</td>
+				</tr>				
+                <tr>
                     <th>비밀번호</th>
-                    <td><input type="password" id="password" name="password"></td>
+                    <td><input type="password" id="boardPassword" name="boardPassword"></td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>

@@ -84,6 +84,10 @@ public class DoctorController {
 				rttr.addAttribute("doctorId", dv.getDoctorId());
 				rttr.addAttribute("doctorName", dv.getDoctorName());
 
+				// 사용자 정보를 세션에 저장
+	            session.setAttribute("userType", "D"); // 의사 로그인일 경우 'D'
+	            session.setAttribute("userIdx", dv.getDidx()); // 의사의 고유 ID
+	            
 				logger.info("saveUrl : " + session.getAttribute("saveUrl"));
 
 				if (session.getAttribute("saveUrl") != null) {

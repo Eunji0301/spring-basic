@@ -96,17 +96,17 @@ textarea {
 function check() {
     var fm = document.frm;
 
-    if (fm.subject.value == "") {
+    if (fm.boardSubject.value == "") {
         alert("제목을 입력해주세요");
-        fm.subject.focus();
+        fm.boardSubject.focus();
         return;
-    } else if (fm.contents.value == "") {
+    } else if (fm.boardContents.value == "") {
         alert("내용을 입력해주세요");
-        fm.contents.focus();
+        fm.boardContents.focus();
         return;
-    } else if (fm.writer.value == "") {
+    } else if (fm.boardWriterName.value == "") {
         alert("작성자를 입력해주세요");
-        fm.writer.focus();
+        fm.boardWriterName.focus();
         return;
     }
     fm.action = "${pageContext.request.contextPath}/board/boardModifyAction.aws";
@@ -124,15 +124,15 @@ function check() {
         <table>
             <tr>
                 <th>제목</th>
-                <td><input type="text" id="title" name="subject" value="${bv.boardSubject }"></td>
+                <td><input type="text" id="boardSubject" name="boardSubject" value="${bv.boardSubject }"></td>
             </tr>
             <tr>
                 <th>내용</th>
-                <td><textarea id="content" name="contents">${bv.boardContents }</textarea></td>
+                <td><textarea id="boardContents" name="boardContents">${bv.boardContents }</textarea></td>
             </tr>
             <tr>
                 <th>작성자</th>
-                <td><input type="text" id="author" name="writer" value="${bv.boardWriterName }"></td>
+                <td><input type="text" id="boardWriterName" name="boardWriterName" value="${bv.boardWriterName }"></td>
             </tr>
             <tr>
                 <th>비밀번호</th>

@@ -66,4 +66,23 @@
 		UPDATE board SET boardRecom = boardRecom + 1 WHERE bidx = #{bidx}
 	</update>
 	
+	<insert id="boardInsert" parameterType="bv">
+    <selectKey keyProperty="bidx" resultType="int" order="AFTER">
+        SELECT MAX(bidx) as bidx FROM board
+    </selectKey>
+    INSERT INTO board(boardOriginIdx, boardDepth, boardLevel, boardSubject, boardContents, boardFileName, boardIp, boardWriterIdx, boardWriterType) 
+    VALUES (null, 0, 0, #{boardSubject}, #{boardContents}, #{boardUploadedFileName}, #{boardIp}, #{boardWriterIdx}, #{boardWriterType})
+	</insert>
+
+	<update id="boardOriginbidxUpdate" parameterType="int">
+		UPDATE board SET boardOriginIdx = #{bidx} WHERE bidx = #{bidx}
+	</update>
+	
+	<update id="boardUpdate" parameterType="bv">
+		UPDATE board SET boardSubject = #{boardSubject}, boardContents= #{boardContents}, boardModifyDay = NOW(), boardFilename = #{uploadedFilename} WHERE bidx = #{bidx}
+	</update>
+	
+	<update id="boardDelete" parameterType="HashMap">
+		UPDATE board SET boardDelYn = 'Y', boardModifyDay=NOW() WHERE bidx = #{bidx}
+	</update>
 </mapper>
