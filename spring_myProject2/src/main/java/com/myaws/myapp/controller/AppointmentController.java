@@ -19,7 +19,7 @@ import com.myaws.myapp.service.AppointmentService;
 @Controller
 @RequestMapping(value = "/appointment/")
 public class AppointmentController {
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AppointmentController.class);
 
 	@Autowired
 	private AppointmentService appointmentService;
