@@ -205,41 +205,40 @@ function download() {
 		});
 	});
 
-	 $("#cmtBtn").click(function() {
-		let midx = "${midx}";
-			//alert(loginCheck);
-			if (midx == "" || midx == "null" || midx == null || midx == 0){
+	$("#cmtBtn").click(function() {
+		let pidx = "${pidx}";
+			if (pidx == "" || pidx == "null" || pidx == null || pidx == 0){
 				alert("로그인을 해주세요");
 				return;
-			}  	
+			}
 		 
-		let cwriter = $("#cwriter").val();
-		let ccontents = $("#ccontents").val();
+		let commentWriter = $("#commentWriter").val();
+		let commentContents = $("#commentContents").val();
 
-		if (cwriter == "") {
+		if (commentWriter == "") {
 			alert("작성자를 입력해주세요");
-			$("#cwriter").focus();
+			$("#commentWriter").focus();
 			return;
-		} else if (ccontents == "") {
+		} else if (commentContents == "") {
 			alert("내용을 입력해주세요");
-			$("#ccontents").focus();
+			$("#commentContents").focus();
 			return;
 		}
 
-		<%-- $.ajax({
+		$.ajax({
 			type: "post",
 			url: "<%=request.getContextPath()%>/comment/commentWriteAction.aws",
 			data: {
-				"cwriter": cwriter,
-				"ccontents": ccontents,
+				"commentWriter": commentWriter,
+				"commentContents": commentContents,
 				"bidx": "${bv.bidx}",
-				"midx": "${midx}"
+				"pidx": "${pidx}"
 			},
 			dataType: "json",
 			success: function(result) {
 				if(result.value == 1) {
 					alert("댓글 추가에 성공했습니다.");
-					$("#ccontents").val("");
+					$("#commentContents").val("");
 					$("#block").val(1);
 				}
 				$.boardCommentList();
@@ -247,15 +246,15 @@ function download() {
 			error: function() {
 				alert("댓글 추가에 실패했습니다.");
 			}
-		}); --%>
+		});
 	});
 	 
-	/* $("#more").click(function(){
+	 $("#more").click(function(){
 		$.boardCommentList();
-	}); */
+	});
 });
 
-/* //댓글 삭제 함수
+ //댓글 삭제 함수
 function commentDel(cidx){	
 	let ans = confirm("삭제하시겠습니까?");	
 	
@@ -274,9 +273,9 @@ function commentDel(cidx){
 		});			
 	}	
 	return;
-} */
+}
 
-/* //jquery로 만드는 함수  ready밖에 생성
+//jquery로 만드는 함수  ready밖에 생성
 $.boardCommentList = function(){
 	alert("test")
 	let block = $("#block").val();
@@ -293,21 +292,21 @@ $.boardCommentList = function(){
 				
 				var btnn="";			
 				 //현재로그인 사람과 댓글쓴 사람의 번호가 같을때만 나타내준다
-				if (this.midx == "${midx}") {
-					if (this.delyn=="N"){
+				if (this.pidx == "${pidx}") {
+					if (this.commentDelYn=="N"){
 						btnn= "<button type='button' onclick='commentDel("+this.cidx+");'>삭제</button>";
 					}			
 				}
 				strTr = strTr + "<tr>"
 				+"<td>"+this.cidx+"</td>"
-				+"<td>"+this.cwriter+"</td>"
-				+"<td class='content'>"+this.ccontents+"</td>"
-				+"<td>"+this.writeday+"</td>"
+				+"<td>"+this.commentWriter+"</td>"
+				+"<td class='content'>"+this.commentContents+"</td>"
+				+"<td>"+this.commentWriteDay+"</td>"
 				+"<td>"+btnn+"</td>"
 				+"</tr>";					
 			});		       
 			
-			var str  = "<table class='replyTable'>"
+			var str  = "<table class='comment-list'>"
 				+"<tr>"
 				+"<th>번호</th>"
 				+"<th>작성자</th>"
@@ -333,7 +332,7 @@ $.boardCommentList = function(){
 			alert("전송실패");
 		}			
 	});
-} */
+}
 </script>
 </head>
 <body>
@@ -364,15 +363,13 @@ $.boardCommentList = function(){
 			<h3>댓글</h3>
 			<div class="comment-box">
 				<p>
-					<input type="text" id="cwriter" name="cwriter" value="${memberName}" readonly="readonly">
+					<input type="text" id="commentWriter" name="commentWriter" value="${patientName}" readonly="readonly">
 				</p>
-				<textarea id="ccontents" placeholder="댓글을 입력하세요"></textarea>
+				<textarea id="commentContents" placeholder="댓글을 입력하세요"></textarea>
 				<button id="cmtBtn">댓글 작성</button>
 			</div>
 			<table class="comment-list">
-			
 				<tbody id="commentListView">
-					
 				</tbody>
 			</table>
 			
