@@ -11,5 +11,10 @@ public interface CommentMapper {
 	
 	public int commentDelete(CommentVo cv);
 	
+	// ÀÇ»ç
+	public int commentInsert_Doctor(CommentVo cv);
+	
+	public int commentDelete_Doctor(CommentVo cv);
+	
 	public int commentTotalCnt(int bidx);
 }

@@ -53,8 +53,28 @@ public class CommentController {
 	public JSONObject commentWriteAction(CommentVo cv, HttpServletRequest request) throws Exception {
 		System.out.println("commentWriteAction 들어옴");
 		
+		// 세션에서 pidx(환자)와 didx(의사)를 확인하여 구분
+		String commentWriter = null;
+		int userType = 0; // 1 : 환자, 2 : 의사
+		
+		if(request.getSession().getAttribute("pidx") != null) {
+			userType = 1;
+			cv.setPidx(Integer.parseInt(request.getSession().getAttribute("pidx").toString()));
+			commentWriter = (String) request.getSession().getAttribute("patientName");
+		} else if(request.getSession().getAttribute("didx") != null) {
+			userType = 2;
+			cv.setDidx(Integer.parseInt(request.getSession().getAttribute("didx").toString()));
+			commentWriter = (String) request.getSession().getAttribute("doctorName");
+		} else {
+			JSONObject js = new JSONObject();
+			js.put("value", 0); // 로그인하지 않은 경우
+			return js;
+		}
+		
+		cv.setCommentWriter(commentWriter);
 		cv.setCommentIp(userIp.getUserIp(request));
-		int value = commentService.commentInsert(cv);
+		
+		int value = (userType == 1) ? commentService.commentInsert(cv) : commentService.commentInsert_Doctor(cv);
 		
 		JSONObject js = new JSONObject();;
 		js.put("value", value);
@@ -65,17 +85,29 @@ public class CommentController {
 	public JSONObject commentDeleteAction(@PathVariable("cidx") int cidx, HttpServletRequest request, CommentVo cv) throws Exception{
 		System.out.println("commentDeleteAction 들어옴");
 		
-		int pidx = Integer.parseInt(request.getSession().getAttribute("pidx").toString());
+		JSONObject js = new JSONObject();
 		
-		cv.setPidx(pidx);
+		// 세션에서 pidx(환자) 또는 didx(의사) 확인
+		if(request.getSession().getAttribute("pidx") != null) {
+			cv.setPidx(Integer.parseInt(request.getSession().getAttribute("pidx").toString()));
+			int value = commentService.commentDelete(cv);
+			js.put("value", value);
+		} else if(request.getSession().getAttribute("didx") != null) {
+			cv.setDidx(Integer.parseInt(request.getSession().getAttribute("didx").toString()));
+			int value = commentService.commentDelete_Doctor(cv);
+			js.put("value", value);
+		} else {
+			// 로그인하지 않으면 처리 불가
+			js.put("value", 0); // 로그인하지 않은 경우
+			return js;
+		}
+		
 		cv.setCidx(cidx);
 		cv.setCommentIp(userIp.getUserIp(request));
 		
-		int value = commentService.commentDelete(cv);
-		JSONObject js = new JSONObject();
 		
-		js.put("value", value);
 				
 		return js;
 	}
+	
 }

@@ -15,7 +15,17 @@
 		INSERT INTO comment(commentSubject, commentContents, commentWriter, bidx, pidx, commentIp) VALUES (null, #{commentContents}, #{commentWriter}, #{bidx}, #{pidx}, #{commentIp})
 	</insert>
 	
+	<!-- 의사 -->
+	<insert id="commentInsert_Doctor" parameterType = "cv">
+		INSERT INTO comment(commentSubject, commentContents, commentWriter, bidx, didx, commentIp) VALUES (null, #{commentContents}, #{commentWriter}, #{bidx}, #{didx}, #{commentIp})
+	</insert>
+	
 	<update id="commentDelete" parameterType = "cv">
 		UPDATE comment SET commentDelYn = 'Y' WHERE cidx = #{cidx} AND pidx = #{pidx}
+	</update>
+	
+	<!-- 의사 -->
+	<update id="commentDelete_Doctor" parameterType = "cv">
+		UPDATE comment SET commentDelYn = 'Y' WHERE cidx = #{cidx} AND didx = #{didx}
 	</update>
 </mapper>

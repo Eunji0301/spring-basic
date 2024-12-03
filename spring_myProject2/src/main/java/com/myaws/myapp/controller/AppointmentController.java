@@ -44,4 +44,20 @@ public class AppointmentController {
 		return "WEB-INF/appointment/viewAppointment";
 	}
 	
+	@RequestMapping(value = "viewAppointmentAction.aws", method = RequestMethod.POST)
+	public String viewAppointmentAction(AppointmentVo av) {
+		logger.info("viewAppointmentAction µé¾î¿È");
+
+		int value = appointmentService.appointmentInsert(av);
+		logger.info("value : " + value);
+
+		String path = "";
+		if (value == 1) {
+			path = "redirect:/";
+		} else if (value == 0) {
+			path = "redirect:/appointment/viewAppointment.aws";
+		}
+		return path;
+	}
+	
 }

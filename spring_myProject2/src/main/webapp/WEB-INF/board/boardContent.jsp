@@ -178,80 +178,96 @@ function download() {
 	return downLink;
 }
 
- $(document).ready(function() {
-	 
-	/* $.boardCommentList(); */
-	 
-	$("#dUrl").html(getOriginalFileName("${bv.boardFileName}"));
-	
-	$("#dUrl").click(function(event) {
-		$("#dUrl").attr("href", download());
-		return;
-	});
-	
-	$("#btn").click(function() {
-		$.ajax({
-			type: "get",
-			url: "${pageContext.request.contextPath}/board/boardRecom.aws?bidx=${bv.bidx}",
-			dataType: "json",
-			success: function(result) {
-				var str = "추천(" + result.recom + ")";
-				$("#btn").val(str);
-				$("#btn").html(str);
-			},
-			error: function() {
-				alert("전송실패 테스트ㅜ");
-			}
-		});
-	});
+$(document).ready(function() {
+    /* $.boardCommentList(); */
 
-	$("#cmtBtn").click(function() {
-		let pidx = "${pidx}";
-			if (pidx == "" || pidx == "null" || pidx == null || pidx == 0){
-				alert("로그인을 해주세요");
-				return;
-			}
-		 
-		let commentWriter = $("#commentWriter").val();
-		let commentContents = $("#commentContents").val();
+    $("#dUrl").html(getOriginalFileName("${bv.boardFileName}"));
 
-		if (commentWriter == "") {
-			alert("작성자를 입력해주세요");
-			$("#commentWriter").focus();
-			return;
-		} else if (commentContents == "") {
-			alert("내용을 입력해주세요");
-			$("#commentContents").focus();
-			return;
-		}
+    $("#dUrl").click(function(event) {
+        $("#dUrl").attr("href", download());
+        return;
+    });
 
-		$.ajax({
-			type: "post",
-			url: "<%=request.getContextPath()%>/comment/commentWriteAction.aws",
-			data: {
-				"commentWriter": commentWriter,
-				"commentContents": commentContents,
-				"bidx": "${bv.bidx}",
-				"pidx": "${pidx}"
-			},
-			dataType: "json",
-			success: function(result) {
-				if(result.value == 1) {
-					alert("댓글 추가에 성공했습니다.");
-					$("#commentContents").val("");
-					$("#block").val(1);
-				}
-				$.boardCommentList();
-			},
-			error: function() {
-				alert("댓글 추가에 실패했습니다.");
-			}
-		});
-	});
-	 
-	 $("#more").click(function(){
-		$.boardCommentList();
-	});
+    $("#btn").click(function() {
+        $.ajax({
+            type: "get",
+            url: "${pageContext.request.contextPath}/board/boardRecom.aws?bidx=${bv.bidx}",
+            dataType: "json",
+            success: function(result) {
+                var str = "추천(" + result.recom + ")";
+                $("#btn").val(str);
+                $("#btn").html(str);
+            },
+            error: function() {
+                alert("전송실패 테스트ㅜ");
+            }
+        });
+    });
+
+    $("#cmtBtn").click(function() {
+        let pidx = "${sessionScope.pidx}";
+        let didx = "${sessionScope.didx}";
+        if ((pidx == "" || pidx == "null" || pidx == null || pidx == 0) && (didx == "" || didx == "null" || didx == null || didx == 0)) {
+            alert("로그인을 해주세요");
+            return;
+        }
+
+        let commentWriter = $("#commentWriter").val();
+        let commentContents = $("#commentContents").val();
+
+        if (commentWriter == "") {
+            alert("작성자를 입력해주세요");
+            $("#commentWriter").focus();
+            return;
+        } else if (commentContents == "") {
+            alert("내용을 입력해주세요");
+            $("#commentContents").focus();
+            return;
+        }
+
+        var userType = 0; // 1 : 환자, 2 : 의사
+        var data;
+
+        if (pidx) {
+            userType = 1;
+            data = {
+                "commentWriter": commentWriter,
+                "commentContents": commentContents,
+                "bidx": "${bv.bidx}",
+                "pidx": "${pidx}" // 환자 ID 전송
+            };
+        } else if (didx) {
+            userType = 2;
+            data = {
+                "commentWriter": commentWriter,
+                "commentContents": commentContents,
+                "bidx": "${bv.bidx}",
+                "didx": "${didx}" // 의사 ID 전송
+            };
+        }
+
+        $.ajax({
+            type: "post",
+            url: "<%=request.getContextPath()%>/comment/commentWriteAction.aws",
+            data: data,
+            dataType: "json",
+            success: function(result) {
+                if (result.value == 1) {
+                    alert("댓글 추가에 성공했습니다.");
+                    $("#commentContents").val("");
+                    $("#block").val(1);
+                }
+                $.boardCommentList();  // 댓글 목록 새로고침
+            },
+            error: function() {
+                alert("댓글 추가에 실패했습니다.");
+            }
+        });
+    });
+
+    $("#more").click(function(){
+        $.boardCommentList();  // 추가 댓글 불러오기
+    });
 });
 
  //댓글 삭제 함수
@@ -292,7 +308,7 @@ $.boardCommentList = function(){
 				
 				var btnn="";			
 				 //현재로그인 사람과 댓글쓴 사람의 번호가 같을때만 나타내준다
-				if (this.pidx == "${pidx}") {
+				if (this.pidx == "${pidx}" && this.didx == "${didx}") {
 					if (this.commentDelYn=="N"){
 						btnn= "<button type='button' onclick='commentDel("+this.cidx+");'>삭제</button>";
 					}			
@@ -363,7 +379,7 @@ $.boardCommentList = function(){
 			<h3>댓글</h3>
 			<div class="comment-box">
 				<p>
-					<input type="text" id="commentWriter" name="commentWriter" value="${patientName}" readonly="readonly">
+    				<input type="text" id="commentWriter" name="commentWriter" value="${(pidx != '' && pidx != null) ? patientName : (didx != '' && didx != null) ? doctorName : ''}" readonly="readonly">
 				</p>
 				<textarea id="commentContents" placeholder="댓글을 입력하세요"></textarea>
 				<button id="cmtBtn">댓글 작성</button>

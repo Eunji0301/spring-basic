@@ -23,5 +23,11 @@ public class AppointmentServiceImpl implements AppointmentService{
 		ArrayList<AppointmentVo> blist = am.appointmentSelectAll();
 		return blist;
 	}
+	
+	@Override
+	public int appointmentInsert(AppointmentVo av) {
+		int value = am.appointmentInsert(av);
+		return value;
+	}
 
 }

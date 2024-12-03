@@ -37,6 +37,18 @@ public class CommentServiceImpl implements CommentService {
 		int value = cm.commentDelete(cv);
 		return value;
 	}
+	
+	@Override
+	public int commentInsert_Doctor(CommentVo cv) {
+		int value = cm.commentInsert_Doctor(cv);
+		return value;
+	}
+
+	@Override
+	public int commentDelete_Doctor(CommentVo cv) {
+		int value = cm.commentDelete_Doctor(cv);
+		return value;
+	}
 
 	@Override
 	public int commentTotalCnt(int bidx) {

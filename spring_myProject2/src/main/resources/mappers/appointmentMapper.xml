@@ -6,4 +6,9 @@
 <select id="appointmentSelectAll" resultType="av">
 SELECT * FROM appointment ORDER BY aidx DESC
 </select>
+
+<insert id="appointmentInsert" parameterType="av">
+insert into appointment (appointmentSubject, doctorInCharge, appointmentDate, appointmentTime, patientName, pidx, didx, appointmentContact) 
+values (#{appointmentSubject}, #{doctorInCharge}, #{appointmentDate}, #{appointmentTime}, #{patientName}, #{pidx}, #{didx}, #{appointmentContact})
+</insert>
 </mapper>

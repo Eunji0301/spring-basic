@@ -98,50 +98,32 @@ button.submit-btn:hover, button.nav-btn:hover {
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	// 진료 과목에 따른 의사 리스트
-	const doctors = {
-		internal : [ "김내과", "이내과", "박내과" ],
-		dentistry : [ "최치과", "정치과", "송치과" ],
-		skin : [ "조피부과", "한피부과", "오피부과" ],
-		bone : [ "임정형외과", "윤정형외과", "강정형외과" ],
-		kid : [ "구소아과", "남소아과", "류소아과" ],
-		women : [ "허산부인과", "백산부인과", "장산부인과" ]
-	};
-
-	// 진료 과목 선택 시 의사 목록 업데이트
-	$(document).ready(function() {
-		$('#subject').change(function() {
-			const subject = $(this).val();
-			const doctorSelect = $('#doctor');
-			doctorSelect.empty();
-			if (subject) {
-				doctors[subject].forEach(function(doctor) {
-					doctorSelect.append(`<option value="${doctor}">${doctor}</option>`);
-				});
-			} else {
-				doctorSelect.append('<option value="">진료 과목을 선택하세요</option>');
-			}
-		});
-	});
-	
+<script>	
 	// 버튼을 눌렀을 때 check함수 작동
 	function check() {
 		var fm = document.frm;
 
-		if (fm.name.value == "") {
-			alert("예약자명을 입력해주세요");
-			fm.name.focus();
+		if (fm.appointmentSubject.value == "") {
+			alert("진료 과목을 입력해주세요");
+			fm.appointmentSubject.focus();
 			return;
-		}  else if (fm.contact.value == "") {
+		} else if (fm.doctorInCharge.value == "") {
+			alert("진료 의사를 입력해주세요");
+			fm.doctorInCharge.focus();
+			return;
+		} else if (fm.patientName.value == "") {
+			alert("예약자명을 입력해주세요");
+			fm.patientName.focus();
+			return;
+		} else if (fm.appointmentContact.value == "") {
 			alert("연락처를 입력해주세요");
-			fm.contact.focus();
+			fm.appointmentContact.focus();
 			return;
 		}
 		
 		var ans = confirm("저장하시겠습니까 ?");
 		if(ans == true) {
-			fm.action="${pageContext.request.contextPath}/appointment/makeAppointmentAction.aws";
+			fm.action="${pageContext.request.contextPath}/appointment/viewAppointmentAction.aws";
 			fm.method = "post";
 			fm.submit();
 		}
@@ -161,39 +143,29 @@ button.submit-btn:hover, button.nav-btn:hover {
 	<!-- 진료 예약 폼 -->
 	<div class="container">
 		<h2>진료 예약 폼</h2>
-		<form name="frm" action="#" method="POST">
+		<form name="frm">
 			<!-- 진료 과목 -->
 			<div class="form-group">
 				<label for="subject">진료 과목</label> 
-				<select id="subject" name="subject" required>
-					<option value="">선택하세요</option>
-					<option value="internal">내과</option>
-					<option value="dentistry">치과</option>
-					<option value="skin">피부과</option>
-					<option value="bone">정형외과</option>
-					<option value="kid">소아과</option>
-					<option value="women">산부인과</option>
-				</select>
+				<input type="text" id="appointmentSubject" name="appointmentSubject">
 			</div>
 
 			<!-- 진료 의사 -->
 			<div class="form-group">
 				<label for="doctor">진료 의사</label> 
-				<select id="doctor" name="doctor" required>
-					<option value="">진료 과목을 선택하세요</option>
-				</select>
+				<input type="text" id="doctorInCharge" name="doctorInCharge">
 			</div>
 
 			<!-- 예약 날짜 -->
 			<div class="form-group">
 				<label for="date">예약 날짜</label> 
-				<input type="date" id="date" name="date" required>
+				<input type="date" id="appointmentDate" name="appointmentDate">
 			</div>
 
 			<!-- 예약 시간 -->
 			<div class="form-group">
 				<label for="time">예약 시간</label> 
-				<select id="time" name="time" required>
+				<select id="appointmentTime" name="appointmentTime">
 					<option value="">선택하세요</option>
 					<option value="0900">09:00</option>
 					<option value="1030">10:30</option>
@@ -206,13 +178,13 @@ button.submit-btn:hover, button.nav-btn:hover {
 			<!-- 예약자명 -->
 			<div class="form-group">
 				<label for="name">예약자명</label> 
-				<input type="text" id="name" name="name" required>
+				<input type="text" id="patientName" name="patientName">
 			</div>
 
 			<!-- 연락처 -->
 			<div class="form-group">
 				<label for="contact">연락처</label> 
-				<input type="text" id="contact" name="contact" required>
+				<input type="text" id="appointmentContact" name="appointmentContact">
 			</div>
 
 			<!-- 예약 확정 버튼 -->
