@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +47,7 @@ public class AppointmentController {
 		return "WEB-INF/appointment/viewAppointment";
 	}
 	
+	@Transactional
 	@RequestMapping(value = "makeAppointmentAction.aws", method = RequestMethod.POST)
 	public String makeAppointmentAction(AppointmentVo av) {
 		logger.info("makeAppointmentAction µé¾î¿È");
