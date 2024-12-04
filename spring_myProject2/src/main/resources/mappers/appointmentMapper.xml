@@ -8,7 +8,7 @@ SELECT * FROM appointment ORDER BY aidx DESC
 </select>
 
 <insert id="appointmentInsert" parameterType="av">
-insert into appointment (appointmentSubject, doctorInCharge, appointmentDate, appointmentTime, patientName, pidx, didx, appointmentContact) 
-values (#{appointmentSubject}, #{doctorInCharge}, #{appointmentDate}, #{appointmentTime}, #{patientName}, #{pidx}, #{didx}, #{appointmentContact})
+insert into appointment (appointmentSubject, doctorInCharge, appointmentDate, appointmentTime, patientName, pidx, didx, patientPhone) 
+values (#{appointmentSubject}, #{doctorInCharge}, #{appointmentDate}, #{appointmentTime}, #{patientName}, #{pidx}, #{didx}, #{patientPhone})
 </insert>
 </mapper>

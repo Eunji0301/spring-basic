@@ -85,10 +85,11 @@ public class PatientController {
 //			System.out.println("reservedPw" + reservedPw);
 			if (bCryptPasswordEncoder.matches(patientPassword, reservedPw)) {
 				// System.out.println("비밀번호 일치");
-				rttr.addAttribute("pidx", pv.getPidx());
-				rttr.addAttribute("patientId", pv.getPatientId());
-				rttr.addAttribute("patientName", pv.getPatientName());
-
+				session.setAttribute("pidx", pv.getPidx());
+				session.setAttribute("patientId", pv.getPatientId());
+				session.setAttribute("patientName", pv.getPatientName());
+				session.setAttribute("patientPhone",pv.getPatientPhone());
+				
 				logger.info("saveUrl : " + session.getAttribute("saveUrl"));
 
 				if (session.getAttribute("saveUrl") != null) {

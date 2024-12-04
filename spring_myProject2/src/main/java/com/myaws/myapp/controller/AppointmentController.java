@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myaws.myapp.domain.AppointmentVo;
+import com.myaws.myapp.domain.PatientVo;
 import com.myaws.myapp.domain.SearchCriteria;
 import com.myaws.myapp.service.AppointmentService;
+import com.myaws.myapp.service.PatientService;
 
 
 @Controller
@@ -25,7 +27,7 @@ public class AppointmentController {
 	private AppointmentService appointmentService;
 	
 	@RequestMapping(value = "makeAppointment.aws")
-	public String makeAppointment(SearchCriteria scri, Model model) {
+	public String makeAppointment(Model model) {
 		logger.info("makeAppointment µé¾î¿È");
 
 		String path = "WEB-INF/appointment/makeAppointment";
@@ -44,18 +46,18 @@ public class AppointmentController {
 		return "WEB-INF/appointment/viewAppointment";
 	}
 	
-	@RequestMapping(value = "viewAppointmentAction.aws", method = RequestMethod.POST)
-	public String viewAppointmentAction(AppointmentVo av) {
-		logger.info("viewAppointmentAction µé¾î¿È");
+	@RequestMapping(value = "makeAppointmentAction.aws", method = RequestMethod.POST)
+	public String makeAppointmentAction(AppointmentVo av) {
+		logger.info("makeAppointmentAction µé¾î¿È");
 
 		int value = appointmentService.appointmentInsert(av);
 		logger.info("value : " + value);
 
 		String path = "";
 		if (value == 1) {
-			path = "redirect:/";
-		} else if (value == 0) {
 			path = "redirect:/appointment/viewAppointment.aws";
+		} else if (value == 0) {
+			path = "redirect:/appointment/makeAppointment.aws";
 		}
 		return path;
 	}

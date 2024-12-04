@@ -115,15 +115,15 @@ button.submit-btn:hover, button.nav-btn:hover {
 			alert("예약자명을 입력해주세요");
 			fm.patientName.focus();
 			return;
-		} else if (fm.appointmentContact.value == "") {
+		} else if (fm.patientPhone.value == "") {
 			alert("연락처를 입력해주세요");
-			fm.appointmentContact.focus();
+			fm.patientPhone.focus();
 			return;
 		}
 		
-		var ans = confirm("저장하시겠습니까 ?");
+		var ans = confirm("예약을 확정하시겠습니까 ?");
 		if(ans == true) {
-			fm.action="${pageContext.request.contextPath}/appointment/viewAppointmentAction.aws";
+			fm.action="${pageContext.request.contextPath}/appointment/makeAppointmentAction.aws";
 			fm.method = "post";
 			fm.submit();
 		}
@@ -178,13 +178,14 @@ button.submit-btn:hover, button.nav-btn:hover {
 			<!-- 예약자명 -->
 			<div class="form-group">
 				<label for="name">예약자명</label> 
-				<input type="text" id="patientName" name="patientName">
+				<input type="text" id="patientName" name="patientName" value="${sessionScope.patientName}" readonly="readonly">
+
 			</div>
 
 			<!-- 연락처 -->
 			<div class="form-group">
 				<label for="contact">연락처</label> 
-				<input type="text" id="appointmentContact" name="appointmentContact">
+				<input type="text" id="patientPhone" name="patientPhone" value="${sessionScope.patientPhone}" readonly="readonly">
 			</div>
 
 			<!-- 예약 확정 버튼 -->

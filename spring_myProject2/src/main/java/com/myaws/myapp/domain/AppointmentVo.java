@@ -6,11 +6,17 @@ public class AppointmentVo {
 	private int didx;
 	private String appointmentDate;
 	private String appointmentTime;
-	private String appointmentSubject;
-	private String appointmentContact;
+	private String appointmentSubject;;
 	private String doctorInCharge;
 	private String patientName;
+	private String patientPhone;
 	
+	public String getPatientPhone() {
+		return patientPhone;
+	}
+	public void setPatientPhone(String patientPhone) {
+		this.patientPhone = patientPhone;
+	}
 	public int getAidx() {
 		return aidx;
 	}
@@ -47,12 +53,7 @@ public class AppointmentVo {
 	public void setAppointmentSubject(String appointmentSubject) {
 		this.appointmentSubject = appointmentSubject;
 	}
-	public String getAppointmentContact() {
-		return appointmentContact;
-	}
-	public void setAppointmentContact(String appointmentContact) {
-		this.appointmentContact = appointmentContact;
-	}
+
 	public String getDoctorInCharge() {
 		return doctorInCharge;
 	}
