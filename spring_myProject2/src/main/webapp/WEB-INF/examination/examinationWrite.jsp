@@ -88,7 +88,7 @@ body {
 	resize: none; /* 크기 조정 비활성화 */
 }
 
-button[type="submit"] {
+button[type="button"] {
 	background-color: #007bff;
 	color: white;
 	padding: 10px 20px;
@@ -98,7 +98,7 @@ button[type="submit"] {
 	font-size: 16px;
 }
 
-button[type="submit"]:hover {
+button[type="button"]:hover {
 	background-color: #0056b3;
 	border-color: #0056b3;
 }
@@ -110,6 +110,54 @@ footer {
 	font-size: 12px;
 }
 </style>
+<script>
+    function check() {
+        var fm = document.frm;
+
+        if (fm.examinationBp.value == "") {
+            alert("혈압을 입력해주세요");
+            fm.examinationBp.focus();
+            return;
+        } else if (fm.examinationBloodTest.value == "") {
+            alert("혈액검사 결과를 입력해주세요");
+            fm.examinationBloodTest.focus();
+            return;
+        } else if (fm.examinationMri.value == "") {
+            alert("MRI 결과를 입력해주세요");
+            fm.examinationMri.focus();
+            return;
+        } else if (fm.examinationXray.value == "") {
+            alert("X-ray 결과를 입력해주세요");
+            fm.examinationXray.focus();
+            return;
+        } else if (fm.examinationDoctorNotes.value == "") {
+            alert("의사 소견을 입력해주세요");
+            fm.examinationDoctorNotes.focus();
+            return;
+        } else if (fm.examinationPrescription.value == "") {
+            alert("처방약 정보를 입력해주세요");
+            fm.examinationPrescription.focus();
+            return;
+        } else if (fm.examinationTreatmentPlan.value == "") {
+            alert("향후 치료 계획을 입력해주세요");
+            fm.examinationTreatmentPlan.focus();
+            return;
+        } else if (fm.examinationHealthTips.value == "") {
+            alert("건강 관리 팁을 입력해주세요");
+            fm.examinationHealthTips.focus();
+            return;
+        }
+        
+        var ans = confirm("작성을 완료하시겠습니까 ?");
+        if(ans == true) {
+            fm.action="${pageContext.request.contextPath}/examination/examinationWriteAction.aws";
+            fm.method = "post";
+            fm.submit();
+        }
+
+        return; 
+    }
+</script>
 </head>
 <body>
 	<div class="header">
@@ -121,57 +169,55 @@ footer {
 		<h2>진료 결과 작성 폼</h2>
 	</div>
 	
-	<form action="submitResult.jsp" method="post">
+	<form name="frm">
 		<!-- 환자 정보 입력 -->
 		<div class="result-section">
 			<h3>환자 정보</h3>
-			<input type="text" name="patientName" placeholder="환자 이름">
-			<select name="gender" required>
-				<option value="">성별 선택</option>
-				<option value="남성">남성</option>
-				<option value="여성">여성</option>
+			<input type="text" name="patientName" value="${pv.getPatientName }">
+			<select name="patientGender">
+    			<option value="">성별 선택</option>
+    			<option value="남성" ${pv.patientGender == '남성' ? 'selected' : ''}>남성</option>
+    			<option value="여성" ${pv.patientGender == '여성' ? 'selected' : ''}>여성</option>
 			</select>
-			<input type="number" name="age" placeholder="환자 나이">
+			<input type="number" name="age" value="2024 - year(${pv.getPatientBirth}) + 1">
 		</div>
 		
 		<!-- 검사 결과 입력 -->
 		<div class="result-section">
 			<h3>검사 결과</h3>
-			<input type="text" name="bloodPressureResult" placeholder="혈압 (예: 120/80 mmHg)">
-			<input type="text" name="bloodTestResult" placeholder="혈액검사 결과">
-			<input type="text" name="mriResult" placeholder="MRI 결과">
-			<input type="text" name="xrayResult" placeholder="X-ray 결과">
+			<input type="text" name="examinationBp" placeholder="혈압 (예: 120/80 mmHg)">
+			<input type="text" name="examinationBloodTest" placeholder="혈액검사 결과">
+			<input type="text" name="examinationMri" placeholder="MRI 결과">
+			<input type="text" name="examinationXray" placeholder="X-ray 결과">
 		</div>
 		
 		<!-- 의사 소견 입력 -->
 		<div class="result-section">
 			<h3>의사 소견</h3>
-			<textarea name="doctorOpinion" placeholder="의사 소견을 입력하세요"></textarea>
+			<textarea name="examinationDoctorNotes" placeholder="의사 소견을 입력하세요"></textarea>
 		</div>
 		
 		<!-- 처방약 입력 -->
 		<div class="result-section">
 			<h3>처방약</h3>
-			<textarea name="prescription" placeholder="처방약 정보를 입력하세요"></textarea>
+			<textarea name="examinationPrescription" placeholder="처방약 정보를 입력하세요"></textarea>
 		</div>
 		
 		<!-- 향후 치료 계획 입력 -->
 		<div class="result-section">
 			<h3>향후 치료 계획</h3>
-			<textarea name="treatmentPlan" placeholder="향후 치료 계획을 입력하세요"></textarea>
+			<textarea name="examinationTreatmentPlan" placeholder="향후 치료 계획을 입력하세요"></textarea>
 		</div>
 		
 		<!-- 건강 관리 팁 입력 -->
 		<div class="result-section">
 			<h3>건강 관리 팁</h3>
-			<textarea name="healthTips" placeholder="건강 관리 팁을 입력하세요"></textarea>
+			<textarea name="examinationHealthTips" placeholder="건강 관리 팁을 입력하세요"></textarea>
 		</div>
 		
 		<!-- 제출 버튼 -->
 		<div style="text-align: center; margin: 20px 0;">
-			<button type="submit">
-				작성 완료
-			</button>
+			<button type="button" onclick="check();">작성 완료</button>
 		</div>
 	</form>
 </body>

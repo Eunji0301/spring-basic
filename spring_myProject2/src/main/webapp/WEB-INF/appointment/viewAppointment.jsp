@@ -144,7 +144,7 @@ table tr:hover {
 					<td><%=av.getDoctorInCharge() %></td>
 					<td><%=av.getAppointmentDate() %></td>
 					<td><%=av.getAppointmentTime() %></td>
-					<td><%=av.getPatientName() %></td>
+					<td><a href="${pageContext.request.contextPath}/examination/examinationWrite.aws"><%=av.getPatientName() %></a></td>
 				</tr>
 				<%
 				num += 1;

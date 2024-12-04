@@ -4,19 +4,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.myaws.myapp.domain.BoardVo;
+import com.myaws.myapp.domain.ExaminationVo;
 import com.myaws.myapp.domain.SearchCriteria;
 import com.myaws.myapp.service.BoardService;
+import com.myaws.myapp.service.ExaminationService;
 
 @Controller
 @RequestMapping(value = "/examination/")
 public class ExaminationController {
 	private static final Logger logger = LoggerFactory.getLogger(ExaminationController.class);
 
+	@Autowired
+	private ExaminationService examinationService;
+	
 	@Autowired(required = false)
 	private BoardService boardService;
 	
@@ -35,6 +42,23 @@ public class ExaminationController {
 
 		String path = "WEB-INF/examination/examinationResult";
 
+		return path;
+	}
+	
+	@Transactional
+	@RequestMapping(value = "examinationWriteAction.aws", method = RequestMethod.POST)
+	public String examinationWriteAction(ExaminationVo ev) {
+		logger.info("examinationWriteAction µé¾î¿È");
+
+		int value = examinationService.examinationInsert(ev);
+		logger.info("value : " + value);
+
+		String path = "";
+		if (value == 1) {
+			path = "redirect:/examination/examinationResult.aws";
+		} else if (value == 0) {
+			path = "redirect:/";
+		}
 		return path;
 	}
 }
