@@ -1,4 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+String patientName = request.getParameter("patientName");
+String patientGender = request.getParameter("patientGender");
+String age = request.getParameter("age");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,24 +179,26 @@ footer {
 		<!-- 환자 정보 입력 -->
 		<div class="result-section">
 			<h3>환자</h3>
-			이름<input type="text" name="patientName" value="${pv.patientName }">
+    		<label for="patientName">이름</label>
+    		<input type="text" id="patientName" name="patientName" value="<%= patientName %>" readonly="readonly">
 			<br>
-			성별<select name="patientGender">
-    			<option value="">성별 선택</option>
-    			<option value="남성" ${pv.patientGender == 'M' ? 'selected' : ''}>남성</option>
-    			<option value="여성" ${pv.patientGender == 'F' ? 'selected' : ''}>여성</option>
-			</select>
+    		<label for="patientGender">성별</label>
+    		<input type="text" id="patientGender" name="patientGender" value="<%= patientGender %>" readonly="readonly">
 			<br>
-			나이<input type="text" name="age">
+   			<label for="age">나이</label>
+    		<input type="text" id="age" name="age" value="<%= age %>" readonly="readonly">
 		</div>
-		
+
 		<div class="result-section">
 			<h3>의사</h3>
-			이름<input type="text" name="doctorName" value="${sessionScope.doctorName }" readonly="readonly">
+			<label for="doctorName">이름</label>
+			<input type="text" name="doctorName" value="${sessionScope.doctorName }" readonly="readonly">
 			<br>
-			진료과<input type="text" name="doctorSpecialty" value="${sessionScope.doctorSpecialty }" readonly="readonly">
+			<label>진료과</label>
+			<input type="text" name="doctorSpecialty" value="${sessionScope.doctorSpecialty }" readonly="readonly">
 			<br>
-			면허번호<input type="text" name="doctorLicenseNo" value="${sessionScope.doctorLicenseNo }" readonly="readonly">
+			<label>면허번호</label>
+			<input type="text" name="doctorLicenseNo" value="${sessionScope.doctorLicenseNo }" readonly="readonly">
 		</div>
 		
 		<!-- 검사 결과 입력 -->

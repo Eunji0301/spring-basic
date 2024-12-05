@@ -92,29 +92,25 @@ body {
 		<h2>환자 정보</h2>
 	</div>
 	<div class="container">
-		<form action="" method="post">
+		<form action="examinationWrite.jsp" method="post">
 			<div class="form-group">
-				<label for="patientName">이름:</label> <input type="text"
-					id="patientName" name="patientName" value="${pv.patientName}"
-					readonly="readonly">
+				<label for="patientName">이름</label>
+				<input type="text" id="patientName" name="patientName" value="${pv.patientName}" readonly="readonly">
 			</div>
 
 			<div class="form-group">
-				<label for="patientGender">성별:</label> <select name="patientGender"
-					id="patientGender" disabled>
-					<option value="남성" ${pv.patientGender == 'M' ? 'selected' : ''}>남성</option>
-					<option value="여성" ${pv.patientGender == 'F' ? 'selected' : ''}>여성</option>
-				</select>
+				<label for="patientGender">성별</label>
+				<input type="text" id="patientGender" name="patientGender" value="${pv.patientGender}" readonly="readonly">
 			</div>
 
 			<div class="form-group">
-				<label for="age">나이:</label> <input type="text" id="age" name="age"
-					value="${age}" readonly="readonly">
+				<label for="age">나이</label> 
+				<input type="text" id="age" name="age"value="${age}" readonly="readonly">
 			</div>
 
 			<div class="form-actions">
 				<a
-					href="${pageContext.request.contextPath}/examination/examinationWrite.aws">
+					href="${pageContext.request.contextPath}/examination/examinationWrite.aws?patientName=${pv.patientName}&patientGender=${pv.patientGender}&age=${age}">
 					<button type="button" class="submit-btn">진료 결과 작성</button>
 				</a>
 			</div>
