@@ -46,6 +46,20 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- 환자, 의사의 페이지 접근 제어 -->
+    <interceptors>
+        <!-- 환자는 examinationWrite 페이지에 접근할 수 없음 -->
+        <interceptor>
+            <mapping path="/examination/examinationWrite.aws" />
+            <beans:ref bean="authInterceptor" />
+        </interceptor>
+
+        <!-- 의사는 makeAppointment 페이지에 접근할 수 없음 -->
+        <interceptor>
+            <mapping path="/appointment/makeAppointment.aws" />
+            <beans:ref bean="authInterceptor" />
+        </interceptor>
+    </interceptors>
 	<!-- <interceptors>
 		<interceptor>
 			<mapping path="/board/boardWrite.aws"/>

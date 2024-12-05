@@ -17,4 +17,7 @@ SELECT COUNT(*) AS cnt FROM patient WHERE patientId = #{patientId}
 SELECT * FROM patient WHERE patientId = #{patientId}
 </select>
 
+<select id="getPatientInfo" parameterType="String" resultType="pv">
+SELECT patientId, patientName, patientGender, patientBirth FROM patient WHERE patientId = #{patientId}
+</select>
 </mapper>

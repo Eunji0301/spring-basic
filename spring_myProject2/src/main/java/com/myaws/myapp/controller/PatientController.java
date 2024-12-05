@@ -148,4 +148,29 @@ public class PatientController {
 
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value = "patientInfo.aws", method = RequestMethod.GET)
+	public String patientInfo(@RequestParam("patientId") String patientId, Model model) {
+		 logger.info("patientInfo 들어옴");
+		 logger.info("patientId: " + patientId);
+		 
+		 // 환자 정보를 가져오는 서비스 호출
+		 PatientVo pv = patientService.getPatientInfo(patientId);
+		 
+		 if(pv != null) {
+			 // 나이계산 - 출생 연도 가져와 현재 연도에서 뺌
+			 String birthyear = pv.getPatientBirth().substring(0,4);
+			 int age = 2024 - Integer.parseInt(birthyear);
+					 
+			// 모델에 환자 정보와 나이 추가
+			model.addAttribute("pv",pv);
+			model.addAttribute("age",age);
+		 } else {
+			 logger.info("해당 환자 정보가 없습니다.");
+			 model.addAttribute("msg","해당 환자 정보가 없습니다.");
+		 }
+		 
+		 return "WEB-INF/patient/patientInfo";
+	}
+	
 }

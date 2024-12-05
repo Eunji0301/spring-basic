@@ -39,4 +39,10 @@ public class PatientServiceImpl implements PatientService{
 //		System.out.println("patientLoginCheck pv : " + pv);
 		return pv;
 	}
+	
+	@Override
+	public PatientVo getPatientInfo(String patientId) {
+		PatientVo pv = pm.getPatientInfo(patientId);
+		return pv;
+	}
 }

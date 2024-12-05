@@ -208,6 +208,7 @@ button.submit-btn:hover, button.nav-btn:hover {
             <!-- 환자 pidx (숨겨진 input 필드) -->
     		<input type="hidden" id="pidx" name="pidx" value="${sessionScope.pidx}">
     		
+    		<input type="text" id="patientId" name="patientId">
             <!-- 진료 과목 -->
             <div class="form-group">
                 <label for="subject">진료 과목</label> 

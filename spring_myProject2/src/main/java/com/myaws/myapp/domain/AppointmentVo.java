@@ -10,7 +10,14 @@ public class AppointmentVo {
 	private String doctorInCharge;
 	private String patientName;
 	private String patientPhone;
+	private String patientId;
 	
+	public String getPatientId() {
+		return patientId;
+	}
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
+	}
 	public String getPatientPhone() {
 		return patientPhone;
 	}

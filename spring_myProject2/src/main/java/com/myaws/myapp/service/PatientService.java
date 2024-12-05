@@ -11,4 +11,7 @@ public interface PatientService {
 	public int patientIdCheck(String patientId);
 	
 	public PatientVo patientLoginCheck(String patientId);
+	
+	// examinationWrite할때 화면에 환자 정보 띄울 목적
+	public PatientVo getPatientInfo(String patientId);
 }

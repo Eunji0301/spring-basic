@@ -173,13 +173,15 @@ footer {
 		<!-- 환자 정보 입력 -->
 		<div class="result-section">
 			<h3>환자 정보</h3>
-			<input type="text" name="patientName" value="${pv.getPatientName }">
-			<select name="patientGender">
+			이름<input type="text" name="patientName" value="${pv.patientName }">
+			<br>
+			성별<select name="patientGender">
     			<option value="">성별 선택</option>
-    			<option value="남성" ${pv.patientGender == '남성' ? 'selected' : ''}>남성</option>
-    			<option value="여성" ${pv.patientGender == '여성' ? 'selected' : ''}>여성</option>
+    			<option value="남성" ${pv.patientGender == 'M' ? 'selected' : ''}>남성</option>
+    			<option value="여성" ${pv.patientGender == 'F' ? 'selected' : ''}>여성</option>
 			</select>
-			<input type="number" name="age" value="2024 - year(${pv.getPatientBirth}) + 1">
+			<br>
+			나이<input type="text" name="age">
 		</div>
 		
 		<!-- 검사 결과 입력 -->

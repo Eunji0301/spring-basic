@@ -139,13 +139,16 @@ table tr:hover {
 					for(AppointmentVo av : blist) {
 				%>
 				<tr>
-					<td><%=av.getAidx() %></td>
-					<td><%=av.getAppointmentSubject() %></td>
-					<td><%=av.getDoctorInCharge() %></td>
-					<td><%=av.getAppointmentDate() %></td>
-					<td><%=av.getAppointmentTime() %></td>
-					<td><a href="${pageContext.request.contextPath}/examination/examinationWrite.aws"><%=av.getPatientName() %></a></td>
-				</tr>
+    				<td><%= av.getAidx() %></td>
+    				<td><%= av.getAppointmentSubject() %></td>
+    				<td><%= av.getDoctorInCharge() %></td>
+    				<td><%= av.getAppointmentDate() %></td>
+    				<td><%= av.getAppointmentTime() %></td>
+    				<td><a href="${pageContext.request.contextPath}/patient/patientInfo.aws?patientId=<%= av.getPatientId() %>"><%= av.getPatientName() %>
+        </a>
+    </td>
+</tr>
+
 				<%
 				num += 1;
 				}
