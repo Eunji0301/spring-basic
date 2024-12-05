@@ -172,7 +172,7 @@ footer {
 	<form name="frm">
 		<!-- 환자 정보 입력 -->
 		<div class="result-section">
-			<h3>환자 정보</h3>
+			<h3>환자</h3>
 			이름<input type="text" name="patientName" value="${pv.patientName }">
 			<br>
 			성별<select name="patientGender">
@@ -182,6 +182,15 @@ footer {
 			</select>
 			<br>
 			나이<input type="text" name="age">
+		</div>
+		
+		<div class="result-section">
+			<h3>의사</h3>
+			이름<input type="text" name="doctorName" value="${sessionScope.doctorName }" readonly="readonly">
+			<br>
+			진료과<input type="text" name="doctorSpecialty" value="${sessionScope.doctorSpecialty }" readonly="readonly">
+			<br>
+			면허번호<input type="text" name="doctorLicenseNo" value="${sessionScope.doctorLicenseNo }" readonly="readonly">
 		</div>
 		
 		<!-- 검사 결과 입력 -->

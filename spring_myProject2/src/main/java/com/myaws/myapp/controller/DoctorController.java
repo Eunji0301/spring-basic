@@ -80,9 +80,11 @@ public class DoctorController {
 //			System.out.println("reservedPw" + reservedPw);
 			if (bCryptPasswordEncoder.matches(doctorPassword, reservedPw)) {
 				// System.out.println("비밀번호 일치");
-				rttr.addAttribute("didx", dv.getDidx());
-				rttr.addAttribute("doctorId", dv.getDoctorId());
-				rttr.addAttribute("doctorName", dv.getDoctorName());
+				session.setAttribute("didx", dv.getDidx());
+				session.setAttribute("doctorId", dv.getDoctorId());
+				session.setAttribute("doctorName", dv.getDoctorName());
+				session.setAttribute("doctorSpecialty", dv.getDoctorSpecialty());
+				session.setAttribute("doctorLicenseNo", dv.getDoctorLicenseNo());
 
 				// 사용자 정보를 세션에 저장
 	            session.setAttribute("userType", "D"); // 의사 로그인일 경우 'D'
