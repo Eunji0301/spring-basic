@@ -36,6 +36,7 @@
 	</beans:bean>
 	
 	<interceptors>
+		<!-- 로그인 인터셉터 -->
 		<interceptor>
 			<mapping path="/patient/patientLoginAction.aws"/>
 			<beans:ref bean = "loginInterceptor" />
@@ -44,10 +45,9 @@
 			<mapping path="/doctor/doctorLoginAction.aws"/>
 			<beans:ref bean = "loginInterceptor" />
 		</interceptor>
-	</interceptors>
 	
-	<!-- 환자, 의사의 페이지 접근 제어 -->
-    <interceptors>
+		<!-- 권한 인터셉터 -->
+		<!-- 환자, 의사의 페이지 접근 제어 -->
         <!-- 환자는 examinationWrite 페이지에 접근할 수 없음 -->
         <interceptor>
             <mapping path="/examination/examinationWrite.aws" />
@@ -60,60 +60,5 @@
             <beans:ref bean="authInterceptor" />
         </interceptor>
     </interceptors>
-	<!-- <interceptors>
-		<interceptor>
-			<mapping path="/board/boardWrite.aws"/>
-			<beans:ref bean = "authInterceptor" />
-		</interceptor>
-	</interceptors>
-	
-	<interceptors>
-		<interceptor>
-			<mapping path="/board/boardWriteAction.aws"/>
-			<beans:ref bean = "authInterceptor" />
-		</interceptor>
-	</interceptors>
-	
-	<interceptors>
-		<interceptor>
-			<mapping path="/board/boardDeleteAction.aws"/>
-			<beans:ref bean = "authInterceptor" />
-		</interceptor>
-	</interceptors>
-	
-	<interceptors>
-		<interceptor>
-			<mapping path="/board/boardDeleteAction.aws"/>
-			<beans:ref bean = "authInterceptor" />
-		</interceptor>
-	</interceptors>
-	
-	<interceptors>
-		<interceptor>
-			<mapping path="/board/boardReply.aws"/>
-			<beans:ref bean = "authInterceptor" />
-		</interceptor>
-	</interceptors>
-	
-	<interceptors>
-		<interceptor>
-			<mapping path="/board/boardReplyAction.aws"/>
-			<beans:ref bean = "authInterceptor" />
-		</interceptor>
-	</interceptors>
-	
-	<interceptors>
-		<interceptor>
-			<mapping path="/board/boardModify.aws"/>
-			<beans:ref bean = "authInterceptor" />
-		</interceptor>
-	</interceptors>
-	
-	<interceptors>
-		<interceptor>
-			<mapping path="/board/boardModifyAction.aws"/>
-			<beans:ref bean = "authInterceptor" />
-		</interceptor>
-	</interceptors> -->
 	<context:component-scan base-package="com.myaws.myapp.controller" />
 </beans:beans>

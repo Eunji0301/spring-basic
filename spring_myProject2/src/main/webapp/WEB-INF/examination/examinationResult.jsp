@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,7 +124,7 @@ footer {
 	<!-- 환자 -->
 	<div class="result-section">
 		<h3>환자</h3>
-		<p>이름 : 홍길동</p>
+		<p>이름 : </p>
 		<p>성별 : 남성</p>
 		<p>나이 : 35세</p>
 	</div>
@@ -131,9 +132,9 @@ footer {
 	<!-- 의사 -->
 	<div class="result-section">
 		<h3>의사</h3>
-		<p>이름 : 김철수</p>
-		<p>진료과 : 내과</p>
-		<p>면허번호 : I-123456789</p>
+		<p>이름 : </p>
+		<p>진료과 : </p>
+		<p>면허번호 : </p>
 	</div>
 	
 	<!-- 검사 결과 -->

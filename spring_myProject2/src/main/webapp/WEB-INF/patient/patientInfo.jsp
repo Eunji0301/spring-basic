@@ -93,6 +93,9 @@ body {
 	</div>
 	<div class="container">
 		<form action="examinationWrite.jsp" method="post">
+			<input type="hidden" id="pidx" name="pidx" value="${pv.pidx }">
+			
+			<input type="text" id="aidx" name="aidx" value="${param.aidx}" readonly="readonly">
 			<div class="form-group">
 				<label for="patientName">이름</label>
 				<input type="text" id="patientName" name="patientName" value="${pv.patientName}" readonly="readonly">
@@ -109,8 +112,7 @@ body {
 			</div>
 
 			<div class="form-actions">
-				<a
-					href="${pageContext.request.contextPath}/examination/examinationWrite.aws?patientName=${pv.patientName}&patientGender=${pv.patientGender}&age=${age}">
+				<a href="${pageContext.request.contextPath}/examination/examinationWrite.aws?pidx=${pv.pidx }&patientName=${pv.patientName}&patientGender=${pv.patientGender}&age=${age}">
 					<button type="button" class="submit-btn">진료 결과 작성</button>
 				</a>
 			</div>

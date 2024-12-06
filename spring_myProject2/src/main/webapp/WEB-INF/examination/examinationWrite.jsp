@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.myaws.myapp.domain.*"%>
 <%
 String patientName = request.getParameter("patientName");
 String patientGender = request.getParameter("patientGender");
 String age = request.getParameter("age");
-
+String pidx = (String) request.getParameter("pidx");
+/* String aidx = request.getParameter("aidx"); */
 %>
 <!DOCTYPE html>
 <html>
@@ -175,10 +177,13 @@ footer {
 		<h2>진료 결과 작성 폼</h2>
 	</div>
 	
-	<form name="frm">
+	<form name="frm" action="examinationWriteAction.aws" method="post">
 		<!-- 환자 정보 입력 -->
 		<div class="result-section">
 			<h3>환자</h3>
+			<input type="hidden" id="pidx" name="pidx" value="<%= pidx %>" readonly="readonly">
+			<input type="text" id="aidx" name="aidx">
+			
     		<label for="patientName">이름</label>
     		<input type="text" id="patientName" name="patientName" value="<%= patientName %>" readonly="readonly">
 			<br>
@@ -191,6 +196,8 @@ footer {
 
 		<div class="result-section">
 			<h3>의사</h3>
+			<input type="hidden" name="didx" value="${sessionScope.didx }" readonly="readonly">
+			
 			<label for="doctorName">이름</label>
 			<input type="text" name="doctorName" value="${sessionScope.doctorName }" readonly="readonly">
 			<br>

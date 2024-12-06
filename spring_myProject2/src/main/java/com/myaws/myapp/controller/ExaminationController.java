@@ -28,9 +28,8 @@ public class ExaminationController {
 	private BoardService boardService;
 	
 	@RequestMapping(value = "examinationWrite.aws")
-	public String examinationWrite(SearchCriteria scri, Model model) {
+	public String examinationWrite(Model model) {
 		logger.info("examinationWrite µé¾î¿È");
-
 		String path = "WEB-INF/examination/examinationWrite";
 
 		return path;
