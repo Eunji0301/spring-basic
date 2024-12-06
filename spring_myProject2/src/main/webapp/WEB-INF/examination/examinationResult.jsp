@@ -134,10 +134,10 @@ footer {
 	<div class="result-section">
 		
 		<h3>환자</h3>
-		<p>환자 ID : ${pidx }</p>
-		<p>이름 : ${result.patientName}</p>
-		<p>성별 : ${result.patientGender}</p>
-		<p>나이 : ${result.age}세</p>
+		<%-- <p>환자 ID : ${pidx }</p> --%>
+		<p>이름 : </p>
+		<p>성별 : </p>
+		<p>나이 : 세</p>
 	</div>
   
 	<!-- 의사 -->
@@ -187,7 +187,7 @@ footer {
 
 	<div class="result-section">
 		<h3>향후 치료 계획</h3>
-		<p>${result.examinationPrescription}</p>
+		<p>${result.examinationTreatmentPlan}</p>
 	</div>
 	
 	<div class="result-section">
