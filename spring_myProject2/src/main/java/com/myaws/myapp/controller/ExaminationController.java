@@ -35,14 +35,28 @@ public class ExaminationController {
 		return path;
 	}
 	
-	@RequestMapping(value = "examinationResult.aws")
-	public String examinationResult(SearchCriteria scri, Model model) {
-		logger.info("examinationResult 들어옴");
+//	@RequestMapping(value = "examinationResult.aws")
+//	public String examinationResult(SearchCriteria scri, Model model) {
+//		logger.info("examinationResult 들어옴");
+//
+//		String path = "WEB-INF/examination/examinationResult";
+//
+//		return path;
+//	}
+	 @RequestMapping(value = "examinationResult.aws")
+	    public String examinationResult(@RequestParam(value = "pidx", required = false) Integer pidx, Model model) {
+	        logger.info("examinationResult 들어옴");
+	        logger.info("pidx : " + pidx);
+	        // 진료 결과를 DB에서 조회
+	        ExaminationVo result = examinationService.getExaminationResult(pidx);
+	        logger.info("result : " + result);
+	        // 조회된 진료 결과를 모델에 담아 JSP로 전달
+	        model.addAttribute("result", result);
+	        model.addAttribute("pidx",pidx);
 
-		String path = "WEB-INF/examination/examinationResult";
-
-		return path;
-	}
+	        String path = "WEB-INF/examination/examinationResult";
+	        return path;
+	    }
 	
 	@Transactional
 	@RequestMapping(value = "examinationWriteAction.aws", method = RequestMethod.POST)
@@ -54,7 +68,7 @@ public class ExaminationController {
 
 		String path = "";
 		if (value == 1) {
-			path = "redirect:/examination/examinationResult.aws";
+			path = "redirect:/examination/examinationResult.aws?pidx=" + ev.getPidx();
 		} else if (value == 0) {
 			path = "redirect:/";
 		}

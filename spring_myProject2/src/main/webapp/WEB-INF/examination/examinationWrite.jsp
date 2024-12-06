@@ -159,7 +159,8 @@ footer {
         
         var ans = confirm("작성을 완료하시겠습니까 ?");
         if(ans == true) {
-            fm.action="${pageContext.request.contextPath}/examination/examinationWriteAction.aws";
+        	var pidx = fm.pidx.value; // <input type="hidden" id="pidx" name="pidx"> 필드의 값을 가져오기
+            fm.action="${pageContext.request.contextPath}/examination/examinationWriteAction.aws?pidx=" + pidx;
             fm.method = "post";
             fm.submit();
         }
@@ -183,7 +184,7 @@ footer {
 		<!-- 환자 정보 입력 -->
 		<div class="result-section">
 			<h3>환자</h3>
-			<input type="hidden" id="pidx" name="pidx" value="<%= pidx %>" readonly="readonly">
+			<input type="text" id="pidx" name="pidx" value="<%= pidx %>" readonly="readonly">
     		<label for="patientName">이름</label>
     		<input type="text" id="patientName" name="patientName" value="<%= patientName %>" readonly="readonly">
 			<br>

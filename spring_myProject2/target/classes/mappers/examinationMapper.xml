@@ -7,4 +7,9 @@
 insert into examination (eidx, pidx, didx, aidx, examinationBp, examinationBloodTest, examinationMri, examinationXray, examinationDoctorNotes, examinationPrescription, examinationTreatmentPlan, examinationHealthTips) 
 values (#{eidx}, #{pidx}, #{didx}, #{aidx}, #{examinationBp}, #{examinationBloodTest}, #{examinationMri}, #{examinationXray}, #{examinationDoctorNotes}, #{examinationPrescription}, #{examinationTreatmentPlan}, #{examinationHealthTips})
 </insert>
+
+<!-- 진료 결과 조회 쿼리 -->
+<select id="getExaminationResult" resultType="ev">
+SELECT * FROM examination WHERE pidx = #{pidx}
+</select>
 </mapper>

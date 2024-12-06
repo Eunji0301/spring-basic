@@ -5,4 +5,6 @@ import com.myaws.myapp.domain.ExaminationVo;
 // MyBatis용 메서드
 public interface ExaminationMapper {
 	public int examinationInsert(ExaminationVo ev);
+	
+	public ExaminationVo getExaminationResult(Integer patientId);
 }

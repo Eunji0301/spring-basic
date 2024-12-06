@@ -1,5 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
 
+<%
+String pidx = (String) request.getParameter("pidx");
+
+Object resultObj = request.getAttribute("result");
+Object pidxObj = request.getAttribute("pidx");
+System.out.println("result in JSP: " + resultObj);
+System.out.println("pidx in JSP: " + pidxObj);
+
+java.util.Enumeration<String> attributeNames = request.getAttributeNames();
+while (attributeNames.hasMoreElements()) {
+    String attributeName = attributeNames.nextElement();
+    System.out.println(attributeName + ": " + request.getAttribute(attributeName));
+}
+
+
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,10 +141,12 @@ footer {
 	
 	<!-- 환자 -->
 	<div class="result-section">
+		
 		<h3>환자</h3>
-		<p>이름 : </p>
-		<p>성별 : 남성</p>
-		<p>나이 : 35세</p>
+		<p>환자 ID : ${pidx }</p>
+		<p>이름 : ${result.patientName}</p>
+		<p>성별 : ${result.patientGender}</p>
+		<p>나이 : ${result.age}세</p>
 	</div>
   
 	<!-- 의사 -->
@@ -147,46 +167,41 @@ footer {
 			</tr>
 			<tr>
 				<td>혈압</td>
-				<td>120/80 mmHg</td>
+				<td>${result.examinationBp}</td>
 			</tr>
 			<tr>
 				<td>혈액검사</td>
-				<td>정상</td>
+				<td>${result.examinationBloodTest}</td>
 			</tr>
 			<tr>
 				<td>MRI</td>
-				<td>특이사항 없음</td>
+				<td>${result.examinationMri}</td>
 			</tr>
 			<tr>
 				<td>X-ray</td>
-				<td>특이사항 없음</td>
+				<td>${result.examinationXray}</td>
 			</tr>
 		</table>
 	</div>
 	
-	<!-- 의사 소견 -->
 	<div class="result-section">
 		<h3>의사 소견</h3>
-		<p>현재 건강 상태는 양호하나, 정기적인 검사가 필요합니다.</p>
+		<p>${result.examinationDoctorNotes}</p>
 	</div>
 	
-	<!-- 처방약 -->
 	<div class="result-section">
 		<h3>처방약</h3>
-		<p>타이레놀 500mg - 하루 2회 복용</p>
+		<p>${result.examinationPrescription}</p>
 	</div>
-	
-	<!-- 향후 치료 계획 -->
+
 	<div class="result-section">
 		<h3>향후 치료 계획</h3>
-		<p>다음 진료 예약: 2024년 12월 10일</p>
-		<p>운동량을 늘리고 균형 잡힌 식사를 유지하세요.</p>
+		<p>${result.examinationPrescription}</p>
 	</div>
 	
-	<!-- 건강 관리 팁 -->
 	<div class="result-section">
 		<h3>건강 관리 팁</h3>
-        <p>하루 30분 이상 규칙적으로 운동하세요.</p>
+        <p>${result.examinationHealthTips}</p>
 	</div>
 </body>
 </html>

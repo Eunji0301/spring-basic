@@ -21,5 +21,11 @@ public class ExaminationServiceImpl implements ExaminationService {
 		int value = em.examinationInsert(ev);
 		return value;
 	}
-
+	
+	@Override
+    public ExaminationVo getExaminationResult(Integer pidx) {
+        // patientId를 기반으로 진료 결과를 조회
+        ExaminationVo result = em.getExaminationResult(pidx);
+        return result;
+    }
 }
