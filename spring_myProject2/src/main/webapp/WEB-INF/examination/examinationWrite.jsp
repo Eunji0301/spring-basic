@@ -5,7 +5,8 @@ String patientName = request.getParameter("patientName");
 String patientGender = request.getParameter("patientGender");
 String age = request.getParameter("age");
 String pidx = (String) request.getParameter("pidx");
-/* String aidx = request.getParameter("aidx"); */
+
+String aidx = (String) request.getParameter("aidx");
 %>
 <!DOCTYPE html>
 <html>
@@ -177,13 +178,12 @@ footer {
 		<h2>진료 결과 작성 폼</h2>
 	</div>
 	
-	<form name="frm" action="examinationWriteAction.aws" method="post">
+	<form name="frm">	
+			<input type="hidden" id="aidx" name="aidx" value="<%=aidx%>">
 		<!-- 환자 정보 입력 -->
 		<div class="result-section">
 			<h3>환자</h3>
 			<input type="hidden" id="pidx" name="pidx" value="<%= pidx %>" readonly="readonly">
-			<input type="text" id="aidx" name="aidx">
-			
     		<label for="patientName">이름</label>
     		<input type="text" id="patientName" name="patientName" value="<%= patientName %>" readonly="readonly">
 			<br>

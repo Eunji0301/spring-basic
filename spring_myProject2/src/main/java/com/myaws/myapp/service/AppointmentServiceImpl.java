@@ -29,5 +29,4 @@ public class AppointmentServiceImpl implements AppointmentService{
 		int value = am.appointmentInsert(av);
 		return value;
 	}
-
 }

@@ -11,4 +11,8 @@ SELECT * FROM appointment ORDER BY aidx DESC
 insert into appointment (appointmentSubject, doctorInCharge, appointmentDate, appointmentTime, patientName, pidx, didx, patientPhone, patientId) 
 values (#{appointmentSubject}, #{doctorInCharge}, #{appointmentDate}, #{appointmentTime}, #{patientName}, #{pidx}, #{didx}, #{patientPhone}, #{patientId})
 </insert>
+
+<!-- <select id="getAidxByDetail" parameterType="av" resultType="int">
+SELECT aidx FROM appointment WHERE pidx = #{pidx} AND appointmentDate = #{appointmentDate}
+</select> -->
 </mapper>

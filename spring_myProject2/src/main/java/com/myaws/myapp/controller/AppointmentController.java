@@ -64,4 +64,15 @@ public class AppointmentController {
 		return path;
 	}
 	
+//	@RequestMapping(value = "getAidxByDetail.aws", method = RequestMethod.GET)
+//	public String getAidxByDetail(@RequestParam("aidx") int aidx, Model model) {
+//	    logger.info("getAidxByDetail 들어옴, aidx: " + aidx);
+//
+//	    // aidx 값을 모델에 담아 반환
+//	    model.addAttribute("aidx", aidx); // 모델에 aidx 추가
+//	    
+//	    System.out.println("aidx : " + aidx);
+//
+//	    return "WEB-INF/examination/examinationWrite"; // aidx를 출력할 페이지로 변경
+//	}
 }
