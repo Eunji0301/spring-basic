@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>진료 예약 시스템</title>
+<title>개인프로젝트(11/25-12/06)</title>
 <style>
 @font-face {
     font-family: 'GangwonEduPowerExtraBoldA';
@@ -119,8 +119,7 @@ body {
         </div>
 
         <!-- 상단 제목 -->
-        <header class="header">진료 예약 시스템</header>
-
+        <header class="header">MEDICLOUD</header>
         <!-- 메뉴 -->
         <nav class="menu">
             <ul>

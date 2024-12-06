@@ -13,28 +13,7 @@ public class ExaminationVo {
 	private String examinationPrescription;
 	private String examinationTreatmentPlan;
 	private String examinationHealthTips;
-	private String patientName;
-	private String patientGender;
-	private String age;
 	
-	public String getPatientName() {
-		return patientName;
-	}
-	public void setPatientName(String patientName) {
-		this.patientName = patientName;
-	}
-	public String getPatientGender() {
-		return patientGender;
-	}
-	public void setPatientGender(String patientGender) {
-		this.patientGender = patientGender;
-	}
-	public String getAge() {
-		return age;
-	}
-	public void setAge(String age) {
-		this.age = age;
-	}
 	public int getEidx() {
 		return eidx;
 	}

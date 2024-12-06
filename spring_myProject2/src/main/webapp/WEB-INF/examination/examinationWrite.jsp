@@ -184,7 +184,7 @@ footer {
 		<!-- 환자 정보 입력 -->
 		<div class="result-section">
 			<h3>환자</h3>
-			<input type="text" id="pidx" name="pidx" value="<%= pidx %>" readonly="readonly">
+			<input type="hidden" id="pidx" name="pidx" value="<%= pidx %>" readonly="readonly">
     		<label for="patientName">이름</label>
     		<input type="text" id="patientName" name="patientName" value="<%= patientName %>" readonly="readonly">
 			<br>

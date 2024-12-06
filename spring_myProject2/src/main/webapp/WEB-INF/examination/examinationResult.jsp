@@ -8,15 +8,6 @@ Object resultObj = request.getAttribute("result");
 Object pidxObj = request.getAttribute("pidx");
 System.out.println("result in JSP: " + resultObj);
 System.out.println("pidx in JSP: " + pidxObj);
-
-java.util.Enumeration<String> attributeNames = request.getAttributeNames();
-while (attributeNames.hasMoreElements()) {
-    String attributeName = attributeNames.nextElement();
-    System.out.println(attributeName + ": " + request.getAttribute(attributeName));
-}
-
-
-
 %>
 <!DOCTYPE html>
 <html>
