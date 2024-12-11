@@ -130,9 +130,16 @@ footer {
 		<h2>진료 결과</h2>
 	</div>
 	
+	<!-- 의사, 환자 모두 결과페이지를 보려면 sessionScope로 세션에서 가져와서는 안됨. -->
+	<!-- 결국 DB에서 가져오는방법..? -->
+	<!-- 1. DB 컬럼 추가(patientName, patientGender, age, doctorName, doctorSpecialty, doctorLicenseNo)
+	2. ExaminationVo에 추가(Getter, Setter)
+	3. 추가한 컬럼들 넘기는 방법?
+	4. result에 동일하게 저장
+	5. examinatinResult로 불러오기 -->
+	
 	<!-- 환자 -->
 	<div class="result-section">
-		
 		<h3>환자</h3>
 		<%-- <p>환자 ID : ${pidx }</p> --%>
 		<p>이름 : </p>

@@ -130,6 +130,7 @@ body {
                 <li><a href="${pageContext.request.contextPath}/examination/examinationResult.aws">진료 결과 조회</a></li>
                 <li><a href="${pageContext.request.contextPath}/examination/examinationWrite.aws">진료 결과 기록</a></li>
                 <li><a href="${pageContext.request.contextPath}/board/boardList.aws">공지사항 / 커뮤니티</a></li>
+                <li><a href="${pageContext.request.contextPath}/email/emailWrite.aws">이메일 쓰기</a></li>
             </ul>
         </nav>
 
